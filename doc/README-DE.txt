@@ -4,29 +4,15 @@
 Extrahieren Sie den Inhalt dieses Archivs in Ihr Magento Verzeichnis.
 
 ** USAGE
+Dieses Modul wickelt den Trusted Shops Käuferschutz ab.
 
 ** FUNCTIONALITY
-*** A:
-*** B:
-*** C:
+*** A: Test Dummy Punk
 
 ** TECHNICAL
-
-** PROBLEMS
+Noch keine Technischen Informationen vorhanden
 
 * TESTCASES
 
 ** BASIC
-*** A:
-*** B:
-*** C:
-
-** CATCHABLE
-*** A:
-*** B:
-*** C:
-
-** STRESS
-*** A:
-*** B:
-*** C:
+*** A: Dummy Test Case
