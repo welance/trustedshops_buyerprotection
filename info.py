@@ -6,7 +6,7 @@
 # =============================================================================
 NAME = 'symmetrics_module_buyerprotect'
 
-TAGS = ()
+TAGS = ('magento', 'module', 'trustedshops', 'buyerprotection')
 
 LICENSE = 'AFL 3.0'
 
@@ -19,36 +19,35 @@ INSTALL_PATH = ''
 # responsibilities
 # =============================================================================
 TEAM_LEADER = {
-    '[firstname] [lastname]': '[email]',
+    'Torsten Walluhn': 'tw@symmetrics.de',
 }
 
 MAINTAINER = {
-    '[firstname] [lastname]': '[email]',
+    'Torsten Walluhn': 'tw@symmetrics.de',
 }
 
 AUTHORS = {
-    '[firstname] [lastname]': '[email]',
+    'Torsten Walluhn': 'tw@symmetrics.de',
 }
 
 # =============================================================================
 # additional infos
 # =============================================================================
-INFO = '[short description, max 60 chars]'
+INFO = 'Trustedshops Käuferschutz Modul'
 
 SUMMARY = '''
-    [long description
-    with multiple lines]
+Dieses Modul ist noch in Entwicklung und wird dann den Käuferschutz von 
+Trusted Shops abwickeln.
 '''
 
 NOTES = '''
-    [special notes, restrictions, bugs etc.]
 '''
 
 # =============================================================================
 # relations
 # =============================================================================
 REQUIRES = [
-    # {'magento': '*', 'magento_enterprise': '*'},
+    {'magento': '*', 'magento_enterprise': '*'},
 ]
 
 EXCLUDES = {
@@ -58,9 +57,6 @@ VIRTUAL = {
 }
 
 DEPENDS_ON_FILES = (
-    'app/code/core/.../1.php',
-    'app/code/core/.../2.php',
-    'app/code/core/.../3.php',
 )
 
 PEAR_KEY = ''
