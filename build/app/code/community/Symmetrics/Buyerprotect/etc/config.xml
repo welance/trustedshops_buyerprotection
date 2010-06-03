@@ -30,6 +30,9 @@
     </modules>
     <global>
         <blocks>
+            <buyerprotect>
+                <class>Symmetrics_Buyerprotect_Block</class>
+            </buyerprotect>
         </blocks>
         <catalog>
             <product>
@@ -63,6 +66,26 @@
                     <use>core_setup</use>
                 </connection>
             </buyerprotect_setup>
-		</resources>       
+		</resources>
+        <events>
+            <controller_action_predispatch_checkout_onepage_savePayment>
+                <observers>
+                    <buyerprotect>
+                        <type>singleton</type>
+                        <class>Symmetrics_Buyerprotect_Model_Observer</class>
+                        <method>addProductToCart</method>
+                    </buyerprotect>
+                </observers>
+            </controller_action_predispatch_checkout_onepage_savePayment>
+        </events>
     </global>
+    <frontend>
+        <layout>
+            <updates>
+                <buyerprotect>
+                    <file>buyerprotect.xml</file>
+                </buyerprotect>
+            </updates>
+        </layout>
+    </frontend>
 </config>
