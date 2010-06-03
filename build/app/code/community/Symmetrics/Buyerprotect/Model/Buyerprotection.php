@@ -22,8 +22,7 @@
  */
 
 /**
- * Block class to manage the functionality of the Buyerprotection form in payment section
- * of the checkout
+ * Model Class to handle buyer protection actions
  *
  * @category  Symmetrics
  * @package   Symmetrics_Buyerprotect
@@ -33,34 +32,28 @@
  * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  * @link      http://www.symmetrics.de/
  */
-class Symmetrics_Buyerprotect_Block_Checkout_Form extends Mage_Core_Block_Template
+class Symmetrics_Buyerprotect_Model_Buyerprotection extends Mage_Core_Model_Abstract
 {
-
-    /**
-     * Check if show Trusted Shops - Buyerprotection form in checkout
-     * 
-     * @todo implement functionality
-     *
-     * @return boolean
-     */
-    public function showForm()
-    {
-        return true;
-    }
-
     /**
      * Get Product collection of all products with type buyerprotect
+     *
+     * @todo move this method to a Model class
      *
      * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection
      */
     public function getAllTsProducts()
     {
-        $buyerprotectionModel = Mage::getModel('buyerprotect/buyerprotection');
-        /* @var $buyerprotectionModel Symmetrics_Buyerprotect_Model_Buyerprotection */
+        /* @var $productCollection Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection */
+        $productCollection = Mage::getResourceModel('catalog/product_collection')
+            ->addAttributeToFilter('type_id', array('eq' => 'buyerprotect'))
+            ->addAttributeToSelect('price')
+            ->addAttributeToSelect('name');
+        $productCollection->setPageSize(10);
+        $productCollection->setPage(1, 10);
 
-        $productCollection = $buyerprotectionModel->getAllTsProducts();
+        $productCollection->load();
+        $productCollection->printLogQuery(true);
+
         return $productCollection;
     }
-
 }
-
