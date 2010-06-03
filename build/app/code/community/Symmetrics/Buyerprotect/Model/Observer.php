@@ -54,11 +54,18 @@ class Symmetrics_Buyerprotect_Model_Observer
             $cart = Mage::getSingleton('checkout/cart')
                 ->setStore(Mage::app()->getStore());
 
+            $cartProductIds = $cart->getProductIds();
             Mage::log($cart->getProductIds());
-            $productIds = array($request->getParam('trusted_shops-product'));
+            $requestedProductId = $request->getParam('trusted_shops-product');
 
-            $cart->addProductsByIds($productIds);
-            $cart->save();
+            // add Buyerprotection Product to cart
+            if (!in_array($cartProductIds, $requestedProductId)) {
+                $productIds = array();
+
+                $cart->addProductsByIds($productIds);
+                $cart->save();
+            }
+
         }
         
     }
