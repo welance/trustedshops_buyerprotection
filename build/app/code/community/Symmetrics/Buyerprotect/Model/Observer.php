@@ -16,7 +16,7 @@
  * @package   Symmetrics_Buyerprotect
  * @author    symmetrics gmbh <info@symmetrics.de>
  * @author    Torsten Walluhn <tw@symmetrics.de>
- * @copyright 2010 Symmetrics Gmbh
+ * @copyright 2010 symmetrics gmbh
  * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  * @link      http://www.symmetrics.de/
  */
@@ -26,8 +26,9 @@
  *
  * @category  Symmetrics
  * @package   Symmetrics_Buyerprotect
- * @author    Symmetrics GmbH <info@symmetrics.de>
+ * @author    symmetrics gmbh <info@symmetrics.de>
  * @author    Torsten Walluhn <tw@symmetrics.de>
+ * @author    Ngoc Anh Doan <nd@symmetrics.de>
  * @copyright 2010 symmetrics gmbh
  * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  * @link      http://www.symmetrics.de/
@@ -38,35 +39,50 @@ class Symmetrics_Buyerprotect_Model_Observer
      * Observer to add the Product to chart
      *
      * @param Varien_Event_Observer $observer current event observer
-     * 
-     * @todo check if product is alrady in cart
-     * @todo check if other buyerprotection Product is alerady in cart
      *
-     * @return null
+     * @return void
      */
     public function addProductToCart($observer)
     {
         $frontController = Mage::app()->getFrontController();
         $request = $frontController->getRequest();
-        Mage::log($frontController->getRequest()->getParams());
+
         if ($request->getParam('trusted_shops')) {
             /* @var $cart Mage_Checkout_Model_Cart */
-            $cart = Mage::getSingleton('checkout/cart')
-                ->setStore(Mage::app()->getStore());
+            $cart = Mage::getSingleton('checkout/cart')->setStore(Mage::app()->getStore());
 
-            $cartProductIds = $cart->getProductIds();
-            Mage::log($cart->getProductIds());
-            $requestedProductId = $request->getParam('trusted_shops-product');
-
-            // add Buyerprotection Product to cart
-            if (!in_array($cartProductIds, $requestedProductId)) {
-                $productIds = array();
-
-                $cart->addProductsByIds($productIds);
-                $cart->save();
+            // cart is empty
+            if (!($cartProductIds = $cart->getProductIds())) {
+                return;
             }
 
+            /* @var $helper Symmetrics_Buyerprotect_Helper_Data */
+            $helper = Mage::helper('buyerprotect');
+            $tsProductsInCart = $helper->getTsProductsInCart();
+            $requestedProductId = $request->getParam('trusted_shops-product');
+
+            // cart is not empty but the only item is a type of
+            // Symmetrics_Buyerprotect_Model_Type_Buyerprotect::TYPE_BUYERPROTECT
+            if ((count($cartProductIds) < 2) && in_array($requestedProductId, $cartProductIds)) {
+                return;
+            }
+
+            /**
+             * Get rid off all previous added products of
+             * Symmetrics_Buyerprotect_Model_Type_Buyerprotect::TYPE_BUYERPROTECT.
+             * This way it get sure that only one item of this product type is in cart.
+             */
+            if ($tsProductsInCart) {
+                foreach ($tsProductsInCart as $cartItemId => $tsProductId) {
+                    $cart->removeItem($cartItemId);
+                }
+            }
+
+            // add Buyerprotection Product to cart
+            $cart->addProductsByIds(array($requestedProductId));
+            $cart->save();
         }
-        
+
+        return;
     }
 }
