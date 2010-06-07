@@ -35,4 +35,24 @@
 class Symmetrics_Buyerprotect_Helper_Data
     extends Mage_Core_Helper_Abstract
 {
+    /**
+     * get all buyerprotection Products in cart
+     *
+     * @return array
+     */
+    public function getTsProductsInCart()
+    {
+        /* @var $cart Mage_Checkout_Model_Cart */
+        $cart = Mage::getSingleton('checkout/cart')
+            ->setStore(Mage::app()->getStore());
+
+        $cartItems = $cart->getItems();
+        /* @var $cartItems Mage_Sales_Model_Mysql4_Quote_Item_Collection */
+        $cartItems->addFieldToFilter('product_type', array('eq' => 'buyerprotect'));
+        $cartItems->load(true);
+
+        $items = $cartItems->getAllIds();
+
+        return $items;
+    }
 }
