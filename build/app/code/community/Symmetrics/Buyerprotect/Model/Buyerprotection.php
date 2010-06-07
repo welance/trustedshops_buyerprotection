@@ -48,7 +48,7 @@ class Symmetrics_Buyerprotect_Model_Buyerprotection extends Mage_Core_Model_Abst
             ->addAttributeToFilter('type_id', array('eq' => 'buyerprotect'))
             ->addAttributeToSelect('price')
             ->addAttributeToSelect('name')
-            ->setOrder('price');
+            ->setOrder('price', 'asc');
 
         $productCollection->load();
 
