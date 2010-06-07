@@ -47,12 +47,10 @@ class Symmetrics_Buyerprotect_Model_Buyerprotection extends Mage_Core_Model_Abst
         $productCollection = Mage::getResourceModel('catalog/product_collection')
             ->addAttributeToFilter('type_id', array('eq' => 'buyerprotect'))
             ->addAttributeToSelect('price')
-            ->addAttributeToSelect('name');
-        $productCollection->setPageSize(10);
-        $productCollection->setPage(1, 10);
+            ->addAttributeToSelect('name')
+            ->setOrder('price');
 
         $productCollection->load();
-        $productCollection->printLogQuery(true);
 
         return $productCollection;
     }
