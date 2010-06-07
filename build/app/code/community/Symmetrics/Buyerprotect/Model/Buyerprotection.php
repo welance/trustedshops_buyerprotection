@@ -54,4 +54,16 @@ class Symmetrics_Buyerprotect_Model_Buyerprotection extends Mage_Core_Model_Abst
 
         return $productCollection;
     }
+
+    /**
+     * method to send the Trusted Shops E-Mail
+     *
+     * @todo implement this function
+     *
+     * @return null
+     */
+    public function sendEmail()
+    {
+
+    }
 }
