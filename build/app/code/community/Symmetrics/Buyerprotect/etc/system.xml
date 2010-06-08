@@ -75,9 +75,21 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </trustedshops_url>
-                        <trustedshops_erroremail_id translate="label">
-                            <label>Error Email Template ID</label>
-                            <frontend_type>text</frontend_type>
+                        <trustedshops_erroremail_recipient translate="label comment">
+                            <label>Error Email Recipient</label>
+                            <comment>Please select here the recipient for error mails.</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_email_identity</source_model>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </trustedshops_erroremail_recipient>
+                        <trustedshops_erroremail_id translate="label comment">
+                            <label>Error Email Template</label>
+                            <comment>Please select here the email template.</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_email_template</source_model>
                             <sort_order>6</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
