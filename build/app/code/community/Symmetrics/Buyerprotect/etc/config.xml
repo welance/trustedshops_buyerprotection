@@ -60,7 +60,7 @@
             <buyerprotect_setup>
                 <setup>
                     <module>Symmetrics_Buyerprotect</module>
-                    <class>Mage_Catalog_Model_Resource_Eav_Mysql4_Setup</class>
+                    <class>Symmetrics_Buyerprotect_Model_Setup</class>
                 </setup>
                 <connection>
                     <use>core_setup</use>
