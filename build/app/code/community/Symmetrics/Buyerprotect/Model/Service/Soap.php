@@ -16,7 +16,7 @@
  * @package   Symmetrics_Buyerprotect
  * @author    symmetrics gmbh <info@symmetrics.de>
  * @author    Torsten Walluhn <tw@symmetrics.de>
- * @copyright 2010 Symmetrics Gmbh
+ * @copyright 2010 symmetrics gmbh
  * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  * @link      http://www.symmetrics.de/
  */
@@ -28,12 +28,60 @@
  * @package   Symmetrics_Buyerprotect
  * @author    symmetrics gmbh <info@symmetrics.de>
  * @author    Torsten Walluhn <tw@symmetrics.de>
- * @copyright 2010 Symmetrics Gmbh
+ * @author    Ngoc Anh Doan <nd@symmetrics.de>
+ * @copyright 2010 symmetrics gmbh
  * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  * @link      http://www.symmetrics.de/
  */
 class Symmetrics_Buyerprotect_Model_Service_Soap
 {
+    /**
+     * Keys of of data:
+     *
+     * returnValue: return_value
+     * tsId: ts_id
+     * tsProductId: ts_product_id
+     * amount: amount
+     * currency: currency
+     * paymentType: payment_type
+     * buyerEmail: buyer_email
+     * shopCustomerID: shop_customer_id
+     * shopOrderID: shop_order_id
+     * orderDate: order_date
+     * wsUser: ws_user
+     * wsPassword: ws_password
+     *
+     * @param Mage_Sales_Model_Order $orderObject Order object
+     * 
+     * @return Varien_Object
+     */
+    protected function _initTsSoapDataObject(Mage_Sales_Model_Order $orderObject)
+    {
+        $tsSoapDataObject = new Varien_Object();
+
+        $tsStoreConfigPaths = array(
+            'is_active' => Symmetrics_Buyerprotect_Helper_Data::XML_PATH_TS_BUYERPROTECT_IS_ACTIVE,
+            'ts_id' => Symmetrics_Buyerprotect_Helper_Data::XML_PATH_TS_BUYERPROTECT_TS_ID,
+            'ws_user' => Symmetrics_Buyerprotect_Helper_Data::XML_PATH_TS_BUYERPROTECT_TS_USER,
+            'ws_password' => Symmetrics_Buyerprotect_Helper_Data::XML_PATH_TS_BUYERPROTECT_TS_PASSWORD,
+            'wsdl_url' => Symmetrics_Buyerprotect_Helper_Data::XML_PATH_TS_BUYERPROTECT_TS_WSDL_URL
+        );
+
+        $tsSoapData = array(
+            'is_active' => Mage::getStoreConfig($tsStoreConfigPaths['is_active']),
+            'ts_id' => Mage::getStoreConfig($tsStoreConfigPaths['ts_id']),
+            'ws_user' => Mage::getStoreConfig($tsStoreConfigPaths['ws_user']),
+            'ws_password' => Mage::getStoreConfig($tsStoreConfigPaths['ws_password']),
+            'wsdl_url' => Mage::getStoreConfig($tsStoreConfigPaths['wsdl_url']),
+            'buyer_email' => $orderObject->getCustomerEmail(),
+            'amount' => (double) $orderObject->getGrandTotal(),
+            'shop_order_id' => $orderObject->getRealOrderId(),
+            'order_date' => str_replace(' ', 'T', $order->getCreatedAt()),
+        );
+
+        return $tsSoapDataObject->setData($tsSoapData);
+    }
+
     /**
      * make a protection request to the TrustedShops Soap Api
      *
@@ -53,6 +101,9 @@ class Symmetrics_Buyerprotect_Model_Service_Soap
 
         if ($orderItemsCollection->count() >= 1) {
             $firstItem = $orderItemsCollection->getFirstItem();
+            $tsSoapDataObject = $this->_initTsSoapDataObject();
+
+
             /** @todo make Soap Call */
         }
     }
