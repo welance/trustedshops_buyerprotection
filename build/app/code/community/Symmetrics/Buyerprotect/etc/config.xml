@@ -100,6 +100,13 @@
     </frontend>
 
     <adminhtml>
+        <layout>
+            <updates>
+                <buyerprotect>
+                    <file>buyerprotect.xml</file>
+                </buyerprotect>
+            </updates>
+        </layout>
         <translate>
             <modules>
                 <Symmetrics_Buyerprotect>
