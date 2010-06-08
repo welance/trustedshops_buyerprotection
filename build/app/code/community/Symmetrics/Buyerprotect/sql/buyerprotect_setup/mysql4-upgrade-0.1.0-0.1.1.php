@@ -25,13 +25,16 @@
 /* @var $this Symmetrics_Buyerprotect_Model_Setup */
 $this->startSetup();
 
-$templatePath = Symmetrics_Buyerprotect_Model_Setup::MIGRATION_TEMPLATE_PATH;
-$templateSuffix = Symmetrics_Buyerprotect_Model_Setup::MIGRATION_TEMPLATE_SUFFIX;
+$templatePath = self::MIGRATION_TEMPLATE_PATH;
+$templateSuffix = self::MIGRATION_TEMPLATE_SUFFIX;
+
+$templateSubject = 'Übermittlungsfehler -- Kunden-Id: {{var tsSoapData.getTsId()}} -- '
+                 . 'Bestellungs-Id: {{var tsSoapData.getShopOrderId()}}';
 
 $emailTemplates = array(
     'ts_buyerprotect_error_email_de-DE' => array(
-        'template_code' => 'Trusted Shops Käuferschutz DE',
-        'template_subject' => 'TS Käuferschutz Fehler: {{var error.message}}'
+        'template_code' => 'Trusted Shops Käuferschutz SOAP Fehler DE',
+        'template_subject' => $templateSubject
     )
 );
 
