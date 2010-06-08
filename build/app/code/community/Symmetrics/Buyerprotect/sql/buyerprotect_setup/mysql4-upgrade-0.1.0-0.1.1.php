@@ -25,10 +25,10 @@
 /* @var $this Symmetrics_Buyerprotect_Model_Setup */
 $this->startSetup();
 
-$templatePath = self::MIGRATION_TEMPLATE_PATH;
-$templateSuffix = self::MIGRATION_TEMPLATE_SUFFIX;
+$templatePath = Symmetrics_Buyerprotect_Model_Setup::MIGRATION_TEMPLATE_PATH;
+$templateSuffix = Symmetrics_Buyerprotect_Model_Setup::MIGRATION_TEMPLATE_SUFFIX;
 
-$templateSubject = 'Übermittlungsfehler -- Kunden-Id: {{var tsSoapData.getTsId()}} -- '
+$templateSubject = 'SOAP Übermittlungsfehler -- Kunden-Id: {{var tsSoapData.getTsId()}} -- '
                  . 'Bestellungs-Id: {{var tsSoapData.getShopOrderId()}}';
 
 $emailTemplates = array(
