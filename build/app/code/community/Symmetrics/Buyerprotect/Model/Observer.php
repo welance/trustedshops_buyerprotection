@@ -100,7 +100,20 @@ class Symmetrics_Buyerprotect_Model_Observer
 //            $tsBP = new Symmetrics_Buyerprotect_Model_Buyerprotection();
 //            $tsBP->sendTsEmailOnSoapFail($tsSoapData);
         }
+    }
 
-        return;
+    /**
+     * Observer to add the Product to chart
+     *
+     * @param Varien_Event_Observer $observer current event observer
+     *
+     * @todo check if product is alrady in cart
+     * @todo check if other buyerprotection Product is alerady in cart
+     *
+     * @return null
+     */
+    public function checkoutOrderSaveAfter($observer)
+    {
+        $order = $observer->getEvent()->getOrder();
     }
 }
