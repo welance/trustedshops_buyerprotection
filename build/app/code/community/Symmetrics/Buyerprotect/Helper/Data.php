@@ -37,11 +37,15 @@ class Symmetrics_Buyerprotect_Helper_Data
     extends Mage_Core_Helper_Abstract
 {
     /*
-     * Some store config constants
+     * Some store config paths
      */
     const XML_PATH_TS_BUYERPROTECT_IS_ACTIVE = 'buyerprotection/data/soapcheck_active';
-    const XML_PATH_TS_BUYERPROTECT_ERROR_EMAIL_TEMPLATE = 'buyerprotection/data/trustedshops_erroremail_template';
+    const XML_PATH_TS_BUYERPROTECT_TS_ID   = 'buyerprotection/data/trustedshops_id';
+    const XML_PATH_TS_BUYERPROTECT_TS_USER = 'buyerprotection/data/trustedshops_user';
+    const XML_PATH_TS_BUYERPROTECT_TS_PASSWORD = 'buyerprotection/data/trustedshops_password';
+    const XML_PATH_TS_BUYERPROTECT_TS_WSDL_URL = 'buyerprotection/data/trustedshops_url';
     const XML_PATH_TS_BUYERPROTECT_ERROR_EMAIL_SENDER = 'buyerprotection/data/trustedshops_erroremail_sender';
+    const XML_PATH_TS_BUYERPROTECT_ERROR_EMAIL_TEMPLATE = 'buyerprotection/data/trustedshops_erroremail_template';
     const XML_PATH_TS_BUYERPROTECT_ERROR_EMAIL_RECIPIENT = 'buyerprotection/data/trustedshops_erroremail_recipient';
     
     /**
@@ -74,5 +78,26 @@ class Symmetrics_Buyerprotect_Helper_Data
         }
 
         return $tsProductIds;
+    }
+
+    /**
+     * Gets all products of type
+     * Symmetrics_Buyerprotect_Model_Type_Buyerprotect::TYPE_BUYERPROTECT.
+     *
+     * @return array
+     */
+    public function getAllTsProductTypes()
+    {
+        $allTsProductTypes = array();
+        /* @var $productModel Mage_Catalog_Model_Product */
+        $productModel = Mage::getModel('catalog/product');
+        /* @var $productCollection Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection */
+        $productCollection = $productModel->getCollection();
+
+        $bind = array('eq' => Symmetrics_Buyerprotect_Model_Type_Buyerprotect::TYPE_BUYERPROTECT);
+        $productCollection->addFieldToFilter('type_id', $bind)->load();
+        $allTsProductTypes = $productCollection->getAllIds();
+
+        return $allTsProductTypes;
     }
 }
