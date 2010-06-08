@@ -34,6 +34,12 @@
  */
 class Symmetrics_Buyerprotect_Model_Setup extends Mage_Catalog_Model_Resource_Eav_Mysql4_Setup
 {
+    /*
+     * Some constants for migration skripts.
+     */
+    const MIGRATION_TEMPLATE_PATH = '/app/locale/de_DE/migrations/';
+    const MIGRATION_TEMPLATE_SUFFIX = '.html';
+    
     /**
      * Creates a new email template
      *
