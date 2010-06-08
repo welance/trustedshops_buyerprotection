@@ -1,0 +1,46 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * @category  Symmetrics
+ * @package   Symmetrics_Buyerprotect
+ * @author    symmetrics gmbh <info@symmetrics.de>
+ * @author    Torsten Walluhn <tw@symmetrics.de>
+ * @author    Ngoc Anh Doan <nd@symmetrics.de>
+ * @copyright 2010 symmetrics gmbh
+ * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @link      http://www.symmetrics.de/
+ */
+
+/* @var $this Symmetrics_Buyerprotect_Model_Setup */
+$this->startSetup();
+
+$templatePath = Symmetrics_Buyerprotect_Model_Setup::MIGRATION_TEMPLATE_PATH;
+$templateSuffix = Symmetrics_Buyerprotect_Model_Setup::MIGRATION_TEMPLATE_SUFFIX;
+
+$emailTemplates = array(
+    'ts_buyerprotect_error_email_de-DE' => array(
+        'template_code' => 'Trusted Shops Käuferschutz DE',
+        'template_subject' => 'TS Käuferschutz Fehler: {{var error.message}}'
+    )
+);
+
+foreach ($emailTemplates as $fileName => $template) {
+    $file = Mage::getBaseDir() . $templatePath . $fileName . $templateSuffix;
+    $content = file_get_contents($file);
+    $template['template_text'] = $content;
+
+    $this->createEmailTemplate($template['template_code'], $template);
+}
+
+$this->endSetup();
