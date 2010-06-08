@@ -88,4 +88,16 @@
             </updates>
         </layout>
     </frontend>
+
+    <adminhtml>
+        <translate>
+            <modules>
+                <Symmetrics_Buyerprotect>
+                    <files>
+                        <default>Symmetrics_Buyerprotect.csv</default>
+                    </files>
+                </Symmetrics_Buyerprotect>
+            </modules>
+        </translate>
+    </adminhtml>
 </config>
