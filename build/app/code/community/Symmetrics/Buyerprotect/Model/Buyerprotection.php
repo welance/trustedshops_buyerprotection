@@ -35,10 +35,6 @@
  */
 class Symmetrics_Buyerprotect_Model_Buyerprotection extends Mage_Core_Model_Abstract
 {
-    const XML_PATH_TS_BUYERPROTECT_ERROR_EMAIL_TEMPLATE = 'buyerprotection/trustedshops_erroremail_id';
-
-    const XML_PATH_TS_BUYERPROTECT_ERROR_EMAIL_RECIPIENT = 'buyerprotection/trustedshops_erroremail_recipient';
-    
     /**
      * Email model
      *
@@ -133,32 +129,57 @@ class Symmetrics_Buyerprotect_Model_Buyerprotection extends Mage_Core_Model_Abst
     }
 
     /**
-     * method to send the Trusted Shops E-Mail
+     * Method to send the  TS SOAP data via email if SOAP itself failed. The index
+     * of the param array should follow the Varien_Object format!
      *
-     * @todo implement this function
+     * Data keys of param:
+     *
+     * returnValue: return_value
+     * tsId: ts_id
+     * tsProductId: ts_product_id
+     * amount: amount
+     * currency: currency
+     * paymentType: payment_type
+     * buyerEmail: buyer_email
+     * shopCustomerID: shop_customer_id
+     * shopOrderID: shop_order_id
+     * orderDate: order_date
+     * wsUser: ws_user
+     * wsPassword: ws_password
+     *
+     * @param array $tsSoapData data which should be transmitted with SOAP
      *
      * @return void
      */
-    public function sendEmail()
+    public function sendTsEmailOnSoapFail($tsSoapData)
     {
-        $helper = Mage::helper('buyerprotect');
-        $emailOptions = new Varien_Object();
-
-        $sender = array(
-            'email' => Mage::getStoreConfig(self::XML_PATH_TS_BUYERPROTECT_ERROR_EMAIL_RECIPIENT),
-            'name' => $helper->__('Trusted Shops Buyerprotection')
+        $storeConfigPaths = array(
+            'is_active' => Symmetrics_Buyerprotect_Helper_Data::XML_PATH_TS_BUYERPROTECT_IS_ACTIVE,
+            'template' => Symmetrics_Buyerprotect_Helper_Data::XML_PATH_TS_BUYERPROTECT_ERROR_EMAIL_TEMPLATE,
+            'sender' => Symmetrics_Buyerprotect_Helper_Data::XML_PATH_TS_BUYERPROTECT_ERROR_EMAIL_SENDER,
+            'recipient' => Symmetrics_Buyerprotect_Helper_Data::XML_PATH_TS_BUYERPROTECT_ERROR_EMAIL_RECIPIENT
         );
 
+        // not activated
+        if (!Mage::getStoreConfig($storeConfigPaths['is_active'])) {
+            return;
+        }
+
+        $emailOptions = new Varien_Object();
+        $tsSoapDataObject = new Varien_Object();
+
+        $tsSoapDataObject->setData($tsSoapData);
+
         $options = array(
-            'template' => Mage::getStoreConfig(self::XML_PATH_TS_BUYERPROTECT_ERROR_EMAIL_TEMPLATE),
-            'sender' => $sender,
-            'recipient' => Mage::getStoreConfig(self::XML_PATH_TS_BUYERPROTECT_ERROR_EMAIL_RECIPIENT)
-//            'recipient' => Mage::getStoreConfig(self::XML_PATH_TS_BUYERPROTECT_ERROR_EMAIL_RECIPIENT),
-//            'post_object' => array('customer' => $postObject)
+            'template' => Mage::getStoreConfig($storeConfigPaths['template']),
+            'sender' => Mage::getStoreConfig($storeConfigPaths['sender']),
+            'recipient' => Mage::getStoreConfig($storeConfigPaths['recipient']),
+            'post_object' => array('tsSoapData' => $tsSoapDataObject)
         );
         $emailOptions->setData($options);
 
         $this->_prepareEmail($emailOptions);
+        $this->_sendTransactional();
 
         return;
     }

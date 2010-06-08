@@ -81,6 +81,24 @@ class Symmetrics_Buyerprotect_Model_Observer
             // add Buyerprotection Product to cart
             $cart->addProductsByIds(array($requestedProductId));
             $cart->save();
+
+//            $tsSoapData = array(
+//                'return_value' => '999',
+//                'ts_id' => '1',
+//                'ts_product_id' => '',
+//                'amount' => '89',
+//                'currency' => 'EUR',
+//                'payment_type' => 'Käuferschutz',
+//                'buyer_email' => 'kaeufer@nhdoan.de',
+//                'shop_customer_id' => '123',
+//                'shop_order_id' => '456789000',
+//                'order_date' => 'heute',
+//                'ws_user' => 'ngoc',
+//                'ws_password' => '123456'
+//            );
+//
+//            $tsBP = new Symmetrics_Buyerprotect_Model_Buyerprotection();
+//            $tsBP->sendTsEmailOnSoapFail($tsSoapData);
         }
     }
 

@@ -17,6 +17,7 @@
  * @package   Symmetrics_Buyerprotect
  * @author    symmetrics gmbh <info@symmetrics.de>
  * @author    Torsten Walluhn <tw@symmetrics.de>
+ * @author    Ngoc Anh Doan <nd@symmetrics.de>
  * @copyright 2010 symmetrics gmbh
  * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  * @link      http://www.symmetrics.de/
@@ -116,4 +117,13 @@
             </modules>
         </translate>
     </adminhtml>
+
+    <default>
+        <buyerprotection>
+            <data>
+<!--                <trustedshops_erroremail_sender><![CDATA[shop@magentoshop.loc]]></trustedshops_erroremail_sender>-->
+                <trustedshops_erroremail_recipient><![CDATA[dev@trustedshops.de]]></trustedshops_erroremail_recipient>
+            </data>
+        </buyerprotection>
+    </default>
 </config>

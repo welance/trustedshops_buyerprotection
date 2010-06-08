@@ -36,6 +36,13 @@
 class Symmetrics_Buyerprotect_Helper_Data
     extends Mage_Core_Helper_Abstract
 {
+    /*
+     * Some store config constants
+     */
+    const XML_PATH_TS_BUYERPROTECT_IS_ACTIVE = 'buyerprotection/data/soapcheck_active';
+    const XML_PATH_TS_BUYERPROTECT_ERROR_EMAIL_TEMPLATE = 'buyerprotection/data/trustedshops_erroremail_template';
+    const XML_PATH_TS_BUYERPROTECT_ERROR_EMAIL_SENDER = 'buyerprotection/data/trustedshops_erroremail_sender';
+    const XML_PATH_TS_BUYERPROTECT_ERROR_EMAIL_RECIPIENT = 'buyerprotection/data/trustedshops_erroremail_recipient';
     
     /**
      * get all buyerprotection Products in cart
