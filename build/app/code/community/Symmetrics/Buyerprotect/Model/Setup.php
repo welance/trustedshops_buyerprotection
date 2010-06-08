@@ -34,6 +34,20 @@
  */
 class Symmetrics_Buyerprotect_Model_Setup extends Mage_Catalog_Model_Resource_Eav_Mysql4_Setup
 {
+    /**
+     * Default ignored attribute codes
+     *
+     * @var array
+     */
+    protected $_ignoredAttributeCodes = array('entity_id', 'attribute_set_id', 'entity_type_id');
+
+    /**
+     * Default ignored attribute types
+     *
+     * @var array
+     */
+    protected $_ignoredAttributeTypes = array();
+    
     /*
      * Some constants for migration skripts.
      */
@@ -72,5 +86,63 @@ class Symmetrics_Buyerprotect_Model_Setup extends Mage_Catalog_Model_Resource_Ea
             ->save();
 
         return true;
+    }
+
+    /**
+     * crate a buyerprotect Product from given data
+     *
+     * @param string $sku         sku for new product
+     * @param array  $productData specifi product data
+     *
+     * @return integer
+     */
+    public function createBuyerprotectProduct($sku, $productData)
+    {
+        $defaultSetId = $this->getDefaultAttributeSetId('catalog_product');
+
+        $productModel = Mage::getModel('catalog/product');
+        /* @var $productModel Mage_Catalog_Model_Product */
+
+        $productModel->setStoreId(Mage::app()->getStore()->getId())
+            ->setAttributeSetId($defaultSetId)
+            ->setTypeId('buyerprotect')
+            ->setSku($sku);
+
+
+        foreach ($productModel->getTypeInstance(true)->getEditableAttributes($productModel) as $attribute) {
+            $_attrCode = $attribute->getAttributeCode();
+            if ($this->_isAllowedAttribute($attribute) && isset($productData[$_attrCode])) {
+                $productModel->setData(
+                    $attribute->getAttributeCode(),
+                    $productData[$_attrCode]
+                );
+            }
+        }
+
+
+        $errors = $productModel->validate();
+        $productModel->save();
+
+        return $productModel->getId();
+    }
+
+    /**
+     * Check is attribute allowed
+     *
+     * @param Mage_Eav_Model_Entity_Attribute_Abstract $attribute  attribute to check
+     * @param array                                    $attributes array of attributes
+     *
+     * @return boolean
+     */
+    protected function _isAllowedAttribute($attribute, $attributes = null)
+    {
+        if (is_array($attributes)
+            && !( in_array($attribute->getAttributeCode(), $attributes)
+                  || in_array($attribute->getAttributeId(), $attributes))) {
+            return false;
+        }
+
+        return !in_array($attribute->getFrontendInput(), $this->_ignoredAttributeTypes)
+               && !in_array($attribute->getAttributeCode(), $this->_ignoredAttributeCodes);
     }
 }
