@@ -63,6 +63,7 @@ class Symmetrics_Buyerprotect_Model_Observer
 
             // cart is not empty but the only item is a type of
             // Symmetrics_Buyerprotect_Model_Type_Buyerprotect::TYPE_BUYERPROTECT
+            // and is identical to $requestedProductId
             if ((count($cartProductIds) < 2) && in_array($requestedProductId, $cartProductIds)) {
                 return;
             }
