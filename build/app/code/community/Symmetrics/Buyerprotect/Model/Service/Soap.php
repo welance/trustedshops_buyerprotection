@@ -43,5 +43,17 @@ class Symmetrics_Buyerprotect_Model_Service_Soap
      */
     public function requestForProtection(Mage_Sales_Model_Order $order)
     {
+        $orderItemsCollection = clone $order->getItemsCollection();
+        /* @var $orderItemsCollection Mage_Sales_Model_Mysql4_Order_Item_Collection */
+        $orderItemsCollection->resetData();
+        $orderItemsCollection->clear();
+        $orderItemsCollection->addFieldToFilter('product_type', array('eq' => 'buyerprotect'));
+
+        $orderItemsCollection->load();
+
+        if ($orderItemsCollection->count() >= 1) {
+            $firstItem = $orderItemsCollection->getFirstItem();
+            /** @todo make Soap Call */
+        }
     }
 }
