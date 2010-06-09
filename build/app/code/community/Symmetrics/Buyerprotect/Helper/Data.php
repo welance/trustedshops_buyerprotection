@@ -44,10 +44,13 @@ class Symmetrics_Buyerprotect_Helper_Data
     const XML_PATH_TS_BUYERPROTECT_TS_USER = 'buyerprotection/data/trustedshops_user';
     const XML_PATH_TS_BUYERPROTECT_TS_PASSWORD = 'buyerprotection/data/trustedshops_password';
     const XML_PATH_TS_BUYERPROTECT_TS_WSDL_URL = 'buyerprotection/data/trustedshops_url';
+
+    const XML_PATH_TS_AVAILABLE_PAYMENT_CODES = 'trusted_shops_payment_codes';
+
     const XML_PATH_TS_BUYERPROTECT_ERROR_EMAIL_SENDER = 'buyerprotection/data/trustedshops_erroremail_sender';
     const XML_PATH_TS_BUYERPROTECT_ERROR_EMAIL_TEMPLATE = 'buyerprotection/data/trustedshops_erroremail_template';
     const XML_PATH_TS_BUYERPROTECT_ERROR_EMAIL_RECIPIENT = 'buyerprotection/data/trustedshops_erroremail_recipient';
-    
+
     /**
      * get all buyerprotection Products in cart
      *
@@ -99,5 +102,65 @@ class Symmetrics_Buyerprotect_Helper_Data
         $allTsProductTypes = $productCollection->getAllIds();
 
         return $allTsProductTypes;
+    }
+
+    /**
+     * Get all payment codes defined in config.xml. These payment methods works
+     * with trustedshops.de.
+     *
+     * @return array
+     */
+    public function getAvailableTsPaymentCodes()
+    {
+        return Mage::getStoreConfig(self::XML_PATH_TS_AVAILABLE_PAYMENT_CODES);
+    }
+
+    /**
+     * Get store object.
+     *
+     * @return Mage_Core_Model_Store
+     */
+    public function getStore()
+    {
+        return Mage::app()->getStore();
+    }
+
+    /**
+     * Get ISO 3 letter currency code of current store
+     *
+     * @return string
+     */
+    public function getCurrentCurrencyCode()
+    {
+        return $this->getCurrencyCode();
+    }
+
+    /**
+     * Get ISO 3 letter currency code of current store
+     *
+     * @return string
+     */
+    public function getCurrencyCode()
+    {
+        return $this->getStore()->getCurrentCurrency()->getCode();
+    }
+
+    /**
+     * Returns an array of required config paths for trustedshops.de SOAP Api
+     *
+     * @return array
+     */
+    public function getTsStoreConfigPaths()
+    {
+        $tsStoreConfigPaths = array(
+            'is_active' => self::XML_PATH_TS_BUYERPROTECT_IS_ACTIVE,
+            'ts_id' => self::XML_PATH_TS_BUYERPROTECT_TS_ID,
+            'ws_user' => self::XML_PATH_TS_BUYERPROTECT_TS_USER,
+            'ws_password' => self::XML_PATH_TS_BUYERPROTECT_TS_PASSWORD,
+            'wsdl_url' => self::XML_PATH_TS_BUYERPROTECT_TS_WSDL_URL,
+            'trusted_shops_payment_codes' => self::XML_PATH_TS_AVAILABLE_PAYMENT_CODES
+        );
+
+        return $tsStoreConfigPaths;
     }
 }
