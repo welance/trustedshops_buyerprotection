@@ -117,4 +117,29 @@ class Symmetrics_Buyerprotect_Model_Observer
     {
         $order = $observer->getEvent()->getOrder();
     }
+
+    public function checkoutOnepageSaveOrderAfter($observer)
+    {
+        /* @var $order Mage_Sales_Model_Order */
+        $order = $observer->getEvent()->getOrder();
+        /* @var $payment Mage_Sales_Model_Order_Payment */
+        $payment = $order->getPayment();
+
+        $tsSoapDataObject = Mage::getModel('buyerprotect/service_soap_data');
+        $tsSoapDataObject->init(169, $order);
+        $tsSoapData = $tsSoapDataObject->getTsSoapData();
+        $ts = $tsSoapDataObject;
+
+//        $soapClient = new SoapClient($tsSoapDataObject->getWsdlUrl());
+//        $returnValue = $soapClient->requestForProtection(
+//            $ts->getTsId(), $ts->getProductId(), $ts->getAmount(),
+//            $ts->getCurrency(), $ts->getPaymentType(), $ts->getBuyerEmail(),
+//            $ts->getShopCustomerId(), $ts->getShopOrderId(), $ts->getOrderDate(),
+//            $ts->getWsUser(), $ts->getWsPassword()
+//        );
+
+        Symmetrics_Buyerprotect_Model_Buyerprotection::sendTsEmailOnSoapFail($ts->getData());
+
+//        die;
+    }
 }

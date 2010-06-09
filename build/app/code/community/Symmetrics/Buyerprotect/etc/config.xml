@@ -87,6 +87,15 @@
                     </buyerprotect>
                 </observers>
             </checkout_type_onepage_save_order>
+            <checkout_type_onepage_save_order_after>
+                <observers>
+                    <buyerprotect>
+                        <type>singleton</type>
+                        <class>Symmetrics_Buyerprotect_Model_Observer</class>
+                        <method>checkoutOnepageSaveOrderAfter</method>
+                    </buyerprotect>
+                </observers>
+            </checkout_type_onepage_save_order_after>
         </events>
     </global>
     <frontend>
