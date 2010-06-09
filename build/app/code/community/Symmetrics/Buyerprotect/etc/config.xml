@@ -125,5 +125,29 @@
                 <trustedshops_erroremail_recipient><![CDATA[dev@trustedshops.de]]></trustedshops_erroremail_recipient>
             </data>
         </buyerprotection>
+
+        <trusted_shops_payment_codes>
+            <other>OTHER</other>
+            <ccsave>CREDIT_CARD</ccsave>
+            <checkmo>CHEQUE</checkmo>
+            <cashondelivery>CASH_ON_DELIVERY</cashondelivery>
+            <bankpayment>PREPAYMENT</bankpayment>
+            <debit>DIRECT_DEBIT</debit>
+            <sofortueberweisung>SOFORT_UEBERWEISUNG</sofortueberweisung>
+            <clickandbuy>CLICKANDBUY</clickandbuy>
+            <googlecheckout>GOOGLE_CHECKOUT</googlecheckout>
+            <paypal_standard>PAYPAL</paypal_standard>
+        <!--
+            INVOICE
+            PREPAYMENT
+            PAYBOX
+            CASH_ON_PICKUP
+            FINANCING
+            LEASING
+            T_PAY
+            GIROPAY
+            SHOP_CARD
+        -->
+        </trusted_shops_payment_codes>
     </default>
 </config>
