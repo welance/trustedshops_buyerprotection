@@ -151,8 +151,10 @@ class Symmetrics_Buyerprotect_Model_Buyerprotection extends Mage_Core_Model_Abst
      *
      * @return void
      */
-    public function sendTsEmailOnSoapFail($tsSoapData)
+    public static function sendTsEmailOnSoapFail($tsSoapData)
     {
+        $buyerprotectionModel = new self;
+
         $storeConfigPaths = array(
             'is_active' => Symmetrics_Buyerprotect_Helper_Data::XML_PATH_TS_BUYERPROTECT_IS_ACTIVE,
             'template' => Symmetrics_Buyerprotect_Helper_Data::XML_PATH_TS_BUYERPROTECT_ERROR_EMAIL_TEMPLATE,
@@ -178,8 +180,8 @@ class Symmetrics_Buyerprotect_Model_Buyerprotection extends Mage_Core_Model_Abst
         );
         $emailOptions->setData($options);
 
-        $this->_prepareEmail($emailOptions);
-        $this->_sendTransactional();
+        $buyerprotectionModel->_prepareEmail($emailOptions);
+        $buyerprotectionModel->_sendTransactional();
 
         return;
     }
