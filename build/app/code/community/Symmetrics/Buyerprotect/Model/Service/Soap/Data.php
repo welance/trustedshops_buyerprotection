@@ -40,34 +40,22 @@ class Symmetrics_Buyerprotect_Model_Service_Soap_Data extends Varien_Object
      */
     protected $_order = null;
 
-
     /**
-     * Constructor
+     * Initialize Data
      *
-     * @param string                 $tsProductId Trusted Shops product id
-     * @param Mage_Sales_Model_Order $orderObject Sales order object
+     * @param int                    $tsProductId TS product id
+     * @param Mage_Sales_Model_Order $order       Sales order object
+     *
+     * @return Symmetrics_Buyerprotect_Model_Service_Soap_Data
      */
-    function __construct($tsProductId, Mage_Sales_Model_Order $orderObject)
+    public function init($tsProductId, Mage_Sales_Model_Order $order)
     {
-        $this->_order = $orderObject;
         $this->setTsProductId($tsProductId);
-
-        parent::__construct();
-    }
-
-    /**
-     * Inits SOAP data
-     *
-     * @return void
-     */
-    protected function _construct()
-    {
-        $helper = Mage::getModel('buyerprotect');
-        $this->setHelper($helper);
+        $this->_order = $order;
 
         $this->_initTsSoapData();
 
-        return;
+        return $this;
     }
 
     /**
@@ -91,22 +79,26 @@ class Symmetrics_Buyerprotect_Model_Service_Soap_Data extends Varien_Object
      */
     protected function _initTsSoapData()
     {
+        /* @var $order Mage_Sales_Model_Order */
         $order = $this->_order;
+        /* @var $payment Mage_Sales_Model_Order_Payment */
+        $payment = $order->getPayment();
         /* @var $helper Symmetrics_Buyerprotect_Helper_Data */
         $helper = $this->getHelper();
 
         $tsStoreConfigPaths = $helper->getTsStoreConfigPaths();
-        $paymentCode = $order->getPayment()->getMethod();
+        $paymentCode = $payment->getMethod();
         $availablePaymentCodes = $helper->getAvailableTsPaymentCodes();
         $allTsProductTypes = $helper->getAllTsProductTypes();
-        $currencyCode = $helper->getCurrencyCode();
 
-        if (!in_array($paymentCode, $availablePaymentCodes)) {
-            throw Mage::exception($this, "$paymentCode is not a supported payment by Trusted Shops!");
+        $this->setAvailablePaymentCodes($availablePaymentCodes);
+
+        if (!array_key_exists($paymentCode, $availablePaymentCodes)) {
+            throw Mage::exception(get_class($this), "'$paymentCode' is not a supported payment by Trusted Shops!");
         }
 
-        if (!in_array($tsProductId, $allTsProductTypes)) {
-            throw Mage::exception($this, "$tsProductId is not a valid TS product type!");
+        if (!in_array($this->getTsProductId(), $allTsProductTypes)) {
+            throw Mage::exception(get_class($this), "$tsProductId is not a valid TS product type!");
         }
 
         $tsSoapData = array(
@@ -116,12 +108,12 @@ class Symmetrics_Buyerprotect_Model_Service_Soap_Data extends Varien_Object
             'ws_password' => Mage::getStoreConfig($tsStoreConfigPaths['ws_password']),
             'wsdl_url' => Mage::getStoreConfig($tsStoreConfigPaths['wsdl_url']),
             'buyer_email' => $order->getCustomerEmail(),
-            'amount' => (double) $order->getGrandTotal(),
+            'amount' => $order->getGrandTotal(),
             'shop_order_id' => $order->getRealOrderId(),
-            'order_date' => str_replace(' ', 'T', $order->getCreatedAt()),
-            'payment_type' => $paymentMethod,
+            'order_date' => $this->getTsOrderDate($order->getCreatedAt()),
+            'payment_type' => $this->getPaymentMethodByCode($paymentCode),
             'ts_product_id' => $this->getTsProductId(),
-            'currency' => $currencyCode,
+            'currency' => $helper->getCurrencyCode(),
             'shop_customer_id' => $order->getCustomerId()
         );
 
@@ -158,5 +150,60 @@ class Symmetrics_Buyerprotect_Model_Service_Soap_Data extends Varien_Object
         }
 
         return $formatedTsSoapData;
+    }
+
+    /**
+     * Returns a TS formated date time:
+     *
+     * 2010-10-10T10:10:10
+     *
+     * @param string $dateTime Order date
+     *
+     * @return string
+     */
+    public function getTsOrderDate($dateTime)
+    {
+        return str_replace(' ', 'T', $dateTime);
+    }
+
+    /**
+     * Returns the payment method
+     *
+     * @param string $paymentCode Payment code
+     * @return string
+     */
+    public function getPaymentMethodByCode($paymentCode)
+    {
+        if (!($availablePaymentCodes = $this->getAvailablePaymentCodes())) {
+            $availablePaymentCodes = $this->getHelper()->getAvailableTsPaymentCodes();
+        }
+
+        return $availablePaymentCodes[$paymentCode];
+    }
+
+    /**
+     * Returns helper object
+     *
+     * @return Symmetrics_Buyerprotect_Helper_Data
+     */
+    public function getHelper()
+    {
+        if (!($helper = $this->getData('helper'))) {
+            $helper = Mage::helper('buyerprotect');
+
+            $this->setHelper($helper);
+        }
+
+        return $helper;
+    }
+
+    /**
+     * URL of SOAP server
+     *
+     * @return string
+     */
+    public function getWsdlUrl()
+    {
+        return $this->getData('wsdl_url');
     }
 }
