@@ -40,6 +40,22 @@ class Symmetrics_Buyerprotect_Model_Type_Buyerprotect extends Mage_Catalog_Model
     const TYPE_BUYERPROTECT = 'buyerprotect';
 
     /**
+     * Trusted Shops product ids and clear prices.
+     * Note: product ids and prices may change in future! The informations were
+     * taken from the implementation handbook (Integrationshandbuch) v3.01.
+     *
+     * @var array
+     */
+    public static $tsProductIds = array(
+        'TS080501_500_30_EUR' => 0.82,
+        'TS080501_1500_30_EUR' => 2.47,
+        'TS080501_2500_30_EUR' => 4.12,
+        'TS080501_5000_30_EUR' => 8.24,
+        'TS080501_10000_30_EUR' => 16.47,
+        'TS080501_20000_30_EUR' => 32.94
+    );
+
+    /**
      * Check if Product ist virtual, this always returns true
      *
      * @param Mage_Catalog_Model_Product $product product type instance
