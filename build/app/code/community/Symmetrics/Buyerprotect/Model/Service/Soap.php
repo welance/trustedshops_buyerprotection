@@ -36,11 +36,53 @@
 class Symmetrics_Buyerprotect_Model_Service_Soap
 {
     /**
+     * Constant to define $_soapRequestErrorCode on exception
+     */
+    const TS_SOAP_EXCEPTION_CODE = 0;
+
+    /**
+     * Do not set positive values on error!
+     * The Trusted Shop API returns a positive value on success.
+     *
+     * @var int|null
+     */
+    protected $_soapRequestErrorCode = null;
+
+    /**
+     * SOAP request to Trusted Shops, a positive $errorCode determines a successful
+     * request.
+     *
+     * @param Symmetrics_Buyerprotect_Model_Service_Soap_Data $ts SOAP data object
+     *
+     * @return void
+     */
+    protected function _request(Symmetrics_Buyerprotect_Model_Service_Soap_Data $ts)
+    {
+        $soapClient = new SoapClient($ts->getWsdlUrl());
+
+        $this->_soapRequestErrorCode = $soapClient->requestForProtection(
+            $ts->getTsId(),
+            $ts->getProductId(),
+            $ts->getAmount(),
+            $ts->getCurrency(),
+            $ts->getPaymentType(),
+            $ts->getBuyerEmail(),
+            $ts->getShopCustomerId(),
+            $ts->getShopOrderId(),
+            $ts->getOrderDate(),
+            $ts->getWsUser(),
+            $ts->getWsPassword()
+        );
+
+        return;
+    }
+
+    /**
      * make a protection request to the TrustedShops Soap Api
      *
      * @param Mage_Sales_Model_Order $order order to make a Reqest from
      *
-     * @return null
+     * @return void
      */
     public function requestForProtection(Mage_Sales_Model_Order $order)
     {
@@ -55,10 +97,28 @@ class Symmetrics_Buyerprotect_Model_Service_Soap
         if ($orderItemsCollection->count() >= 1) {
             $firstItem = $orderItemsCollection->getFirstItem();
             /* @var $tsSoapDataObject Symmetrics_Buyerprotect_Model_Service_Soap_Data */
-            $tsSoapDataObject = Mage::getModel('buyerprotect/service_soap_data', array($firstItem, $order));
+            $tsSoapDataObject = Mage::getModel('buyerprotect/service_soap_data');
+            
+            $tsSoapDataObject->init($firstItem, $order);
 
-            $tsSoapData = $tsSoapDataObject->getTsSoapData();
-            /** @todo make Soap Call */
+            if ($tsSoapDataObject->isActive()) {
+                try {
+                    $this->_request($tsSoapDataObject);
+                } catch (SoapFault $soapFault) {
+                    $this->_soapRequestErrorCode = self::TS_SOAP_EXCEPTION_CODE;
+                    Mage::logException($soapFault);
+                }
+
+                /*
+                 * Request wasn't successful
+                 */
+                if (!($this->_soapRequestErrorCode > self::TS_SOAP_EXCEPTION)) {
+                    $tsSoapDataObject->setReturnValue($this->_soapRequestErrorCode);
+                    Symmetrics_Buyerprotect_Model_Buyerprotection::sendTsEmailOnSoapFail($tsSoapDataObject->getData());
+                }
+            }
+
+            return;
         }
     }
 }
