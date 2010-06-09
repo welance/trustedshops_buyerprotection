@@ -170,6 +170,7 @@ class Symmetrics_Buyerprotect_Model_Service_Soap_Data extends Varien_Object
      * Returns the payment method
      *
      * @param string $paymentCode Payment code
+     * 
      * @return string
      */
     public function getPaymentMethodByCode($paymentCode)
