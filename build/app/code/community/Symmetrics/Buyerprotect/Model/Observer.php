@@ -118,6 +118,13 @@ class Symmetrics_Buyerprotect_Model_Observer
         $order = $observer->getEvent()->getOrder();
     }
 
+    /**
+     * To test SOAP API
+     *
+     * @param Varien_Event_Observer $observer Varien observer object
+     *
+     * @return void
+     */
     public function checkoutOnepageSaveOrderAfter($observer)
     {
         /* @var $order Mage_Sales_Model_Order */
@@ -138,8 +145,10 @@ class Symmetrics_Buyerprotect_Model_Observer
 //            $ts->getWsUser(), $ts->getWsPassword()
 //        );
 
-        Symmetrics_Buyerprotect_Model_Buyerprotection::sendTsEmailOnSoapFail($ts->getData());
+//        Symmetrics_Buyerprotect_Model_Buyerprotection::sendTsEmailOnSoapFail($ts->getData());
 
 //        die;
+
+        return;
     }
 }
