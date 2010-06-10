@@ -83,23 +83,38 @@ class Symmetrics_Buyerprotect_Model_Service_Soap
      * @param Mage_Sales_Model_Order $order order to make a Reqest from
      *
      * @return void
+     * @throw Symmetrics_Buyerprotect_Model_Service_Soap_Exception
      */
     public function requestForProtection(Mage_Sales_Model_Order $order)
     {
         $orderItemsCollection = clone $order->getItemsCollection();
         /* @var $orderItemsCollection Mage_Sales_Model_Mysql4_Order_Item_Collection */
-        $orderItemsCollection->resetData();
-        $orderItemsCollection->clear();
+//        $orderItemsCollection->resetData();
+//        $orderItemsCollection->clear();
         $orderItemsCollection->addFieldToFilter('product_type', array('eq' => 'buyerprotect'));
 
-        $orderItemsCollection->load();
+        // Varien_Data_Collection::count() will do the load!
+//        $orderItemsCollection->load();
 
         if ($orderItemsCollection->count() >= 1) {
-            $firstItem = $orderItemsCollection->getFirstItem();
+//            $firstItem = $orderItemsCollection->getFirstItem();
+            $tsItem = null;
+            
+            // determine TS product type
+            foreach ($orderItemsCollection->getItems() as $item) {
+                if ($item->getProductType() == Symmetrics_Buyerprotect_Model_Type_Buyerprotect::TYPE_BUYERPROTECT) {
+                    $tsItem = $item;
+                }
+            }
+
+            if (!$tsItem) {
+                throw Mage::exception(get_class($this), "$tsItem is empty!");
+            }
+
             /* @var $tsSoapDataObject Symmetrics_Buyerprotect_Model_Service_Soap_Data */
             $tsSoapDataObject = Mage::getModel('buyerprotect/service_soap_data');
             
-            $tsSoapDataObject->init($firstItem, $order);
+            $tsSoapDataObject->init($item->getProductId(), $order);
 
             if ($tsSoapDataObject->isActive()) {
                 try {
@@ -109,10 +124,13 @@ class Symmetrics_Buyerprotect_Model_Service_Soap
                     Mage::logException($soapFault);
                 }
 
+                Mage::log($this->_soapRequestErrorCode);
+
                 /*
                  * Request wasn't successful
                  */
-                if (!($this->_soapRequestErrorCode > self::TS_SOAP_EXCEPTION)) {
+                if (!($this->_soapRequestErrorCode > self::TS_SOAP_EXCEPTION_CODE)) {
+                    Mage::log('send email');
                     $tsSoapDataObject->setReturnValue($this->_soapRequestErrorCode);
                     Symmetrics_Buyerprotect_Model_Buyerprotection::sendTsEmailOnSoapFail($tsSoapDataObject->getData());
                 }
