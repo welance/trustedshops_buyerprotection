@@ -163,4 +163,14 @@ class Symmetrics_Buyerprotect_Helper_Data
 
         return $tsStoreConfigPaths;
     }
+
+    /**
+     * Determine if any TS products is in cart.
+     *
+     * @return bool
+     */
+    public function hasTsProductsInCart()
+    {
+        return ($this->getTsProductsInCart()) ? true : false;
+    }
 }
