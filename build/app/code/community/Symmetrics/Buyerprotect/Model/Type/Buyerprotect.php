@@ -46,7 +46,7 @@ class Symmetrics_Buyerprotect_Model_Type_Buyerprotect extends Mage_Catalog_Model
      *
      * @var array
      */
-    public static $tsProductIds = array(
+    protected static $_tsProductIds = array(
         'TS080501_500_30_EUR' => 0.82,
         'TS080501_1500_30_EUR' => 2.47,
         'TS080501_2500_30_EUR' => 4.12,
@@ -66,5 +66,10 @@ class Symmetrics_Buyerprotect_Model_Type_Buyerprotect extends Mage_Catalog_Model
     {
         // return True if this product is virtual and false if this product isn't virtual product
         return true;
+    }
+
+    public static function getAllTsProductIds()
+    {
+        return self::$_tsProductIds;
     }
 }
