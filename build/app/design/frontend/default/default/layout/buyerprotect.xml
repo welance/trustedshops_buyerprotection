@@ -23,6 +23,11 @@
  */
 -->
 <layout version="0.1.0">
+    <checkout_cart_index translate="label">
+        <reference name="checkout.cart">
+            <action method="addItemRender"><type>buyerprotect</type><block>checkout/cart_item_renderer</block><template>buyerprotect/cart/renderer/buyerprotect.phtml</template></action>
+        </reference>
+    </checkout_cart_index>
     <checkout_onepage_index>
         <reference name="head">
             <action method="addCss"><stylesheet>css/buyerprotect.css</stylesheet></action>

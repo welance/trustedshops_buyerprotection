@@ -179,6 +179,7 @@ class Symmetrics_Buyerprotect_Model_Observer
     {
         $event = $observer->getEvent();
 
+        /* @var $item Mage_Sales_Model_Quote_Item */
         $item = $event->getItem();
         if ($item->getProductType() == Symmetrics_Buyerprotect_Model_Type_Buyerprotect::TYPE_BUYERPROTECT) {
             $result = $event->getResult();
