@@ -87,15 +87,42 @@
                     </buyerprotect>
                 </observers>
             </checkout_type_onepage_save_order>
-            <checkout_type_onepage_save_order_after>
+            <catalogrule_after_apply>
                 <observers>
-                    <buyerprotect>
+                    <buyerprotect_catalogrule_after_apply>
                         <type>singleton</type>
                         <class>Symmetrics_Buyerprotect_Model_Observer</class>
-                        <method>checkoutOnepageSaveOrderAfter</method>
-                    </buyerprotect>
+                        <method>catalogruleAfterApply</method>
+                    </buyerprotect_catalogrule_after_apply>
                 </observers>
-            </checkout_type_onepage_save_order_after>
+            </catalogrule_after_apply>
+            <catalogrule_before_apply>
+                <observers>
+                    <buyerprotect_catalogrule_before_apply>
+                        <type>singleton</type>
+                        <class>Symmetrics_Buyerprotect_Model_Observer</class>
+                        <method>catalogruleBeforeApply</method>
+                    </buyerprotect_catalogrule_before_apply>
+                </observers>
+            </catalogrule_before_apply>
+            <sales_quote_address_discount_item>
+                <observers>
+                    <buyerprotect_catalogrule_before_apply>
+                        <type>singleton</type>
+                        <class>Symmetrics_Buyerprotect_Model_Observer</class>
+                        <method>quoteCalculateDiscountItem</method>
+                    </buyerprotect_catalogrule_before_apply>
+                </observers>
+            </sales_quote_address_discount_item>
+            <catalog_product_save_after>
+                <observers>
+                    <inventory>
+                        <class>Symmetrics_Buyerprotect_Model_Observer</class>
+                        <method>saveInventoryData</method>
+                    </inventory>
+                </observers>
+            </catalog_product_save_after>
+            <!-- salesrule_validator_process -->
         </events>
     </global>
     <frontend>
