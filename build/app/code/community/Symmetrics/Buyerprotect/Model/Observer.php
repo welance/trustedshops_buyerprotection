@@ -191,9 +191,11 @@ class Symmetrics_Buyerprotect_Model_Observer
      *
      * @return void
      */
-    public function saveInventoryData($observer)
+    public function productSaveAfter($observer)
     {
+        /* @var $product Mage_Catalog_Model_Product */
         $product = $observer->getEvent()->getProduct();
+
         /* @var $stockItem Mage_CatalogInventory_Model_Stock_Item */
         $stockItem = $product->getStockItem();
 

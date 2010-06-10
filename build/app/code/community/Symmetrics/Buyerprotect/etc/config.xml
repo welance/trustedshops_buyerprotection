@@ -118,7 +118,7 @@
                 <observers>
                     <inventory>
                         <class>Symmetrics_Buyerprotect_Model_Observer</class>
-                        <method>saveInventoryData</method>
+                        <method>productSaveAfter</method>
                     </inventory>
                 </observers>
             </catalog_product_save_after>
