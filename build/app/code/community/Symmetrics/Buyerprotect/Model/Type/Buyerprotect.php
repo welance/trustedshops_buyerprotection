@@ -44,6 +44,8 @@ class Symmetrics_Buyerprotect_Model_Type_Buyerprotect extends Mage_Catalog_Model
      * Note: product ids and prices may change in future! The informations were
      * taken from the implementation handbook (Integrationshandbuch) v3.01.
      *
+     * @todo implement for this array a static getter method
+     *
      * @var array
      */
     protected static $_tsProductIds = array(

@@ -28,6 +28,8 @@
 			<active>true</active>
 			<codePool>community</codePool>
 			<depends>
+                <Mage_Catalog />
+                <Mage_CatalogInventory />
             </depends>
 		</Symmetrics_Buyerprotect>     
 	</modules>

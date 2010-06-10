@@ -103,6 +103,27 @@ class Symmetrics_Buyerprotect_Model_Observer
     }
 
     /**
+     * Observer to prevent calaogrules to the product type
+     *
+     * @param Varien_Event_Observer $observer current event observer
+     *
+     * @todo implement code
+     *
+     * @return null
+     */
+    public function catalogruleAfterApply($observer)
+    {
+        $event = $observer->getEvent();
+
+        $currentCatalogRoule = Mage::getSingleton('catalogrule/rule');
+        /* @var $currentCatalogRoule Mage_CatalogRule_Model_Rule */
+
+        $machedProducts = $currentCatalogRoule->getMatchingProductIds();
+        $collection = $currentCatalogRoule->getCollection();
+
+    }
+    
+    /**
      * Request for buyer protection service of Trusted Shops if the corresponding
      * product is in cart.
      *
@@ -131,16 +152,58 @@ class Symmetrics_Buyerprotect_Model_Observer
     }
 
     /**
-     * Method to test cart discount
+     * Observer to prevent calaogrules to the product type
      *
-     * @param Varien_Event_Server $observer Varien observer object
+     * @param Varien_Event_Observer $observer current event observer
+     *
+     * @todo implement code
+     *
+     * @return null
+     */
+    public function catalogruleBeforeApply($observer)
+    {
+        $event = $observer->getEvent();
+
+    }
+    
+    /**
+     * Observer to prevent discount rules to the product type
+     *
+     * @param Varien_Event_Observer $observer current event observer
+     *
+     * @todo implement code
+     *
+     * @return null
+     */
+    public function quoteCalculateDiscountItem($observer)
+    {
+        $event = $observer->getEvent();
+        
+        $item = $event->getItem();
+        /* @var $item Mage_Sales_Model_Quote_Item */
+    }
+    
+    /**
+     * OBserver to set the product to dont manage the stock and set min and max sale
+     * qty to one
+     *
+     * @param Varien_Event_Observer $observer Varien observer object
      *
      * @return void
      */
-    public function dump($observer)
+    public function saveInventoryData($observer)
     {
-//        var_dump($observer->getItem());
-//        die;
-        return;
+        $product = $observer->getEvent()->getProduct();
+        /* @var $stockItem Mage_CatalogInventory_Model_Stock_Item */
+        $stockItem = $product->getStockItem();
+
+        $stockItem->setUseConfigMaxSaleQty('0');
+        $stockItem->setUseConfigMinSaleQty('0');
+        $stockItem->setUseConfigManageStock('0');
+        $stockItem->setManageStock(0);
+        $stockItem->setMinSaleQty(1);
+        $stockItem->setMaxSaleQty(1);
+        $stockItem->save();
     }
+
 }
