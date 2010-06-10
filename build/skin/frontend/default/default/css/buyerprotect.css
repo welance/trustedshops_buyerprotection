@@ -21,10 +21,10 @@
  */
 
 .trusted-shops {
-	margin: 20px 0 20px 0;
-	padding: 20px;
-	border: 1px solid #000;
-	background: #e7f0f7;
+    margin: 20px 0 20px 0;
+    padding: 20px;
+    border: 1px solid #000;
+    background: #e7f0f7;
 }
 
 .trusted-shops img { float: right; }
