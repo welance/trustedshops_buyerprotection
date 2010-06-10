@@ -82,25 +82,9 @@ class Symmetrics_Buyerprotect_Model_Observer
             // add Buyerprotection Product to cart
             $cart->addProductsByIds(array($requestedProductId));
             $cart->save();
-
-//            $tsSoapData = array(
-//                'return_value' => '999',
-//                'ts_id' => '1',
-//                'ts_product_id' => '',
-//                'amount' => '89',
-//                'currency' => 'EUR',
-//                'payment_type' => 'Käuferschutz',
-//                'buyer_email' => 'kaeufer@nhdoan.de',
-//                'shop_customer_id' => '123',
-//                'shop_order_id' => '456789000',
-//                'order_date' => 'heute',
-//                'ws_user' => 'ngoc',
-//                'ws_password' => '123456'
-//            );
-//
-//            $tsBP = new Symmetrics_Buyerprotect_Model_Buyerprotection();
-//            $tsBP->sendTsEmailOnSoapFail($tsSoapData);
         }
+
+        return;
     }
 
     /**
@@ -119,7 +103,8 @@ class Symmetrics_Buyerprotect_Model_Observer
     }
 
     /**
-     * To test SOAP API
+     * Request for buyer protection service of Trusted Shops if the corresponding
+     * product is in cart.
      *
      * @param Varien_Event_Observer $observer Varien observer object
      *
@@ -127,28 +112,35 @@ class Symmetrics_Buyerprotect_Model_Observer
      */
     public function checkoutOnepageSaveOrderAfter($observer)
     {
-        /* @var $order Mage_Sales_Model_Order */
-        $order = $observer->getEvent()->getOrder();
-        /* @var $payment Mage_Sales_Model_Order_Payment */
-        $payment = $order->getPayment();
+        /* @var $helper Symmetrics_Buyerprotect_Helper_Data */
+        $helper = Mage::helper('buyerprotect');
 
-        $tsSoapDataObject = Mage::getModel('buyerprotect/service_soap_data');
-        $tsSoapDataObject->init(169, $order);
-        $tsSoapData = $tsSoapDataObject->getTsSoapData();
-        $ts = $tsSoapDataObject;
+        if ($helper->hasTsProductsInCart()) {
+            /* @var $order Mage_Sales_Model_Order */
+            $order = $observer->getEvent()->getOrder();
+            /* @var $tsSoap Symmetrics_Buyerprotect_Model_Service_Soap */
+            $tsSoap = Mage::getModel('buyerprotect/service_soap');
 
-//        $soapClient = new SoapClient($tsSoapDataObject->getWsdlUrl());
-//        $returnValue = $soapClient->requestForProtection(
-//            $ts->getTsId(), $ts->getProductId(), $ts->getAmount(),
-//            $ts->getCurrency(), $ts->getPaymentType(), $ts->getBuyerEmail(),
-//            $ts->getShopCustomerId(), $ts->getShopOrderId(), $ts->getOrderDate(),
-//            $ts->getWsUser(), $ts->getWsPassword()
-//        );
+            Mage::log('start SOAP request');
+            $tsSoap->requestForProtection($order);
+            Mage::log('end SOAP request');
+            die;
+        }
 
-//        Symmetrics_Buyerprotect_Model_Buyerprotection::sendTsEmailOnSoapFail($ts->getData());
+        return;
+    }
 
+    /**
+     * Method to test cart discount
+     *
+     * @param Varien_Event_Server $observer Varien observer object
+     *
+     * @return void
+     */
+    public function dump($observer)
+    {
+//        var_dump($observer->getItem());
 //        die;
-
         return;
     }
 }
