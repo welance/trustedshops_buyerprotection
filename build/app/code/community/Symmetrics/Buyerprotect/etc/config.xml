@@ -96,6 +96,16 @@
                     </buyerprotect>
                 </observers>
             </checkout_type_onepage_save_order_after>
+
+            <sales_quote_address_discount_item>
+                <observers>
+                    <buyerprotect>
+                        <type>singleton</type>
+                        <class>Symmetrics_Buyerprotect_Model_Observer</class>
+                        <method>dump</method>
+                    </buyerprotect>
+                </observers>
+            </sales_quote_address_discount_item>
         </events>
     </global>
     <frontend>
