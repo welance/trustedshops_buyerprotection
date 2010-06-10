@@ -98,7 +98,7 @@ class Symmetrics_Buyerprotect_Model_Service_Soap_Data extends Varien_Object
         }
 
         if (!in_array($this->getTsProductId(), $allTsProductTypes)) {
-            throw Mage::exception(get_class($this), "$tsProductId is not a valid TS product type!");
+            throw Mage::exception(get_class($this), "{$this->getTsProductId()} is not a valid TS product type!");
         }
 
         $tsSoapData = array(
@@ -206,5 +206,15 @@ class Symmetrics_Buyerprotect_Model_Service_Soap_Data extends Varien_Object
     public function getWsdlUrl()
     {
         return $this->getData('wsdl_url');
+    }
+
+    /**
+     * Check service is active
+     *
+     * @return bool
+     */
+    public function isActive()
+    {
+        return (bool) $this->getIsActive();
     }
 }
