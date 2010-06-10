@@ -178,9 +178,13 @@ class Symmetrics_Buyerprotect_Model_Observer
     public function quoteCalculateDiscountItem($observer)
     {
         $event = $observer->getEvent();
-        
+
         $item = $event->getItem();
-        /* @var $item Mage_Sales_Model_Quote_Item */
+        if ($item->getProductType() == Symmetrics_Buyerprotect_Model_Type_Buyerprotect::TYPE_BUYERPROTECT) {
+            $result = $event->getResult();
+            $result->setDiscountAmount(0);
+            $result->setBaseDiscountAmount(0);
+        }
     }
     
     /**

@@ -105,7 +105,7 @@
                     </buyerprotect_catalogrule_before_apply>
                 </observers>
             </catalogrule_before_apply>
-            <sales_quote_address_discount_item>
+            <salesrule_validator_process>
                 <observers>
                     <buyerprotect_catalogrule_before_apply>
                         <type>singleton</type>
@@ -113,7 +113,7 @@
                         <method>quoteCalculateDiscountItem</method>
                     </buyerprotect_catalogrule_before_apply>
                 </observers>
-            </sales_quote_address_discount_item>
+            </salesrule_validator_process>
             <catalog_product_save_after>
                 <observers>
                     <inventory>
