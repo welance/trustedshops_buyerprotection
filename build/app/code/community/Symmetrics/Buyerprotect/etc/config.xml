@@ -41,7 +41,7 @@
                     <buyerprotect translate="label" module="buyerprotect">
                         <label>Trusted Shops - Buyerprotection</label>
                         <model>buyerprotect/type_buyerprotect</model>
-                        <!--<price_model>modulename/product_price</price_model>-->
+                        <price_model>buyerprotect/type_buyerprotect_price</price_model>
                         <index_priority>15</index_priority>
                     </buyerprotect>
                 </type>
