@@ -83,9 +83,12 @@ class Symmetrics_Buyerprotect_Model_Type_Buyerprotect extends Mage_Catalog_Model
     /**
      * Before save the product
      *
-     * @param Mage_Catalog_Model_Product $product
+     * @param Mage_Catalog_Model_Product $product product to save
+     *
+     * @return null
      */
-    public function  beforeSave($product = null) {
+    public function beforeSave($product = null)
+    {
         parent::beforeSave($product);
         $product->setVisibility(1);
         /** @todo calculate brutto price */
