@@ -68,6 +68,11 @@ class Symmetrics_Buyerprotect_Model_Type_Buyerprotect extends Mage_Catalog_Model
         return true;
     }
 
+    /**
+     * Static getter for self::$_tsProductIds
+     *
+     * @return array
+     */
     public static function getAllTsProductIds()
     {
         return self::$_tsProductIds;
