@@ -62,7 +62,7 @@ class Symmetrics_Buyerprotect_Model_Service_Soap
 
         $this->_soapRequestErrorCode = $soapClient->requestForProtection(
             $ts->getTsId(),
-            $ts->getProductId(),
+            $ts->getTsProductId(),
             $ts->getAmount(),
             $ts->getCurrency(),
             $ts->getPaymentType(),
