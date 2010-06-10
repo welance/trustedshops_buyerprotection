@@ -17,6 +17,7 @@
  * @package   Symmetrics_Buyerprotect
  * @author    symmetrics gmbh <info@symmetrics.de>
  * @author    Torsten Walluhn <tw@symmetrics.de>
+ * @author    Ngoc Anh Doan <nd@symmetrics.de>
  * @copyright 2010 Symmetrics Gmbh
  * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  * @link      http://www.symmetrics.de/
@@ -35,6 +36,10 @@
             <action method="removeTab"><value>customers_tags</value></action>
             <action method="removeTab"><value>customer_options</value></action>
             <action method="removeTab"><value>googleoptimizer</value></action>
+        </reference>
+
+        <reference name="root">
+            <block type="core/template" template="buyerprotect/adminhtml/catalog/product/buyerprotect.js.phtml" />
         </reference>
     </adminhtml_catalog_product_buyerprotect>
 </layout>
