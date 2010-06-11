@@ -36,7 +36,9 @@
 class Symmetrics_Buyerprotect_Model_Observer
 {
     /**
-     * Observer to add the Product to chart
+     * Checking if products of
+     * Symmetrics_Buyerprotect_Model_Type_Buyerprotect::TYPE_BUYERPROTECT
+     * were added and get sure only of that type is in cart.
      *
      * @param Varien_Event_Observer $observer current event observer
      *
@@ -61,9 +63,11 @@ class Symmetrics_Buyerprotect_Model_Observer
             $tsProductsInCart = $helper->getTsProductsInCart();
             $requestedProductId = $request->getParam('trusted_shops-product');
 
-            // cart is not empty but the only item is a type of
-            // Symmetrics_Buyerprotect_Model_Type_Buyerprotect::TYPE_BUYERPROTECT
-            // and is identical to $requestedProductId
+           /**
+            * cart is not empty but the only item is a type of
+            * Symmetrics_Buyerprotect_Model_Type_Buyerprotect::TYPE_BUYERPROTECT
+            * and is identical to $requestedProductId
+            */
             if ((count($cartProductIds) < 2) && in_array($requestedProductId, $cartProductIds)) {
                 return;
             }
@@ -87,42 +91,6 @@ class Symmetrics_Buyerprotect_Model_Observer
         return;
     }
 
-    /**
-     * Observer to add the Product to chart
-     *
-     * @param Varien_Event_Observer $observer current event observer
-     *
-     * @todo check if product is alrady in cart
-     * @todo check if other buyerprotection Product is alerady in cart
-     *
-     * @return null
-     */
-    public function checkoutOrderSaveAfter($observer)
-    {
-        $order = $observer->getEvent()->getOrder();
-    }
-
-    /**
-     * Observer to prevent calaogrules to the product type
-     *
-     * @param Varien_Event_Observer $observer current event observer
-     *
-     * @todo implement code
-     *
-     * @return null
-     */
-    public function catalogruleAfterApply($observer)
-    {
-        $event = $observer->getEvent();
-
-        $currentCatalogRoule = Mage::getSingleton('catalogrule/rule');
-        /* @var $currentCatalogRoule Mage_CatalogRule_Model_Rule */
-
-        $machedProducts = $currentCatalogRoule->getMatchingProductIds();
-        $collection = $currentCatalogRoule->getCollection();
-
-    }
-    
     /**
      * Request for buyer protection service of Trusted Shops if the corresponding
      * product is in cart.
@@ -149,21 +117,6 @@ class Symmetrics_Buyerprotect_Model_Observer
         }
 
         return;
-    }
-
-    /**
-     * Observer to prevent calaogrules to the product type
-     *
-     * @param Varien_Event_Observer $observer current event observer
-     *
-     * @todo implement code
-     *
-     * @return null
-     */
-    public function catalogruleBeforeApply($observer)
-    {
-        $event = $observer->getEvent();
-
     }
     
     /**
