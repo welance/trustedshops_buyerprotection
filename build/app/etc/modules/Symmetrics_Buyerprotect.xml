@@ -30,6 +30,7 @@
 			<depends>
                 <Mage_Catalog />
                 <Mage_CatalogInventory />
+                <Mage_CatalogRule />
             </depends>
 		</Symmetrics_Buyerprotect>     
 	</modules>

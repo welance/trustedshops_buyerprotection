@@ -41,7 +41,7 @@
                     <buyerprotect translate="label" module="buyerprotect">
                         <label>Trusted Shops - Buyerprotection</label>
                         <model>buyerprotect/type_buyerprotect</model>
-                        <!--<price_model>modulename/product_price</price_model>-->
+                        <price_model>buyerprotect/type_buyerprotect_price</price_model>
                         <index_priority>15</index_priority>
                     </buyerprotect>
                 </type>
@@ -105,7 +105,7 @@
                     </buyerprotect_catalogrule_before_apply>
                 </observers>
             </catalogrule_before_apply>
-            <sales_quote_address_discount_item>
+            <salesrule_validator_process>
                 <observers>
                     <buyerprotect_catalogrule_before_apply>
                         <type>singleton</type>
@@ -113,7 +113,7 @@
                         <method>quoteCalculateDiscountItem</method>
                     </buyerprotect_catalogrule_before_apply>
                 </observers>
-            </sales_quote_address_discount_item>
+            </salesrule_validator_process>
             <catalog_product_save_after>
                 <observers>
                     <inventory>

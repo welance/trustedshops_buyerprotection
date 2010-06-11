@@ -178,9 +178,14 @@ class Symmetrics_Buyerprotect_Model_Observer
     public function quoteCalculateDiscountItem($observer)
     {
         $event = $observer->getEvent();
-        
-        $item = $event->getItem();
+
         /* @var $item Mage_Sales_Model_Quote_Item */
+        $item = $event->getItem();
+        if ($item->getProductType() == Symmetrics_Buyerprotect_Model_Type_Buyerprotect::TYPE_BUYERPROTECT) {
+            $result = $event->getResult();
+            $result->setDiscountAmount(0);
+            $result->setBaseDiscountAmount(0);
+        }
     }
     
     /**
@@ -196,16 +201,18 @@ class Symmetrics_Buyerprotect_Model_Observer
         /* @var $product Mage_Catalog_Model_Product */
         $product = $observer->getEvent()->getProduct();
 
-        /* @var $stockItem Mage_CatalogInventory_Model_Stock_Item */
-        $stockItem = $product->getStockItem();
+        if ($product->getTypeId() == Symmetrics_Buyerprotect_Model_Type_Buyerprotect::TYPE_BUYERPROTECT) {
+             /* @var $stockItem Mage_CatalogInventory_Model_Stock_Item */
+            $stockItem = $product->getStockItem();
 
-        $stockItem->setUseConfigMaxSaleQty('0');
-        $stockItem->setUseConfigMinSaleQty('0');
-        $stockItem->setUseConfigManageStock('0');
-        $stockItem->setManageStock(0);
-        $stockItem->setMinSaleQty(1);
-        $stockItem->setMaxSaleQty(1);
-        $stockItem->save();
+            $stockItem->setUseConfigMaxSaleQty('0');
+            $stockItem->setUseConfigMinSaleQty('0');
+            $stockItem->setUseConfigManageStock('0');
+            $stockItem->setManageStock(0);
+            $stockItem->setMinSaleQty(1);
+            $stockItem->setMaxSaleQty(1);
+            $stockItem->save();
+        }
     }
 
 }
