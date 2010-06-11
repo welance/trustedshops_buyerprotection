@@ -82,22 +82,19 @@ class Symmetrics_Buyerprotect_Model_Service_Soap
      *
      * @param Mage_Sales_Model_Order $order order to make a Reqest from
      *
-     * @return void
+     * @return Symmetrics_Buyerprotect_Model_Service_Soap_Data
      * @throw Symmetrics_Buyerprotect_Model_Service_Soap_Exception
+     * @todo do some logging
      */
     public function requestForProtection(Mage_Sales_Model_Order $order)
     {
         $orderItemsCollection = clone $order->getItemsCollection();
         /* @var $orderItemsCollection Mage_Sales_Model_Mysql4_Order_Item_Collection */
-//        $orderItemsCollection->resetData();
-//        $orderItemsCollection->clear();
+
         $orderItemsCollection->addFieldToFilter('product_type', array('eq' => 'buyerprotect'));
 
         // Varien_Data_Collection::count() will do the load!
-//        $orderItemsCollection->load();
-
         if ($orderItemsCollection->count() >= 1) {
-//            $firstItem = $orderItemsCollection->getFirstItem();
             $tsItem = null;
             
             // determine TS product type
@@ -124,19 +121,24 @@ class Symmetrics_Buyerprotect_Model_Service_Soap
                     Mage::logException($soapFault);
                 }
 
-                Mage::log($this->_soapRequestErrorCode);
-
                 /*
                  * Request wasn't successful
                  */
                 if (!($this->_soapRequestErrorCode > self::TS_SOAP_EXCEPTION_CODE)) {
+                    $tsSoapDataObject->setIsSuccessfull(false);
+                    $tsSoapDataObject->setSoapRequestErrorCode($this->_soapRequestErrorCode);
+                    $tsSoapDataObject->setTsBuyerProtectId(false);
                     Mage::log('send email');
                     $tsSoapDataObject->setReturnValue($this->_soapRequestErrorCode);
                     Symmetrics_Buyerprotect_Model_Buyerprotection::sendTsEmailOnSoapFail($tsSoapDataObject->getData());
+                } else {
+                    $tsSoapDataObject->setIsSuccessfull(true);
+                    $tsSoapDataObject->setSoapRequestErrorCode(false);
+                    $tsSoapDataObject->setTsBuyerProtectId($this->_soapRequestErrorCode);
                 }
             }
 
-            return;
+            return $tsSoapDataObject;
         }
     }
 }
