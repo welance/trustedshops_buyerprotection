@@ -67,7 +67,7 @@
                     <use>core_setup</use>
                 </connection>
             </buyerprotect_setup>
-		</resources>
+        </resources>
         <events>
             <controller_action_predispatch_checkout_onepage_savePayment>
                 <observers>
@@ -78,33 +78,15 @@
                     </buyerprotect>
                 </observers>
             </controller_action_predispatch_checkout_onepage_savePayment>
-            <checkout_type_onepage_save_order>
+            <checkout_type_onepage_save_order_after>
                 <observers>
                     <buyerprotect>
                         <type>singleton</type>
                         <class>Symmetrics_Buyerprotect_Model_Observer</class>
-                        <method>checkoutOrderSaveAfter</method>
+                        <method>checkoutOnepageSaveOrderAfter</method>
                     </buyerprotect>
                 </observers>
-            </checkout_type_onepage_save_order>
-            <catalogrule_after_apply>
-                <observers>
-                    <buyerprotect_catalogrule_after_apply>
-                        <type>singleton</type>
-                        <class>Symmetrics_Buyerprotect_Model_Observer</class>
-                        <method>catalogruleAfterApply</method>
-                    </buyerprotect_catalogrule_after_apply>
-                </observers>
-            </catalogrule_after_apply>
-            <catalogrule_before_apply>
-                <observers>
-                    <buyerprotect_catalogrule_before_apply>
-                        <type>singleton</type>
-                        <class>Symmetrics_Buyerprotect_Model_Observer</class>
-                        <method>catalogruleBeforeApply</method>
-                    </buyerprotect_catalogrule_before_apply>
-                </observers>
-            </catalogrule_before_apply>
+            </checkout_type_onepage_save_order_after>
             <salesrule_validator_process>
                 <observers>
                     <buyerprotect_catalogrule_before_apply>
@@ -157,7 +139,6 @@
     <default>
         <buyerprotection>
             <data>
-<!--                <trustedshops_erroremail_sender><![CDATA[shop@magentoshop.loc]]></trustedshops_erroremail_sender>-->
                 <trustedshops_erroremail_recipient><![CDATA[dev@trustedshops.de]]></trustedshops_erroremail_recipient>
             </data>
         </buyerprotection>
