@@ -48,19 +48,19 @@ class Symmetrics_Buyerprotect_Model_Observer
     {
         $frontController = Mage::app()->getFrontController();
         $request = $frontController->getRequest();
+        /* @var $cart Mage_Checkout_Model_Cart */
+        $cart = Mage::getSingleton('checkout/cart')->setStore(Mage::app()->getStore());
+        /* @var $helper Symmetrics_Buyerprotect_Helper_Data */
+        $helper = Mage::helper('buyerprotect');
+        $tsProductsInCart = $helper->getTsProductsInCart();
 
         if ($request->getParam('trusted_shops')) {
-            /* @var $cart Mage_Checkout_Model_Cart */
-            $cart = Mage::getSingleton('checkout/cart')->setStore(Mage::app()->getStore());
 
             // cart is empty
             if (!($cartProductIds = $cart->getProductIds())) {
                 return;
             }
 
-            /* @var $helper Symmetrics_Buyerprotect_Helper_Data */
-            $helper = Mage::helper('buyerprotect');
-            $tsProductsInCart = $helper->getTsProductsInCart();
             $requestedProductId = $request->getParam('trusted_shops-product');
 
            /**
@@ -86,6 +86,12 @@ class Symmetrics_Buyerprotect_Model_Observer
             // add Buyerprotection Product to cart
             $cart->addProductsByIds(array($requestedProductId));
             $cart->save();
+        } else {
+            if ($tsProductsInCart) {
+                foreach ($tsProductsInCart as $cartItemId => $tsProductId) {
+                    $cart->removeItem($cartItemId);
+                }
+            }
         }
 
         return;
