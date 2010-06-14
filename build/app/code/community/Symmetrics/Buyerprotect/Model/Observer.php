@@ -113,7 +113,6 @@ class Symmetrics_Buyerprotect_Model_Observer
             Mage::log('start SOAP request');
             $tsSoap->requestForProtection($order);
             Mage::log('end SOAP request');
-            die;
         }
 
         return;
