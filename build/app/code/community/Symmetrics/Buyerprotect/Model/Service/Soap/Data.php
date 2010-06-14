@@ -43,14 +43,15 @@ class Symmetrics_Buyerprotect_Model_Service_Soap_Data extends Varien_Object
     /**
      * Initialize Data
      *
-     * @param int                    $tsProductId TS product id
      * @param Mage_Sales_Model_Order $order       Sales order object
+     * @param int                    $tsProductId TS product id
      *
      * @return Symmetrics_Buyerprotect_Model_Service_Soap_Data
      */
-    public function init($tsProductId, Mage_Sales_Model_Order $order)
+    public function init(Mage_Sales_Model_Order $order, Mage_Sales_Model_Order_Item $tsProductItem)
     {
-        $this->setTsProductId($tsProductId);
+        $this->setTsProductItem($tsProductItem);
+        $this->setTsProductId($tsProductItem->getSku());
         $this->_order = $order;
 
         $this->_initTsSoapData();
@@ -59,7 +60,7 @@ class Symmetrics_Buyerprotect_Model_Service_Soap_Data extends Varien_Object
     }
 
     /**
-     * Keys of of data:
+     * Keys of data:
      *
      * returnValue: return_value
      * tsId: ts_id
@@ -97,7 +98,7 @@ class Symmetrics_Buyerprotect_Model_Service_Soap_Data extends Varien_Object
             throw Mage::exception(get_class($this), "'$paymentCode' is not a supported payment by Trusted Shops!");
         }
 
-        if (!in_array($this->getTsProductId(), $allTsProductTypes)) {
+        if (!in_array($this->getTsProductItem()->getProductId(), $allTsProductTypes)) {
             throw Mage::exception(get_class($this), "{$this->getTsProductId()} is not a valid TS product type!");
         }
 
