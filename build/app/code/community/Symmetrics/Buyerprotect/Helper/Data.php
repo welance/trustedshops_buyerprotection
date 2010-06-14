@@ -174,11 +174,23 @@ class Symmetrics_Buyerprotect_Helper_Data
         return ($this->getTsProductsInCart()) ? true : false;
     }
 
+    /**
+     * Gets product model from registry
+     *
+     * @return Mage_Catalog_Model_Product
+     */
     public function getProduct()
     {
         return Mage::registry('product');
     }
 
+    /**
+     * Get all attribute groups with name and partially html id
+     *
+     * @param bool $toJson returns a JSON object on true
+     *
+     * @return array|json
+     */
     public function getAttributeGroups($toJson = false)
     {
         $product = $this->getProduct();
@@ -191,15 +203,14 @@ class Symmetrics_Buyerprotect_Helper_Data
 
         foreach ($groupCollection as $group) {
             $attributes = $product->getAttributes($group->getId(), true);
-            // do not add grops without attributes
 
             foreach ($attributes as $key => $attribute) {
-                if( !$attribute->getIsVisible() ) {
+                if (!$attribute->getIsVisible()) {
                     unset($attributes[$key]);
                 }
             }
 
-            if (count($attributes)==0) {
+            if (count($attributes) == 0) {
                 continue;
             }
 
