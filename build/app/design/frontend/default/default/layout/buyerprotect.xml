@@ -31,10 +31,8 @@
     <checkout_onepage_index>
         <reference name="head">
             <action method="addCss"><stylesheet>css/buyerprotect.css</stylesheet></action>
-			<action method="addJs"><script>symmetrics/frontend/trustedshops.js</script></action>
         </reference>
     </checkout_onepage_index>
-    
     <checkout_onepage_paymentmethod>
         <block type="buyerprotect/checkout_form" name="buyerprotect.checkout.form" output="toHtml" template="buyerprotect/checkout/form.phtml"/>
     </checkout_onepage_paymentmethod>

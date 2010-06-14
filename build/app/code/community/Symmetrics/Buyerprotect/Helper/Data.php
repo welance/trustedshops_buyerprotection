@@ -173,4 +173,14 @@ class Symmetrics_Buyerprotect_Helper_Data
     {
         return ($this->getTsProductsInCart()) ? true : false;
     }
+
+    /**
+     * get Trusted Shops User ID for current Store
+     *
+     * @return string
+     */
+    public function getTsUserId()
+    {
+        return Mage::getStoreConfig(self::XML_PATH_TS_BUYERPROTECT_TS_ID, $this->getStore());
+    }
 }
