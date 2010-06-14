@@ -94,12 +94,11 @@ class Symmetrics_Buyerprotect_Model_Setup extends Mage_Catalog_Model_Resource_Ea
      * @param string $sku         sku for new product
      * @param array  $productData specifi product data
      *
-     * @return integer
+     * @return integer|array
      */
     public function createBuyerprotectProduct($sku, $productData)
     {
         $defaultSetId = $this->getDefaultAttributeSetId('catalog_product');
-
         $productModel = Mage::getModel('catalog/product');
         /* @var $productModel Mage_Catalog_Model_Product */
 
@@ -107,8 +106,7 @@ class Symmetrics_Buyerprotect_Model_Setup extends Mage_Catalog_Model_Resource_Ea
             ->setAttributeSetId($defaultSetId)
             ->setTypeId('buyerprotect')
             ->setSku($sku);
-
-
+        
         foreach ($productModel->getTypeInstance(true)->getEditableAttributes($productModel) as $attribute) {
             $_attrCode = $attribute->getAttributeCode();
             if ($this->_isAllowedAttribute($attribute) && isset($productData[$_attrCode])) {
@@ -118,11 +116,18 @@ class Symmetrics_Buyerprotect_Model_Setup extends Mage_Catalog_Model_Resource_Ea
                 );
             }
         }
-
-
+        
         $errors = $productModel->validate();
-        $productModel->save();
+        if (is_array($errors)) {
+            return $errors;
+        }
 
+        try {
+            $productModel->save();
+        } catch (Exception $e) {
+            Mage::logException($e);
+        }
+        
         return $productModel->getId();
     }
 
