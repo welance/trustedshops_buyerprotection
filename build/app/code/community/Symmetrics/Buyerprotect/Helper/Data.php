@@ -173,4 +173,50 @@ class Symmetrics_Buyerprotect_Helper_Data
     {
         return ($this->getTsProductsInCart()) ? true : false;
     }
+
+    /**
+     * Gets product model from registry
+     *
+     * @return Mage_Catalog_Model_Product
+     */
+    public function getProduct()
+    {
+        return Mage::registry('product');
+    }
+
+    /**
+     * Get all attribute groups with name and partially html id
+     *
+     * @param bool $toJson returns a JSON object on true
+     *
+     * @return array|json
+     */
+    public function getAttributeGroups($toJson = false)
+    {
+        $product = $this->getProduct();
+        $setId = $product->getAttributeSetId();
+        $return = array();
+
+        $groupCollection = Mage::getResourceModel('eav/entity_attribute_group_collection')
+            ->setAttributeSetFilter($setId)
+            ->load();
+
+        foreach ($groupCollection as $group) {
+            $attributes = $product->getAttributes($group->getId(), true);
+
+            foreach ($attributes as $key => $attribute) {
+                if (!$attribute->getIsVisible()) {
+                    unset($attributes[$key]);
+                }
+            }
+
+            if (count($attributes) == 0) {
+                continue;
+            }
+
+            $return[$group->getAttributeGroupName()] = 'group_' . $group->getId();
+        }
+
+        return $toJson ? json_encode($return) : $return;
+    }
 }
