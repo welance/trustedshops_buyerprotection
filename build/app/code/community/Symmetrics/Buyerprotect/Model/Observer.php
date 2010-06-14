@@ -205,13 +205,15 @@ class Symmetrics_Buyerprotect_Model_Observer
              /* @var $stockItem Mage_CatalogInventory_Model_Stock_Item */
             $stockItem = $product->getStockItem();
 
-            $stockItem->setUseConfigMaxSaleQty('0');
-            $stockItem->setUseConfigMinSaleQty('0');
-            $stockItem->setUseConfigManageStock('0');
-            $stockItem->setManageStock(0);
-            $stockItem->setMinSaleQty(1);
-            $stockItem->setMaxSaleQty(1);
-            $stockItem->save();
+            if ($stockItem) {
+                $stockItem->setUseConfigMaxSaleQty('0');
+                $stockItem->setUseConfigMinSaleQty('0');
+                $stockItem->setUseConfigManageStock('0');
+                $stockItem->setManageStock(0);
+                $stockItem->setMinSaleQty(1);
+                $stockItem->setMaxSaleQty(1);
+                $stockItem->save();
+            }
         }
     }
 
