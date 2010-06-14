@@ -43,8 +43,8 @@ class Symmetrics_Buyerprotect_Model_Service_Soap_Data extends Varien_Object
     /**
      * Initialize Data
      *
-     * @param Mage_Sales_Model_Order      $order       Sales order object
-     * @param Mage_Sales_Model_Order_Item $tsProductId TS product id
+     * @param Mage_Sales_Model_Order      $order         Sales order object
+     * @param Mage_Sales_Model_Order_Item $tsProductItem TS product id
      *
      * @return Symmetrics_Buyerprotect_Model_Service_Soap_Data
      */
