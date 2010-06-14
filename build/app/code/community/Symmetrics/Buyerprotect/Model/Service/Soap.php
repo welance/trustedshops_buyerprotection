@@ -37,6 +37,8 @@ class Symmetrics_Buyerprotect_Model_Service_Soap
 {
     /**
      * Constant to define $_soapRequestErrorCode on exception
+     *
+     * @todo in v2 0 is used by Trusted Shops
      */
     const TS_SOAP_EXCEPTION_CODE = 0;
 
@@ -110,8 +112,8 @@ class Symmetrics_Buyerprotect_Model_Service_Soap
 
             /* @var $tsSoapDataObject Symmetrics_Buyerprotect_Model_Service_Soap_Data */
             $tsSoapDataObject = Mage::getModel('buyerprotect/service_soap_data');
-            
-            $tsSoapDataObject->init($item->getProductId(), $order);
+
+            $tsSoapDataObject->init($order, $tsItem);
 
             if ($tsSoapDataObject->isActive()) {
                 try {
@@ -135,6 +137,7 @@ class Symmetrics_Buyerprotect_Model_Service_Soap
                     $tsSoapDataObject->setIsSuccessfull(true);
                     $tsSoapDataObject->setSoapRequestErrorCode(false);
                     $tsSoapDataObject->setTsBuyerProtectId($this->_soapRequestErrorCode);
+                    Mage::log('id: ' . $this->_soapRequestErrorCode);
                 }
             }
 
