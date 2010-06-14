@@ -11,11 +11,31 @@
  * @link      http://www.symmetrics.de/
  */
 ?>
-
+<?php
+    /* @var $_helper Symmetrics_Buyerprotect_Helper_Data */
+    $_helper = Mage::helper('buyerprotect');
+?>
 <script type="text/javascript" charset="UTF-8">
 /*<![CDATA[*/
     var inputMode = 'disabled';
     var inputNodeIds = new Array('sku', 'visibility', 'name', 'price');
+    catalogProductTabsPrefix = 'product_info_tabs_';
+    removeCatalogProductTabs = new Array('Meta Information', 'Images', 'Description', 'Design');
+    availableCatalogProductTabs = <?php echo $_helper->getAttributeGroups(true) ?>;
+
+    $A(removeCatalogProductTabs).each(
+        function(element)
+        {
+            nodeId = catalogProductTabsPrefix + availableCatalogProductTabs[element];
+            nodeContentId = nodeId + '_content';
+
+            $(nodeContentId).innerHTML = '';
+            $(nodeContentId).setStyle({ display: 'none' });
+
+            $(nodeId).innerHTML = '';
+            $(nodeId).up().setStyle({ display: 'none' });
+        }
+    );
 
     Event.observe(window, 'load',
         function()
