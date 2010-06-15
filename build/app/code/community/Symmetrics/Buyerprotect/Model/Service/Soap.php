@@ -129,14 +129,14 @@ class Symmetrics_Buyerprotect_Model_Service_Soap
                 if (!($this->_soapRequestErrorCode > self::TS_SOAP_EXCEPTION_CODE)) {
                     $tsSoapDataObject->setIsSuccessfull(false);
                     $tsSoapDataObject->setSoapRequestErrorCode($this->_soapRequestErrorCode);
-                    $tsSoapDataObject->setTsBuyerProtectId(false);
+                    $tsSoapDataObject->setTsBuyerProtectRequestId(false);
                     Mage::log('send email');
                     $tsSoapDataObject->setReturnValue($this->_soapRequestErrorCode);
                     Symmetrics_Buyerprotect_Model_Buyerprotection::sendTsEmailOnSoapFail($tsSoapDataObject->getData());
                 } else {
                     $tsSoapDataObject->setIsSuccessfull(true);
                     $tsSoapDataObject->setSoapRequestErrorCode(false);
-                    $tsSoapDataObject->setTsBuyerProtectId($this->_soapRequestErrorCode);
+                    $tsSoapDataObject->setTsBuyerProtectRequestId($this->_soapRequestErrorCode);
                     Mage::log('id: ' . $this->_soapRequestErrorCode);
                 }
             }
