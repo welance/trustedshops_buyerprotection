@@ -89,6 +89,38 @@ class Symmetrics_Buyerprotect_Model_Setup extends Mage_Catalog_Model_Resource_Ea
     }
 
     /**
+     * Updates an existing email template and create if neccessary
+     *
+     * @param string $templateCode code/identifier of template
+     * @param array  $content      index of 'template_subject' and 'template_text' are needed
+     *
+     * @return bool
+     */
+    public function updateEmailTemplate($templateCode, array $content)
+    {
+        if (!isset ($content['template_subject']) || !isset ($content['template_text'])) {
+            return false;
+        }
+
+        /* @var $emailTemplate Mage_Core_Model_Email_Template */
+        $emailTemplate = Mage::getModel('core/email_template');
+
+        // Check if template exists
+        // if not, create template
+        if (!$emailTemplate->loadByCode($templateCode)->hasData()) {
+            return $this->createEmailTemplate($templateCode, $content);
+        }
+
+        $emailTemplate->setTemplateCode($templateCode)
+            ->setTemplateSubject($content['template_subject'])
+            ->setTemplateText($content['template_text'])
+            ->setModifiedAt(new Zend_Db_Expr('Now()'))
+            ->save();
+
+        return true;
+    }
+
+    /**
      * crate a buyerprotect Product from given data
      *
      * @param string $sku         sku for new product
