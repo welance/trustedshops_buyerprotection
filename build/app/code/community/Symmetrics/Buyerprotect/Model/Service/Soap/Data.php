@@ -210,6 +210,45 @@ class Symmetrics_Buyerprotect_Model_Service_Soap_Data extends Varien_Object
     }
 
     /**
+     * Get Magento version.
+     *
+     * @return string
+     */
+    public function getMagentoVersion()
+    {
+        return Mage::getVersion();
+    }
+
+    /**
+     * Get module version
+     *
+     * @return string
+     */
+    public function getModulVersion()
+    {
+        $name = Symmetrics_Buyerprotect_Helper_Data::BUYERPROTECT_MODUL_NAME;
+
+        return Mage::getConfig()->getNode("modules/$name/version");
+    }
+
+    /**
+     * Get both versions: Magento and module. It's for requestForProtectionV2().
+     *
+     * @return string
+     */
+    public function getShopSystemVersion()
+    {
+        if (!($version = $this->getData('shop_system_version'))) {
+            $version  = 'Magento ' . $this->getMagentoVersion() . ' - '
+                      . 'MC Trusted Shops Käuferschutz ' . $this->getModulVersion();
+            
+            $this->setData('shop_system_version', $version);
+        }
+
+        return $version;
+    }
+
+    /**
      * Check service is active
      *
      * @return bool
