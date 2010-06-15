@@ -51,6 +51,8 @@ class Symmetrics_Buyerprotect_Helper_Data
     const XML_PATH_TS_BUYERPROTECT_ERROR_EMAIL_TEMPLATE = 'buyerprotection/data/trustedshops_erroremail_template';
     const XML_PATH_TS_BUYERPROTECT_ERROR_EMAIL_RECIPIENT = 'buyerprotection/data/trustedshops_erroremail_recipient';
 
+    const BUYERPROTECT_MODUL_NAME = 'Symmetrics_Buyerprotect';
+
     /**
      * get all buyerprotection Products in cart
      *
