@@ -59,7 +59,7 @@
 
                     <?php /* sets display none on whole table row */ ?>
                     if (item == 'news_from_date' || item == 'news_to_date') {
-                        $(item).up().up().setStyle({ display: 'none' });
+                        $(item).up().up().innerHTML = '';
                     }
                 }
             );
