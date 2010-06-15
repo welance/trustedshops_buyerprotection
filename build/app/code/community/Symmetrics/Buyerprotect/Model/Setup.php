@@ -98,7 +98,7 @@ class Symmetrics_Buyerprotect_Model_Setup extends Mage_Catalog_Model_Resource_Ea
      *                            $productData['description']
      *                            $productData['short_description']
      *
-     * @return integer|array
+     * @return void
      */
     public function createBuyerprotectProduct($sku, $productData)
     {
