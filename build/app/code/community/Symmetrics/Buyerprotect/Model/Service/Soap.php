@@ -40,7 +40,7 @@ class Symmetrics_Buyerprotect_Model_Service_Soap
      *
      * @todo in v2 0 is used by Trusted Shops
      */
-    const TS_SOAP_EXCEPTION_CODE = 0;
+    const TS_SOAP_EXCEPTION_CODE = -9999;
 
     /**
      * Do not set positive values on error!
@@ -72,6 +72,36 @@ class Symmetrics_Buyerprotect_Model_Service_Soap
             $ts->getShopCustomerId(),
             $ts->getShopOrderId(),
             $ts->getOrderDate(),
+            $ts->getWsUser(),
+            $ts->getWsPassword()
+        );
+
+        return;
+    }
+
+    /**
+     * Request V2: integrationhandbook Version 3.00
+     * Has additional param for shop and module version
+     *
+     * @param Symmetrics_Buyerprotect_Model_Service_Soap_Data $ts SOAP data object
+     *
+     * @return void
+     */
+    protected function _requestV2(Symmetrics_Buyerprotect_Model_Service_Soap_Data $ts)
+    {
+        $soapClient = new SoapClient($ts->getWsdlUrl());
+
+        $this->_soapRequestErrorCode = $soapClient->requestForProtectionV2(
+            $ts->getTsId(),
+            $ts->getTsProductId(),
+            $ts->getAmount(),
+            $ts->getCurrency(),
+            $ts->getPaymentType(),
+            $ts->getBuyerEmail(),
+            $ts->getShopCustomerId(),
+            $ts->getShopOrderId(),
+            $ts->getOrderDate(),
+            $ts->getShopSystemVersion(),
             $ts->getWsUser(),
             $ts->getWsPassword()
         );
@@ -117,7 +147,7 @@ class Symmetrics_Buyerprotect_Model_Service_Soap
 
             if ($tsSoapDataObject->isActive()) {
                 try {
-                    $this->_request($tsSoapDataObject);
+                    $this->_requestV2($tsSoapDataObject);
                 } catch (SoapFault $soapFault) {
                     $this->_soapRequestErrorCode = self::TS_SOAP_EXCEPTION_CODE;
                     Mage::logException($soapFault);
@@ -126,7 +156,7 @@ class Symmetrics_Buyerprotect_Model_Service_Soap
                 /*
                  * Request wasn't successful
                  */
-                if (!($this->_soapRequestErrorCode > self::TS_SOAP_EXCEPTION_CODE)) {
+                if (!($this->_soapRequestErrorCode > 0)) {
                     $tsSoapDataObject->setIsSuccessfull(false);
                     $tsSoapDataObject->setSoapRequestErrorCode($this->_soapRequestErrorCode);
                     $tsSoapDataObject->setTsBuyerProtectRequestId(false);
