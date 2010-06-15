@@ -92,7 +92,11 @@ class Symmetrics_Buyerprotect_Model_Setup extends Mage_Catalog_Model_Resource_Ea
      * crate a buyerprotect Product from given data
      *
      * @param string $sku         sku for new product
-     * @param array  $productData specifi product data
+     * @param array  $productData Required indexes:
+     *                            $productData['price'] (pre-tax)
+     *                            $productData['name']
+     *                            $productData['description']
+     *                            $productData['short_description']
      *
      * @return integer|array
      */
@@ -102,7 +106,7 @@ class Symmetrics_Buyerprotect_Model_Setup extends Mage_Catalog_Model_Resource_Ea
         $productModel = Mage::getModel('catalog/product');
         /* @var $productModel Mage_Catalog_Model_Product */
 
-        $productModel->setStoreId(Mage::app()->getStore()->getId())
+        $productModel->setStoreId(0)
             ->setAttributeSetId($defaultSetId)
             ->setTypeId('buyerprotect')
             ->setSku($sku);
@@ -127,8 +131,25 @@ class Symmetrics_Buyerprotect_Model_Setup extends Mage_Catalog_Model_Resource_Ea
         } catch (Exception $e) {
             Mage::logException($e);
         }
+
+        /**************
+         * stock part *
+         **************/
+
+        /* @var $stockItem Mage_CatalogInventory_Model_Stock_Item */
+        $stockItem = Mage::getModel('cataloginventory/stock_item');
+
+        $stockItem->loadByProduct($productModel);
+
+        // note: the product id has to be set
+        $stockItem->setProductId($productModel->getId());
+        $stockItem->setIsInStock(1);
+        $stockItem->setMinSaleQty(1);
+        $stockItem->setMaxSaleQty(1);
+
+        $stockItem->save();
         
-        return $productModel->getId();
+        return;
     }
 
     /**
