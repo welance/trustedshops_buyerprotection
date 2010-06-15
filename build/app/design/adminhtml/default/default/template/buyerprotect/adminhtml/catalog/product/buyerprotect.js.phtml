@@ -27,16 +27,20 @@
             var removeCatalogProductTabs = new Array('Meta Information', 'Images', 'Description', 'Design');
             var availableCatalogProductTabs = <?php echo $_helper->getAttributeGroups(true) ?>;
 
+            <?php /* add here <input> ids which shall be completely removed */ ?>
+            var removeInputTableRows = new Array(
+                'enable_googlecheckout',
+                'news_to_date', 'news_from_date', 'url_key',
+                'delivery_time'
+            );
+
             <?php /* add here <input> ids which shall be disabled */ ?>
             var inputNodeIds = new Array(
             <?php
             /*
-                'sku', 'visibility', 'name',
-                'price', 'news_from_date',
+                'sku', 'visibility', 'name', 'price'
              */
             ?>
-                'news_to_date', 'url_key', 'delivery_time',
-                'enable_googlecheckout'
             );
 
             $A(removeCatalogProductTabs).each(
@@ -53,6 +57,18 @@
                 }
             );
 
+            <?php /* removes whole rows */ ?>
+            removeInputTableRows.each(
+                function(item)
+                {
+                    var node = $(item);
+
+                    if (node) {
+                        node.up().up().innerHTML = '';
+                    }
+                }
+            );
+
             inputNodeIds.each(
                 function(item)
                 {
@@ -60,11 +76,6 @@
 
                     if (node) {
                         node.writeAttribute(inputMode, inputMode);
-                    }
-
-                    <?php /* sets display none on whole table row */ ?>
-                    if (item == 'news_from_date' || item == 'news_to_date') {
-                        $(item).up().up().innerHTML = '';
                     }
                 }
             );
