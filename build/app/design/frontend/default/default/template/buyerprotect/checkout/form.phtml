@@ -22,30 +22,29 @@
  */
 ?>
 <?php if ($this->showForm()): ?>
-	<?php
-    
-	    $tsProducts = $this->getAllTsProducts();
-        /* @var $tsProducts Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection */
-        
-	/*    $grand_total = $this->getGrandTotal();
-	    $selected_flag = true;
-	    $ts_id = Mage::getStoreConfig('trustedshops/data/trustedshops_id');
-		$selectedTsProductId = 0;
+<?php
+    $tsProducts = $this->getAllTsProducts();
+    /* @var $tsProducts Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection */
 
-        
-		if(Mage::getSingleton('core/session')->getTsProductId()) {
-			$selectedTsProductId = Mage::getSingleton('core/session')->getTsProductId();
-		}*/
-        
-        $ts_id = 1;
-	?>
+    $helper = Mage::helper('buyerprotect');
+    /* @var $helper Symmetrics_Buyerprotect_Helper_Data */
+    $tsId = $helper->getTsUserId();
+    $currentTsProductId = 0;
+    $tsIsSelected = false;
+
+    $tsProductsInCart = $helper->getTsProductsInCart();
+    if (count($tsProductsInCart) > 0) {
+        $currentTsProductId = array_pop($tsProductsInCart);
+        $tsIsSelected = true;
+    }
+?>
 	<div class="trusted-shops">
-	    <a href="https://www.trustedshops.com/shop/certificate.php?shop_id=<?php echo $ts_id; ?>" target="_blank">
+	    <a href="https://www.trustedshops.com/shop/certificate.php?shop_id=<?php echo $tsId; ?>" target="_blank">
 	        <img src="<?php echo $this->getSkinUrl('images/buyerprotect/ts_logo.png'); ?>" width="100" height="99" alt="<?php echo $this->__('Trusted Shops Certificate') ?>"/>
 	    </a>
-	    <input type="checkbox" name="trusted_shops" onchange="saveCheckedValue(this.checked)" value="1"
+	    <input type="checkbox" name="trusted_shops" value="1"
 	        title="<?php echo $this->__('Trusted Shops Assurance (option)') ?>"
-	        <?php if( Mage::getSingleton('core/cookie')->get('trustedshopsenabled') == 'true') { print('checked="checked"'); } ?>
+	        <?php if($currentTsProductId != 0) : ?> checked="checked" <?php endif; ?>
 	        id="trusted_shops" />
 	    <label for="trusted_shops">
 	        <?php echo $this->__('Trusted Shops Assurance (option)'); ?>
@@ -54,7 +53,7 @@
 	        <select id="trusted_shops-product" name="trusted_shops-product">
                 <?php foreach($tsProducts as $product):?>
                     <?php /* @var $product Mage_Catalog_Model_Product */ ?>
-                    <option value="<?php echo $product->getEntityId() ?>">
+                    <option value="<?php echo $product->getEntityId() ?>" <?php if ($currentTsProductId == $product->getId()): ?> selected="selected" <?php endif; ?>>
                         <?php $price = $formattedPrice = Mage::helper('core')
                             ->currency($product->getPrice(),true,false) ?>
                         <?php echo $product->getName() . ' ' . $price ?>
@@ -64,9 +63,9 @@
 	    </div>
 	    <div class="trusted_shops_descr">
 	        Der Trusted Shops Käuferschutz sichert Ihren Online-Kauf ab. Mit der Übermittlung und
-	        <a href="http://www.trustedshops.com/shop/data_privacy.php?shop_id=<?php echo $ts_id; ?>" target="_blank">Speicherung</a>
+	        <a href="http://www.trustedshops.com/shop/data_privacy.php?shop_id=<?php echo $tsId; ?>" target="_blank">Speicherung</a>
 	        meiner E-Mail-Adresse zur Abwicklung des Käuferschutzes durch Trusted Shops bin ich einverstanden.
-	        <a href="http://www.trustedshops.com/shop/protection_conditions.php?shop_id=<?php echo $ts_id; ?>" target="_blank">Bedingungen</a> für den Käuferschutz.
+	        <a href="http://www.trustedshops.com/shop/protection_conditions.php?shop_id=<?php echo $tsId; ?>" target="_blank">Bedingungen</a> für den Käuferschutz.
 	    </div>
 	</div>
 	<script type="text/javascript">

@@ -177,12 +177,22 @@ class Symmetrics_Buyerprotect_Helper_Data
     /**
      * Gets product model from registry
      *
+     * @return string
+     */
+    public function getTsUserId()
+    {
+        return Mage::getStoreConfig(self::XML_PATH_TS_BUYERPROTECT_TS_ID, $this->getStore());
+    }
+
+    /**
+     * Gets product model from registry
+     *
      * @return Mage_Catalog_Model_Product
      */
     public function getProduct()
     {
         return Mage::registry('product');
-    }
+    }    
 
     /**
      * Get all attribute groups with name and partially html id
