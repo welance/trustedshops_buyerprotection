@@ -96,14 +96,14 @@
                     </buyerprotect_catalogrule_before_apply>
                 </observers>
             </salesrule_validator_process>
-            <catalog_product_save_after>
+<!--            <catalog_product_save_after>
                 <observers>
                     <inventory>
                         <class>Symmetrics_Buyerprotect_Model_Observer</class>
                         <method>productSaveAfter</method>
                     </inventory>
                 </observers>
-            </catalog_product_save_after>
+            </catalog_product_save_after>-->
             <!-- salesrule_validator_process -->
         </events>
     </global>
