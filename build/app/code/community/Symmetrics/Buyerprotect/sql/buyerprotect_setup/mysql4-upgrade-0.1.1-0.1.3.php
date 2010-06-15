@@ -23,15 +23,40 @@
 
 /* @var $this Symmetrics_Buyerprotect_Model_Setup */
 
-$tsProductsIds = Symmetrics_Buyerprotect_Model_Type_Buyerprotect::getAllTsProductIds();
-$tsProductsData = array();
-$preTaxValue = 1.19;
+//$tsProductsIds = Symmetrics_Buyerprotect_Model_Type_Buyerprotect::getAllTsProductIds();
+//$tsProductsData = array();
+//$preTaxValue = 1.19;
+//
+//foreach ($tsProductsIds as $sku => $clearPrice) {
+//    $tsProductsData['price'] = $clearPrice * $preTaxValue;
+//    $tsProductsData['name'] = str_replace('080501', '', $sku);
+//    $tsProductsData['description'] = $tsProductsData['name'];
+//    $tsProductsData['short_description'] = $tsProductsData['name'];
+//
+//    $this->createBuyerprotectProduct($sku, $tsProductsData);
+//}
 
-foreach ($tsProductsIds as $sku => $clearPrice) {
-    $tsProductsData['price'] = $clearPrice * $preTaxValue;
-    $tsProductsData['name'] = str_replace('080501', '', $sku);
-    $tsProductsData['description'] = $tsProductsData['name'];
-    $tsProductsData['short_description'] = $tsProductsData['name'];
+$this->startSetup();
 
-    $this->createBuyerprotectProduct($sku, $tsProductsData);
+$templatePath = Symmetrics_Buyerprotect_Model_Setup::MIGRATION_TEMPLATE_PATH;
+$templateSuffix = Symmetrics_Buyerprotect_Model_Setup::MIGRATION_TEMPLATE_SUFFIX;
+
+$templateSubject = 'SOAP Übermittlungsfehler -- Kunden-Id: {{var tsSoapData.getTsId()}} -- '
+                 . 'Bestellungs-Id: {{var tsSoapData.getShopOrderId()}}';
+
+$emailTemplates = array(
+    'ts_buyerprotect_error_email_de-DE' => array(
+        'template_code' => 'Trusted Shops Käuferschutz SOAP Fehler DE',
+        'template_subject' => $templateSubject
+    )
+);
+
+foreach ($emailTemplates as $fileName => $template) {
+    $file = Mage::getBaseDir() . $templatePath . $fileName . $templateSuffix;
+    $content = file_get_contents($file);
+    $template['template_text'] = $content;
+
+    $this->updateEmailTemplate($template['template_code'], $template);
 }
+
+$this->endSetup();
