@@ -150,6 +150,7 @@ class Symmetrics_Buyerprotect_Model_Buyerprotection extends Mage_Core_Model_Abst
      * @param array $tsSoapData data which should be transmitted with SOAP
      *
      * @return void
+     * @todo param could be an instance of Symmetrics_Buyerprotect_Model_Service_Soap_Data
      */
     public static function sendTsEmailOnSoapFail($tsSoapData)
     {
