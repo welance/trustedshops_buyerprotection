@@ -231,4 +231,39 @@ class Symmetrics_Buyerprotect_Helper_Data
 
         return $toJson ? json_encode($return) : $return;
     }
+
+    /**
+     * Get the correct app model depending on website code
+     *
+     * @return Mage_Core_Model_App
+     */
+    public function getMageApp()
+    {
+        $mageRunCode = $_SERVER['MAGE_RUN_CODE'];
+        $mageRunType = $_SERVER['MAGE_RUN_TYPE'];
+
+        return Mage::app($mageRunCode, $mageRunType);
+    }
+
+    /**
+     * Get current store id of current website
+     *
+     * @return int
+     */
+    public function getStoreId()
+    {
+        return $this->getMageApp()->getStore()->getId();
+    }
+
+    /**
+     * Get correct config values of store of current website
+     *
+     * @param string $path XML path
+     *
+     * @return mixed
+     */
+    public function getStoreConfig($path)
+    {
+        return $this->getMageApp()->getStore()->getConfig($path);
+    }
 }
