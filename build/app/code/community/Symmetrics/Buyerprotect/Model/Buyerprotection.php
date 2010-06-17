@@ -116,12 +116,12 @@ class Symmetrics_Buyerprotect_Model_Buyerprotection extends Mage_Core_Model_Abst
      */
     public function getAllTsProducts()
     {
-        /* @var $productCollection Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection */
         $productCollection = Mage::getResourceModel('catalog/product_collection')
             ->addAttributeToFilter('type_id', array('eq' => 'buyerprotect'))
             ->addAttributeToSelect('price')
             ->addAttributeToSelect('name')
             ->setOrder('price', 'asc');
+        /* @var $productCollection Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection */
 
         $productCollection->load();
 
@@ -155,6 +155,8 @@ class Symmetrics_Buyerprotect_Model_Buyerprotection extends Mage_Core_Model_Abst
     public static function sendTsEmailOnSoapFail($tsSoapData)
     {
         $buyerprotectionModel = new self;
+        $helper = Mage::helper('buyerprotect');
+        /* @var $helper Symmetrics_Buyerprotect_Helper_Data */
 
         $storeConfigPaths = array(
             'is_active' => Symmetrics_Buyerprotect_Helper_Data::XML_PATH_TS_BUYERPROTECT_IS_ACTIVE,
@@ -164,7 +166,7 @@ class Symmetrics_Buyerprotect_Model_Buyerprotection extends Mage_Core_Model_Abst
         );
 
         // not activated
-        if (!Mage::getStoreConfig($storeConfigPaths['is_active'])) {
+        if (!$helper->isBuyerprotectActive()) {
             return;
         }
 
@@ -174,9 +176,9 @@ class Symmetrics_Buyerprotect_Model_Buyerprotection extends Mage_Core_Model_Abst
         $tsSoapDataObject->setData($tsSoapData);
 
         $options = array(
-            'template' => Mage::getStoreConfig($storeConfigPaths['template']),
-            'sender' => Mage::getStoreConfig($storeConfigPaths['sender']),
-            'recipient' => Mage::getStoreConfig($storeConfigPaths['recipient']),
+            'template' => $helper->getStoreConfig($storeConfigPaths['template']),
+            'sender' => $helper->getStoreConfig($storeConfigPaths['sender']),
+            'recipient' => $helper->getStoreConfig($storeConfigPaths['recipient']),
             'post_object' => array('tsSoapData' => $tsSoapDataObject)
         );
         $emailOptions->setData($options);
