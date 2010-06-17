@@ -105,7 +105,7 @@ class Symmetrics_Buyerprotect_Model_Observer
      *
      * @return void
      */
-    public function checkoutOnepageSaveOrderAfter($observer)
+    public function requestTsProtection($observer)
     {
         /* @var $helper Symmetrics_Buyerprotect_Helper_Data */
         $helper = Mage::helper('buyerprotect');
@@ -147,32 +147,29 @@ class Symmetrics_Buyerprotect_Model_Observer
     }
     
     /**
-     * OBserver to set the product to dont manage the stock and set min and max sale
-     * qty to one
+     * Observer to check correct values of stock table 'cataloginventory_stock_item'
+     * for product type Symmetrics_Buyerprotect_Model_Type_Buyerprotect::TYPE_BUYERPROTECT
      *
      * @param Varien_Event_Observer $observer Varien observer object
      *
      * @return void
      */
-    public function productSaveAfter($observer)
+    public function hookIntoCataloginventoryStockItemSaveAfter($observer)
     {
-        /* @var $product Mage_Catalog_Model_Product */
-        $product = $observer->getEvent()->getProduct();
+        $stockItem = $observer->getEvent()->getItem();
+        /* @var $stockItem Mage_CatalogInventory_Model_Stock_Item */
 
-        if ($product->getTypeId() == Symmetrics_Buyerprotect_Model_Type_Buyerprotect::TYPE_BUYERPROTECT) {
-             /* @var $stockItem Mage_CatalogInventory_Model_Stock_Item */
-            $stockItem = $product->getStockItem();
-
-            if ($stockItem) {
-                $stockItem->setUseConfigMaxSaleQty('0');
-                $stockItem->setUseConfigMinSaleQty('0');
-                $stockItem->setUseConfigManageStock('0');
-                $stockItem->setManageStock(0);
-                $stockItem->setMinSaleQty(1);
-                $stockItem->setMaxSaleQty(1);
-                $stockItem->save();
-            }
+        if (!$stockItem) {
+            return;
         }
+
+        $productTypeIdentifier = $stockItem->getProductTypeId();
+
+        if ($productTypeIdentifier == Symmetrics_Buyerprotect_Model_Type_Buyerprotect::TYPE_BUYERPROTECT) {
+            Symmetrics_Buyerprotect_Model_Type_Buyerprotect::checkStockItem($stockItem);
+        }
+
+        return;
     }
 
 }
