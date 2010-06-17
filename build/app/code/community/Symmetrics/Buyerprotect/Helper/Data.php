@@ -111,6 +111,7 @@ class Symmetrics_Buyerprotect_Helper_Data
      * with trustedshops.de.
      *
      * @return array
+     * @todo replace Mage::getStoreConfig() with $this->getStoreConfig()
      */
     public function getAvailableTsPaymentCodes()
     {
@@ -183,7 +184,7 @@ class Symmetrics_Buyerprotect_Helper_Data
      */
     public function getTsUserId()
     {
-        return Mage::getStoreConfig(self::XML_PATH_TS_BUYERPROTECT_TS_ID, $this->getStore());
+        return $this->getStoreConfig(self::XML_PATH_TS_BUYERPROTECT_TS_ID, $this->getStore());
     }
 
     /**
@@ -239,8 +240,8 @@ class Symmetrics_Buyerprotect_Helper_Data
      */
     public function getMageApp()
     {
-        $mageRunCode = $_SERVER['MAGE_RUN_CODE'];
-        $mageRunType = $_SERVER['MAGE_RUN_TYPE'];
+        $mageRunCode = isset($_SERVER['MAGE_RUN_CODE']) ? $_SERVER['MAGE_RUN_CODE'] : '';
+        $mageRunType = isset($_SERVER['MAGE_RUN_TYPE']) ? $_SERVER['MAGE_RUN_TYPE'] : 'store';
 
         return Mage::app($mageRunCode, $mageRunType);
     }
@@ -265,5 +266,15 @@ class Symmetrics_Buyerprotect_Helper_Data
     public function getStoreConfig($path)
     {
         return $this->getMageApp()->getStore()->getConfig($path);
+    }
+
+    /**
+     * Checks if TS Buyerprotect is activated in backend
+     *
+     * @return bool
+     */
+    public function isBuyerprotectActive()
+    {
+        return (bool) $this->getStoreConfig(self::XML_PATH_TS_BUYERPROTECT_IS_ACTIVE);
     }
 }
