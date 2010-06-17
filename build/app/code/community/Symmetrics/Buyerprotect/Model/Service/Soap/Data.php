@@ -103,11 +103,11 @@ class Symmetrics_Buyerprotect_Model_Service_Soap_Data extends Varien_Object
         }
 
         $tsSoapData = array(
-            'is_active' => Mage::getStoreConfig($tsStoreConfigPaths['is_active']),
-            'ts_id' => Mage::getStoreConfig($tsStoreConfigPaths['ts_id']),
-            'ws_user' => Mage::getStoreConfig($tsStoreConfigPaths['ws_user']),
-            'ws_password' => Mage::getStoreConfig($tsStoreConfigPaths['ws_password']),
-            'wsdl_url' => Mage::getStoreConfig($tsStoreConfigPaths['wsdl_url']),
+            'is_active' => $helper->getStoreConfig($tsStoreConfigPaths['is_active']),
+            'ts_id' => $helper->getStoreConfig($tsStoreConfigPaths['ts_id']),
+            'ws_user' => $helper->getStoreConfig($tsStoreConfigPaths['ws_user']),
+            'ws_password' => $helper->getStoreConfig($tsStoreConfigPaths['ws_password']),
+            'wsdl_url' => $helper->getStoreConfig($tsStoreConfigPaths['wsdl_url']),
             'buyer_email' => $order->getCustomerEmail(),
             'amount' => $order->getGrandTotal(),
             'shop_order_id' => $order->getRealOrderId(),
