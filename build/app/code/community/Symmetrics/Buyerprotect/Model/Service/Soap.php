@@ -51,6 +51,21 @@ class Symmetrics_Buyerprotect_Model_Service_Soap
     protected $_soapRequestErrorCode = null;
 
     /**
+     * Log file name
+     *
+     * @var string
+     */
+    protected $_tsBuyerProtectLogFile = 'ts_buyerprotect.log';
+
+    /**
+     * Optional order object, if requestForProtection() is called later without
+     * order as an param.
+     *
+     * @var Mage_Sales_Model_Order
+     */
+    protected $_order = null;
+    
+    /**
      * SOAP request to Trusted Shops, a positive $errorCode determines a successful
      * request.
      *
@@ -110,16 +125,27 @@ class Symmetrics_Buyerprotect_Model_Service_Soap
     }
 
     /**
-     * make a protection request to the TrustedShops Soap Api
+     * make a protection request to the Trusted Shops Soap Api
      *
      * @param Mage_Sales_Model_Order $order order to make a Reqest from
      *
-     * @return Symmetrics_Buyerprotect_Model_Service_Soap_Data
+     * @return Symmetrics_Buyerprotect_Model_Service_Soap_Data|null
      * @throw Symmetrics_Buyerprotect_Model_Service_Soap_Exception
      * @todo do some logging
      */
-    public function requestForProtection(Mage_Sales_Model_Order $order)
+    public function requestForProtection(Mage_Sales_Model_Order $order = null)
     {
+        if (!$order && !$this->_order) {
+            Mage::log('Order object not set!');
+            return;
+        }
+
+        if (!$order) {
+            $order = $this->_order;
+        } else {
+            $this->_order = $order;
+        }
+
         $orderItemsCollection = clone $order->getItemsCollection();
         /* @var $orderItemsCollection Mage_Sales_Model_Mysql4_Order_Item_Collection */
 
@@ -137,7 +163,7 @@ class Symmetrics_Buyerprotect_Model_Service_Soap
             }
 
             if (!$tsItem) {
-                throw Mage::exception(get_class($this), "$tsItem is empty!");
+                Mage::log("$tsItem is empty!");
             }
 
             /* @var $tsSoapDataObject Symmetrics_Buyerprotect_Model_Service_Soap_Data */
@@ -148,30 +174,57 @@ class Symmetrics_Buyerprotect_Model_Service_Soap
             if ($tsSoapDataObject->isActive()) {
                 try {
                     $this->_requestV2($tsSoapDataObject);
+                    Mage::log(
+                        'SOAP return value: ' . $this->_soapRequestErrorCode,
+                        null,
+                        $this->_tsBuyerProtectLogFile,
+                        true
+                    );
+                    Mage::log('SOAP request successfull.', null, $this->_tsBuyerProtectLogFile, true);
                 } catch (SoapFault $soapFault) {
                     $this->_soapRequestErrorCode = self::TS_SOAP_EXCEPTION_CODE;
+                    Mage::log('SOAP request failed! See exception log!', null, $this->_tsBuyerProtectLogFile, true);
                     Mage::logException($soapFault);
                 }
 
                 /*
-                 * Request wasn't successful
+                 * Request wasn't successful, send email
                  */
+                /*
                 if (!($this->_soapRequestErrorCode > 0)) {
                     $tsSoapDataObject->setIsSuccessfull(false);
                     $tsSoapDataObject->setSoapRequestErrorCode($this->_soapRequestErrorCode);
                     $tsSoapDataObject->setTsBuyerProtectRequestId(false);
-                    Mage::log('send email');
                     $tsSoapDataObject->setReturnValue($this->_soapRequestErrorCode);
                     Symmetrics_Buyerprotect_Model_Buyerprotection::sendTsEmailOnSoapFail($tsSoapDataObject->getData());
                 } else {
                     $tsSoapDataObject->setIsSuccessfull(true);
                     $tsSoapDataObject->setSoapRequestErrorCode(false);
                     $tsSoapDataObject->setTsBuyerProtectRequestId($this->_soapRequestErrorCode);
-                    Mage::log('id: ' . $this->_soapRequestErrorCode);
                 }
+
+                */
+
+                Mage::log($tsSoapDataObject->getTsSoapData(), null, $this->_tsBuyerProtectLogFile, true);
             }
 
             return $tsSoapDataObject;
         }
+
+        return null;
+    }
+
+    /**
+     * Set Order object in case requestForProtection() is called later.
+     *
+     * @param Mage_Sales_Model_Order $order Order object
+     *
+     * @return Symmetrics_Buyerprotect_Model_Service_Soap
+     */
+    public function setOrder(Mage_Sales_Model_Order $order)
+    {
+        $this->_order = $order;
+
+        return $this;
     }
 }
