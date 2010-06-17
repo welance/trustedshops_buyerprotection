@@ -58,6 +58,31 @@ class Symmetrics_Buyerprotect_Model_Type_Buyerprotect extends Mage_Catalog_Model
     );
 
     /**
+     * Checks if correct values are set for stock table 'cataloginventory_stock_item'
+     *
+     * @param Mage_CatalogInventory_Model_Stock_Item $stockItem Stock item object
+     *
+     * @return bool
+     */
+    protected static function _checkStockItem(Mage_CatalogInventory_Model_Stock_Item $stockItem)
+    {
+        if ($stockItem->getUseConfigMaxSaleQty() != 0
+            || $stockItem->getUseConfigMinSaleQty() != 0
+            || $stockItem->getUseConfigManageStock() != 0
+            || $stockItem->getManageStock()!= 0
+            // method getMinSaleQty() is implemented and does not return the DB value
+            // as expected
+            || $stockItem->getData('min_sale_qty') != 1
+            || $stockItem->getMaxSaleQty() != 1
+            ) {
+            
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
      * Check if Product ist virtual, this always returns true
      *
      * @param Mage_Catalog_Model_Product $product product type instance
@@ -92,5 +117,29 @@ class Symmetrics_Buyerprotect_Model_Type_Buyerprotect extends Mage_Catalog_Model
         parent::beforeSave($product);
         $product->setVisibility(1);
         /** @todo calculate brutto price */
+    }
+
+    /**
+     * Sets correct values if check fails
+     *
+     * @param Mage_CatalogInventory_Model_Stock_Item $stockItem Stock item object
+     *
+     * @see self::_checkStockItem()
+     * @return void
+     */
+    public static function checkStockItem(Mage_CatalogInventory_Model_Stock_Item $stockItem)
+    {
+        if (!self::_checkStockItem($stockItem)) {
+            $stockItem->setUseConfigMaxSaleQty(0);
+            $stockItem->setUseConfigMinSaleQty(0);
+            $stockItem->setUseConfigManageStock(0);
+            $stockItem->setManageStock(0);
+            $stockItem->setMinSaleQty(1);
+            $stockItem->setMaxSaleQty(1);
+
+            $stockItem->save();
+        }
+
+        return;
     }
 }
