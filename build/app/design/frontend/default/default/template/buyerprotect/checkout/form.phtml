@@ -43,11 +43,11 @@
 	        <img src="<?php echo $this->getSkinUrl('images/buyerprotect/ts_logo.png'); ?>" width="100" height="99" alt="<?php echo $this->__('Trusted Shops Certificate') ?>"/>
 	    </a>
 	    <input type="checkbox" name="trusted_shops" value="1"
-	        title="<?php echo $this->__('Trusted Shops Assurance (option)') ?>"
+	        title="<?php echo $this->__('Trusted Shops Buyer Protection (recommended)') ?>"
 	        <?php if($currentTsProductId != 0) : ?> checked="checked" <?php endif; ?>
 	        id="trusted_shops" />
 	    <label for="trusted_shops">
-	        <?php echo $this->__('Trusted Shops Assurance (option)'); ?>
+	        <?php echo $this->__('Trusted Shops Buyer Protection (recommended)'); ?>
 	    </label>
 	    <div class="trusted_shops_select">
 	        <select id="trusted_shops-product" name="trusted_shops-product">
@@ -62,10 +62,10 @@
 	        </select>
 	    </div>
 	    <div class="trusted_shops_descr">
-	        Der Trusted Shops Käuferschutz sichert Ihren Online-Kauf ab. Mit der Übermittlung und
-	        <a href="http://www.trustedshops.com/shop/data_privacy.php?shop_id=<?php echo $tsId; ?>" target="_blank">Speicherung</a>
-	        meiner E-Mail-Adresse zur Abwicklung des Käuferschutzes durch Trusted Shops bin ich einverstanden.
-	        <a href="http://www.trustedshops.com/shop/protection_conditions.php?shop_id=<?php echo $tsId; ?>" target="_blank">Bedingungen</a> für den Käuferschutz.
+	        <?php echo $this->__('The Trusted Shops buyer protection secures your online purchase. I agree with the transfer and') ?>
+	        <a href="http://www.trustedshops.com/shop/data_privacy.php?shop_id=<?php echo $tsId; ?>" target="_blank"><?php echo $this->__('saving') ?></a>
+	        <?php echo $this->__('of my email address for the buyer protection handling by Trusted Shops.') ?>
+	        <a href="http://www.trustedshops.com/shop/protection_conditions.php?shop_id=<?php echo $tsId; ?>" target="_blank"><?php echo $this->__('Conditions') ?></a> <?php echo $this->__('for the buyer protection.') ?>
 	    </div>
 	</div>
 	<script type="text/javascript">
