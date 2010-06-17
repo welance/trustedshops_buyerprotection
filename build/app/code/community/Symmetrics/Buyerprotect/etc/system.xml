@@ -75,6 +75,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </trustedshops_url>
+                        <!--
                         <trustedshops_erroremail_sender translate="label comment">
                             <label>Error Email Sender</label>
                             <comment>Please select here the sender of error emails.</comment>
@@ -104,6 +105,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </trustedshops_erroremail_template>
+                        -->
                         <trustedshops_certificate_logo_code translate="label comment">
                             <label>Quality Label code</label>
                             <frontend_type>textarea</frontend_type>
