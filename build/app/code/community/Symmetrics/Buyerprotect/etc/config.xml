@@ -78,12 +78,15 @@
                     </buyerprotect>
                 </observers>
             </controller_action_predispatch_checkout_onepage_savePayment>
+            <!-- checkout_onepage_controller_success_action -->
+            <!-- checkout_multishipping_controller_success_action -->
+            <!-- checkout_type_onepage_save_order_after -->
             <checkout_type_onepage_save_order_after>
                 <observers>
                     <buyerprotect>
                         <type>singleton</type>
                         <class>Symmetrics_Buyerprotect_Model_Observer</class>
-                        <method>checkoutOnepageSaveOrderAfter</method>
+                        <method>requestTsProtection</method>
                     </buyerprotect>
                 </observers>
             </checkout_type_onepage_save_order_after>
@@ -96,15 +99,14 @@
                     </buyerprotect_catalogrule_before_apply>
                 </observers>
             </salesrule_validator_process>
-<!--            <catalog_product_save_after>
+            <cataloginventory_stock_item_save_after> 
                 <observers>
                     <inventory>
                         <class>Symmetrics_Buyerprotect_Model_Observer</class>
-                        <method>productSaveAfter</method>
+                        <method>hookIntoCataloginventoryStockItemSaveAfter</method>
                     </inventory>
                 </observers>
-            </catalog_product_save_after>-->
-            <!-- salesrule_validator_process -->
+            </cataloginventory_stock_item_save_after>
         </events>
     </global>
     <frontend>
@@ -115,6 +117,16 @@
                 </buyerprotect>
             </updates>
         </layout>
+
+        <translate>
+            <modules>
+                <Symmetrics_Buyerprotect>
+                    <files>
+                        <default>Symmetrics_Buyerprotect.csv</default>
+                    </files>
+                </Symmetrics_Buyerprotect>
+            </modules>
+        </translate>
     </frontend>
 
     <adminhtml>
@@ -154,6 +166,8 @@
             <clickandbuy>CLICKANDBUY</clickandbuy>
             <googlecheckout>GOOGLE_CHECKOUT</googlecheckout>
             <paypal_standard>PAYPAL</paypal_standard>
+            <!-- Payone PayPal -->
+            <payone_wlt>PAYPAL</payone_wlt>
         <!--
             INVOICE
             PREPAYMENT
