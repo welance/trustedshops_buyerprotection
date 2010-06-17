@@ -143,6 +143,7 @@ class Symmetrics_Buyerprotect_Model_Service_Soap_Data extends Varien_Object
                 'shopCustomerID' => $this->getShopCustomerId(),
                 'shopOrderID' => $this->getShopOrderId(),
                 'oderDate' => $this->getOrderDate(),
+                'shopSystemVersion' => $this->getShopSystemVersion(),
                 'wsUser' => $this->getWsUser(),
                 'wsPasssword' => $this->getWsPassword()
             );
