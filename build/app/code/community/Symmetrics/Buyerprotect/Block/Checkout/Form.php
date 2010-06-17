@@ -37,15 +37,25 @@ class Symmetrics_Buyerprotect_Block_Checkout_Form extends Mage_Core_Block_Templa
 {
 
     /**
-     * Check if show Trusted Shops - Buyerprotection form in checkout
+     * Check if Trusted Shops - Buyerprotection form can be shown in checkout
      * 
-     * @todo implement functionality
-     *
      * @return boolean
      */
     public function showForm()
     {
-        return true;
+        $return = false;
+        $helper = Mage::helper('buyerprotect');
+        /* @var $helper Symmetrics_Buyerprotect_Helper_Data */
+
+        /*
+         * Get sure service is activated and store has products of type
+         * Symmetrics_Buyerprotect_Model_Type_Buyerprotect::TYPE_BUYERPROTECT
+         */
+        if ($helper->isBuyerprotectActive() && $this->getAllTsProducts()->getAllIds()) {
+            $return = true;
+        }
+
+        return $return;
     }
 
     /**
