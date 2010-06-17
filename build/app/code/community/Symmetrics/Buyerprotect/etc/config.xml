@@ -78,10 +78,16 @@
                     </buyerprotect>
                 </observers>
             </controller_action_predispatch_checkout_onepage_savePayment>
-            <!-- checkout_onepage_controller_success_action -->
-            <!-- checkout_multishipping_controller_success_action -->
-            <!-- checkout_type_onepage_save_order_after -->
             <checkout_type_onepage_save_order_after>
+                <observers>
+                    <buyerprotect>
+                        <type>singleton</type>
+                        <class>Symmetrics_Buyerprotect_Model_Observer</class>
+                        <method>registerTsSoapModel</method>
+                    </buyerprotect>
+                </observers>
+            </checkout_type_onepage_save_order_after>
+            <checkout_onepage_controller_success_action>
                 <observers>
                     <buyerprotect>
                         <type>singleton</type>
@@ -89,7 +95,7 @@
                         <method>requestTsProtection</method>
                     </buyerprotect>
                 </observers>
-            </checkout_type_onepage_save_order_after>
+            </checkout_onepage_controller_success_action>
             <salesrule_validator_process>
                 <observers>
                     <buyerprotect_catalogrule_before_apply>
@@ -149,11 +155,13 @@
     </adminhtml>
 
     <default>
+        <!--
         <buyerprotection>
             <data>
                 <trustedshops_erroremail_recipient><![CDATA[dev@trustedshops.de]]></trustedshops_erroremail_recipient>
             </data>
         </buyerprotection>
+        -->
 
         <trusted_shops_payment_codes>
             <other>OTHER</other>

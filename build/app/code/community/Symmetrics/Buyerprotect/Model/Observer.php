@@ -98,8 +98,38 @@ class Symmetrics_Buyerprotect_Model_Observer
     }
 
     /**
-     * Request for buyer protection service of Trusted Shops if the corresponding
-     * product is in cart.
+     * Init Symmetrics_Buyerprotect_Model_Service_Soap if the corresponding
+     * product is in cart and register it to customer session for later use.
+     *
+     * @param Varien_Event_Observer $observer Varien observer object
+     *
+     * @return void
+     */
+    public function registerTsSoapModel($observer)
+    {
+        $helper = Mage::helper('buyerprotect');
+        /* @var $helper Symmetrics_Buyerprotect_Helper_Data */
+
+        if ($helper->hasTsProductsInCart()) {
+            $order = $observer->getEvent()->getOrder();
+            /* @var $order Mage_Sales_Model_Order */
+            $tsSoap = Mage::getModel('buyerprotect/service_soap');
+            /* @var $tsSoap Symmetrics_Buyerprotect_Model_Service_Soap */
+            $customerSession = Mage::getSingleton('customer/session');
+            /* @var $customerSession Mage_Customer_Model_Session */
+
+            $tsSoap->setOrder($order);
+
+            $customerSession->setTsSoap($tsSoap);
+        }
+
+        return;
+    }
+
+    /**
+     * Request for buyer protection service of Trusted Shops if
+     * Symmetrics_Buyerprotect_Model_Service_Soap is in customer session on
+     * checkout success.
      *
      * @param Varien_Event_Observer $observer Varien observer object
      *
@@ -107,17 +137,12 @@ class Symmetrics_Buyerprotect_Model_Observer
      */
     public function requestTsProtection($observer)
     {
-        /* @var $helper Symmetrics_Buyerprotect_Helper_Data */
-        $helper = Mage::helper('buyerprotect');
-
-        if ($helper->hasTsProductsInCart()) {
-            /* @var $order Mage_Sales_Model_Order */
-            $order = $observer->getEvent()->getOrder();
-            /* @var $tsSoap Symmetrics_Buyerprotect_Model_Service_Soap */
-            $tsSoap = Mage::getModel('buyerprotect/service_soap');
-
+        $customerSession = Mage::getSingleton('customer/session');
+        /* @var $customerSession Mage_Customer_Model_Session */
+        
+        if (($tsSoap = $customerSession->getTsSoap())) {
             Mage::log('start SOAP request');
-            $tsSoap->requestForProtection($order);
+            $tsSoap->requestForProtection();
             Mage::log('end SOAP request');
         }
 
