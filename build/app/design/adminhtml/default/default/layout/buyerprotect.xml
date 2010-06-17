@@ -38,7 +38,7 @@
             <action method="removeTab"><value>googleoptimizer</value></action>
         </reference>
 
-        <reference name="root">
+        <reference name="js">
             <block type="core/template" template="buyerprotect/adminhtml/catalog/product/buyerprotect.js.phtml" />
         </reference>
     </adminhtml_catalog_product_buyerprotect>
