@@ -44,7 +44,7 @@
 	    </a>
 	    <input type="checkbox" name="trusted_shops" value="1"
 	        title="<?php echo $this->__('Trusted Shops Buyer Protection (recommended)') ?>"
-	        <?php if($currentTsProductId != 0) : ?> checked="checked" <?php endif; ?>
+	        <?php if($tsIsSelected === true) : ?> checked="checked" <?php endif; ?>
 	        id="trusted_shops" />
 	    <label for="trusted_shops">
 	        <?php echo $this->__('Trusted Shops Buyer Protection (recommended)'); ?>
