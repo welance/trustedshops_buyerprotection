@@ -75,7 +75,6 @@ class Symmetrics_Buyerprotect_Model_Type_Buyerprotect extends Mage_Catalog_Model
             || $stockItem->getData('min_sale_qty') != 1
             || $stockItem->getMaxSaleQty() != 1
             ) {
-            
             return false;
         }
 
