@@ -39,7 +39,7 @@ class Symmetrics_Buyerprotect_Helper_Data
     /*
      * Some store config paths
      */
-    const XML_PATH_TS_BUYERPROTECT_IS_ACTIVE = 'buyerprotection/data/soapcheck_active';
+    const XML_PATH_TS_BUYERPROTECT_IS_ACTIVE = 'buyerprotection/data/active';
     const XML_PATH_TS_BUYERPROTECT_TS_ID   = 'buyerprotection/data/trustedshops_id';
     const XML_PATH_TS_BUYERPROTECT_TS_USER = 'buyerprotection/data/trustedshops_user';
     const XML_PATH_TS_BUYERPROTECT_TS_PASSWORD = 'buyerprotection/data/trustedshops_password';
