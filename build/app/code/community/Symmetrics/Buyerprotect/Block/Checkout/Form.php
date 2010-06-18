@@ -43,7 +43,6 @@ class Symmetrics_Buyerprotect_Block_Checkout_Form extends Mage_Core_Block_Templa
      */
     public function showForm()
     {
-        $return = false;
         $helper = Mage::helper('buyerprotect');
         /* @var $helper Symmetrics_Buyerprotect_Helper_Data */
 
@@ -51,11 +50,11 @@ class Symmetrics_Buyerprotect_Block_Checkout_Form extends Mage_Core_Block_Templa
          * Get sure service is activated and store has products of type
          * Symmetrics_Buyerprotect_Model_Type_Buyerprotect::TYPE_BUYERPROTECT
          */
-        if ($helper->isBuyerprotectActive() && $this->getAllTsProducts()->getAllIds()) {
-            $return = true;
+        if ($helper->isBuyerprotectActive() && $helper->getAllTsProductTypes()) {
+            return true;
         }
 
-        return $return;
+        return false;
     }
 
     /**

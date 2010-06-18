@@ -67,20 +67,17 @@ class Symmetrics_Buyerprotect_Helper_Data
             ->setStore(Mage::app()->getStore());
 
         /* @var $cartItems Mage_Sales_Model_Mysql4_Quote_Item_Collection */
-        $cartItems = $cart->getItems();
-        /* @var $tsIdsSelect Varien_Db_Select */
-        $tsIdsSelect = clone $cartItems->getSelect();
-        
-        $tsIdsSelect->where('product_type = ?', Symmetrics_Buyerprotect_Model_Type_Buyerprotect::TYPE_BUYERPROTECT);
-//        $tsIdsSelect->columns('main_table.' . $cartItems->getResource()->getIdFieldName());
+        $cartItems = clone $cart->getItems();
+        $cartItems->addFieldToFilter(
+            'product_type',
+            array(
+                'eq' => Symmetrics_Buyerprotect_Model_Type_Buyerprotect::TYPE_BUYERPROTECT
+            )
+        );
+        $cartItems->load();
 
-        $items = $cartItems->getConnection()->fetchCol($tsIdsSelect);
-
-        if ($items) {
-            foreach ($items as $item) {
-                $tsProductIds[$item] = $cartItems->getItemById($item)->getProductId();
-            }
-        }
+        $tsProductIds = $cartItems->getColumnValues('product_id');
+        $ids = $cartItems->getItemById('product_id');
 
         return $tsProductIds;
     }
@@ -88,19 +85,25 @@ class Symmetrics_Buyerprotect_Helper_Data
     /**
      * Gets all products of type
      * Symmetrics_Buyerprotect_Model_Type_Buyerprotect::TYPE_BUYERPROTECT.
+     * if the shop has zero products of this type the function return false
      *
-     * @return array
+     * @return array|bool
      */
     public function getAllTsProductTypes()
     {
         $allTsProductTypes = array();
         /* @var $productModel Mage_Catalog_Model_Product */
         $productModel = Mage::getModel('catalog/product');
-        /* @var $productCollection Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection */
         $productCollection = $productModel->getCollection();
+        /* @var $productCollection Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection */
 
         $bind = array('eq' => Symmetrics_Buyerprotect_Model_Type_Buyerprotect::TYPE_BUYERPROTECT);
-        $productCollection->addFieldToFilter('type_id', $bind)->load();
+        $productCollection->addFieldToFilter('type_id', $bind)
+            ->load();
+
+        if ($productCollection->count() <= 0) {
+            return false;
+        }
         $allTsProductTypes = $productCollection->getAllIds();
 
         return $allTsProductTypes;
