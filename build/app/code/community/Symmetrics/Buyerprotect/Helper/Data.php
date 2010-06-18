@@ -67,17 +67,17 @@ class Symmetrics_Buyerprotect_Helper_Data
             ->setStore(Mage::app()->getStore());
 
         /* @var $cartItems Mage_Sales_Model_Mysql4_Quote_Item_Collection */
-        $cartItems = clone $cart->getItems();
-        $cartItems->addFieldToFilter(
-            'product_type',
-            array(
-                'eq' => Symmetrics_Buyerprotect_Model_Type_Buyerprotect::TYPE_BUYERPROTECT
-            )
-        );
-        $cartItems->load();
+        $cartItems = $cart->getItems();
+        /* @var $tsIdsSelect Varien_Db_Select */
+        $tsIdsSelect = clone $cartItems->getSelect();
+        $tsIdsSelect->where('product_type = ?', Symmetrics_Buyerprotect_Model_Type_Buyerprotect::TYPE_BUYERPROTECT);
 
-        $tsProductIds = $cartItems->getColumnValues('product_id');
-        $ids = $cartItems->getItemById('product_id');
+        $items = $cartItems->getConnection()->fetchCol($tsIdsSelect);
+        if ($items) {
+            foreach ($items as $item) {
+                $tsProductIds[$item] = $cartItems->getItemById($item)->getProductId();
+            }
+        }
 
         return $tsProductIds;
     }
