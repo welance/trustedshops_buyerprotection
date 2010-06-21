@@ -138,6 +138,11 @@ class Symmetrics_Buyerprotect_Model_Setup extends Mage_Catalog_Model_Resource_Ea
         $productModel = Mage::getModel('catalog/product');
         /* @var $productModel Mage_Catalog_Model_Product */
 
+        // Sku already exists
+        if ($productModel->getIdBySku($sku)) {
+            return;
+        }
+
         $productModel->setStoreId(0)
             ->setAttributeSetId($defaultSetId)
             ->setTypeId('buyerprotect')
@@ -175,6 +180,7 @@ class Symmetrics_Buyerprotect_Model_Setup extends Mage_Catalog_Model_Resource_Ea
 
         // note: the product id has to be set
         $stockItem->setProductId($productModel->getId());
+        $stockItem->setStockId(Mage_CatalogInventory_Model_Stock::DEFAULT_STOCK_ID);
         $stockItem->setIsInStock(1);
         $stockItem->setMinSaleQty(1);
         $stockItem->setMaxSaleQty(1);
