@@ -114,6 +114,34 @@
                 </observers>
             </cataloginventory_stock_item_save_after>
         </events>
+        <data>
+            <ts_products>
+                <item_0>
+                    <id>TS080501_500_30_EUR</id>
+                    <net>0.82</net>
+                </item_0>
+                <item_1>
+                    <id>TS080501_1500_30_EUR</id>
+                    <net>2.47</net>
+                </item_1>
+                <item_2>
+                    <id>TS080501_2500_30_EUR</id>
+                    <net>4.12</net>
+                </item_2>
+                <item_3>
+                    <id>TS080501_5000_30_EUR</id>
+                    <net>8.24</net>
+                </item_3>
+                <item_4>
+                    <id>TS080501_10000_30_EUR</id>
+                    <net>16.47</net>
+                </item_4>
+                <item_5>
+                    <id>TS080501_20000_30_EUR</id>
+                    <net>32.94</net>
+                </item_5>
+            </ts_products>
+        </data>
     </global>
     <frontend>
         <layout>

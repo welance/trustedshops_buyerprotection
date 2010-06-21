@@ -40,24 +40,6 @@ class Symmetrics_Buyerprotect_Model_Type_Buyerprotect extends Mage_Catalog_Model
     const TYPE_BUYERPROTECT = 'buyerprotect';
 
     /**
-     * Trusted Shops product ids and clear prices.
-     * Note: product ids and prices may change in future! The informations were
-     * taken from the implementation handbook (Integrationshandbuch) v3.01.
-     *
-     * @todo implement for this array a static getter method
-     *
-     * @var array
-     */
-    protected static $_tsProductIds = array(
-        'TS080501_500_30_EUR' => 0.82,
-        'TS080501_1500_30_EUR' => 2.47,
-        'TS080501_2500_30_EUR' => 4.12,
-        'TS080501_5000_30_EUR' => 8.24,
-        'TS080501_10000_30_EUR' => 16.47,
-        'TS080501_20000_30_EUR' => 32.94
-    );
-
-    /**
      * Checks if correct values are set for stock table 'cataloginventory_stock_item'
      *
      * @param Mage_CatalogInventory_Model_Stock_Item $stockItem Stock item object
@@ -97,11 +79,19 @@ class Symmetrics_Buyerprotect_Model_Type_Buyerprotect extends Mage_Catalog_Model
     /**
      * Static getter for self::$_tsProductIds
      *
+     * @param bool $toArray Data of Mage_Core_Model_Config_Element to array
+     *
      * @return array
      */
-    public static function getAllTsProductIds()
+    public static function getAllTsProductIds($toArray = false)
     {
-        return self::$_tsProductIds;
+        $tsProducts = array();
+
+        /* @var $tsProducts Mage_Core_Model_Config_Element */
+        $tsProducts = Mage::getConfig()->getXpath('global/data/ts_products');
+        $tsProducts = $tsProducts[0];
+
+        return $toArray ? $tsProducts->asArray() : $tsProducts;
     }
 
     /**
