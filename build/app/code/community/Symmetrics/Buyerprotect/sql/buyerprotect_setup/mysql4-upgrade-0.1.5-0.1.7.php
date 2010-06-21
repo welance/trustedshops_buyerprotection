@@ -27,11 +27,11 @@ $tsProductsIds = Symmetrics_Buyerprotect_Model_Type_Buyerprotect::getAllTsProduc
 $tsProductsData = array();
 $preTaxValue = 1.19;
 
-foreach ($tsProductsIds as $sku => $clearPrice) {
-    $tsProductsData['price'] = $clearPrice * $preTaxValue;
-    $tsProductsData['name'] = str_replace('080501', '', $sku);
+foreach ($tsProductsIds as $tsProduct) {
+    $tsProductsData['price'] = (double) $tsProduct->net * (double) $preTaxValue;
+    $tsProductsData['name'] = str_replace('080501', '', $tsProduct->id);
     $tsProductsData['description'] = $tsProductsData['name'];
     $tsProductsData['short_description'] = $tsProductsData['name'];
 
-    $this->createBuyerprotectProduct($sku, $tsProductsData);
+    $this->createBuyerprotectProduct($tsProduct->id, $tsProductsData);
 }
