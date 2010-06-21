@@ -23,19 +23,6 @@
 
 /* @var $this Symmetrics_Buyerprotect_Model_Setup */
 
-//$tsProductsIds = Symmetrics_Buyerprotect_Model_Type_Buyerprotect::getAllTsProductIds();
-//$tsProductsData = array();
-//$preTaxValue = 1.19;
-//
-//foreach ($tsProductsIds as $sku => $clearPrice) {
-//    $tsProductsData['price'] = $clearPrice * $preTaxValue;
-//    $tsProductsData['name'] = str_replace('080501', '', $sku);
-//    $tsProductsData['description'] = $tsProductsData['name'];
-//    $tsProductsData['short_description'] = $tsProductsData['name'];
-//
-//    $this->createBuyerprotectProduct($sku, $tsProductsData);
-//}
-
 $this->startSetup();
 
 $templatePath = Symmetrics_Buyerprotect_Model_Setup::MIGRATION_TEMPLATE_PATH;
