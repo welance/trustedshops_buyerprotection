@@ -23,6 +23,11 @@
  */
 -->
 <layout version="0.1.0">
+    <default>
+        <reference name="right">
+            <block type="buyerprotect/badge" after="cart_sidebar" name="buyerprotect_badge" template="buyerprotect/badge.phtml" />
+        </reference>
+    </default>
     <checkout_cart_index translate="label">
         <reference name="checkout.cart">
             <action method="addItemRender"><type>buyerprotect</type><block>checkout/cart_item_renderer</block><template>buyerprotect/cart/renderer/buyerprotect.phtml</template></action>

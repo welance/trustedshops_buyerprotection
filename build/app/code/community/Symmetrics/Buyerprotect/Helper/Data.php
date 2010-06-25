@@ -39,6 +39,7 @@ class Symmetrics_Buyerprotect_Helper_Data
     /*
      * Some store config paths
      */
+    const XML_PATH_TS_BUYERPROTECT = 'buyerprotection/data';
     const XML_PATH_TS_BUYERPROTECT_IS_ACTIVE = 'buyerprotection/data/active';
     const XML_PATH_TS_BUYERPROTECT_TS_ID   = 'buyerprotection/data/trustedshops_id';
     const XML_PATH_TS_BUYERPROTECT_TS_USER = 'buyerprotection/data/trustedshops_user';
@@ -181,13 +182,23 @@ class Symmetrics_Buyerprotect_Helper_Data
     }
 
     /**
-     * Gets product model from registry
+     * Gets Trusted Shops User Id
      *
      * @return string
      */
     public function getTsUserId()
     {
         return $this->getStoreConfig(self::XML_PATH_TS_BUYERPROTECT_TS_ID, $this->getStore());
+    }
+
+    /**
+     * retrive the current config data as array
+     *
+     * @return array
+     */
+    public function getConfigData()
+    {
+        return $this->getStoreConfig(self::XML_PATH_TS_BUYERPROTECT, $this->getStore());
     }
 
     /**

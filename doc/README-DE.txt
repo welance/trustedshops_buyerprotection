@@ -25,6 +25,8 @@
 
 *** E: Multi-Website und -Store fähig.
 
+*** F: Anzeige des Trusted Shops Sigels auf der Startseite.
+
 *** Y: (ACHTUNG: auf Wunsch von Marco Verch, wurde die Funktionalität für den
        Versand von Fehler-E-Mail bei Fehlerfall deaktiviert)
        Mit der Version 0.1.1 wird das E-Mail-Template 'Trusted Shops
@@ -188,6 +190,9 @@
        Deaktivieren Sie für einen Store den Käuferschutz im Backend und tätigen
        in dem Store erneut einen Einkauf. Unterhalb der 'Zahlungsinformationen'
        im Checkout werden Sie keine TS Produktauswahl vorfinden.
+
+*** F: Sie sehen nun durch die oben vorgenommenen Einstellungen das TS-Sigel
+       rechts unter dem Warehnkorb.
 
 *** Y: (ACHTUNG: auf Wunsch von Marco Verch, wurde die Funktionalität für den
        Versand von Fehler-E-Mail bei Fehlerfall deaktiviert)
