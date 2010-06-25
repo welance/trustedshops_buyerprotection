@@ -50,7 +50,7 @@ class Symmetrics_Buyerprotect_Model_System_Config_Source_Wsdl
             ),
 
             array(
-                'value' => 'https://protection.trustedshops.com/ts/' . $wsdlUri,
+                'value' => 'https://protection.trustedshops.com/' . $wsdlUri,
                 'label' => Mage::helper('buyerprotect')->__('Live')
             ),
         );
