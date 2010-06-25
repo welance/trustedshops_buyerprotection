@@ -23,9 +23,9 @@
 *** D: Warenkorb- und Katalog-Regeln greifen nicht auf Produkte des Typs
        'Trusted Shops - Buyerprotect'.
 
-*** E: Multi-Website und -Store fähig.
+*** E: Dieses Modul ist Multi-Website und -Store fähig.
 
-*** F: Anzeige des Trusted Shops Sigels auf der Startseite.
+*** F: Anzeige des Trusted Shops Siegels auf der Startseite.
 
 *** Y: (ACHTUNG: auf Wunsch von Marco Verch, wurde die Funktionalität für den
        Versand von Fehler-E-Mail bei Fehlerfall deaktiviert)
@@ -62,12 +62,12 @@
    plate 'app/design/adminhtml/default/default/template/buyerprotect/adminhtml/
    catalog/product/buyerprotect.js.phtml' weitere Eingabefelder gelöscht.
 
-   Zur Prüfung im Checkout, ob Produkt vom Produkttyp 'Trusted Shops - Buyer-
-   protection' im Warenkorb vorhanden ist, wurd im Helper die Methode
+   Zur Prüfung im Checkout, ob ein Produkt vom Produkttyp 'Trusted Shops -
+   Buyerprotection' im Warenkorb vorhanden ist, wurde im Helper die Methode
    getTsProductsInCart() implementiert. In dieser wird das Singleton-Objekt
    Mage_Checkout_Model_Cart geholt und geprüft ob Produkte des Typs
    Symmetrics_Buyerprotect_Model_Type_Buyerprotect::TYPE_BUYERPROTECT vorhanden
-   ist. Der Aufruf der Helper-Methode erfolgt in der Event-Methode
+   sind. Der Aufruf der Helper-Methode erfolgt in der Event-Methode
    registerTsSoapModel() welches auf das Event
    'checkout_type_onepage_save_order_after' registriert ist.
    In dieser Event-Methode wird das Order-Objekt 'Mage_Sales_Model_Order' in die
@@ -79,7 +79,7 @@
    In Symmetrics_Buyerprotect_Block_Checkout_Form::showForm() wird mit Hilfe der
    isBuyerprotectActive() und getAllTsProductTypes() Methoden des Helpers
    Symmetrics_Buyerprotect_Helper_Data geprüft, ob der aktuelle Store TS Pro-
-   dukte hat und ob Käuferschutz aktiviert ist bevor das Formular zur Auswahl
+   dukte hat und ob Käuferschutz aktiviert ist, bevor das Formular zur Auswahl
    von TS Produkten erscheint (screenshot_008-ts_auswahl.png).
 
    Im Schritt nach der Auswahl der Zahlungsinformationen wird im Observer auf
@@ -125,9 +125,8 @@
 
    Die Methode sendTsEmailOnSoapFail() der Klasse
    Symmetrics_Buyerprotect_Model_Buyerprotection erhält als Parameter ein asso-
-   ziatives Array mit den o.g. Indizes. Diese Daten werden werden in ein
-   Varien_Object abgelegt und der im Backend hinterlegten E-Mail-Adresse
-   zugeschickt.
+   ziatives Array mit den o.g. Indizes. Diese Daten werden in ein Varien_Object
+   abgelegt und der im Backend hinterlegten E-Mail-Adresse zugeschickt.
 
    Ursachen zum Versand der Fehler-E-Mail sind Rückgabewerte des Request die
    negativ sind oder beim Auftreten einer SOAP-Exception. Die Bedeutungen der
@@ -192,7 +191,7 @@
        im Checkout werden Sie keine TS Produktauswahl vorfinden.
 
 *** F: Sie sehen nun durch die oben vorgenommenen Einstellungen das TS-Sigel
-       rechts unter dem Warehnkorb.
+       rechts unter dem Warenkorb.
 
 *** Y: (ACHTUNG: auf Wunsch von Marco Verch, wurde die Funktionalität für den
        Versand von Fehler-E-Mail bei Fehlerfall deaktiviert)
