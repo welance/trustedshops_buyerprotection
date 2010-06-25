@@ -29,9 +29,9 @@
 
             <?php /* add here <input> ids which shall be completely removed */ ?>
             var removeInputTableRows = new Array(
-                'enable_googlecheckout',
+                'enable_googlecheckout', 'description', 'short_description',
                 'news_to_date', 'news_from_date', 'url_key',
-                'delivery_time'
+                'delivery_time', 'gift_message_available'
             );
 
             <?php /* add here <input> ids which shall be disabled */ ?>
@@ -49,11 +49,13 @@
                     nodeId = catalogProductTabsPrefix + availableCatalogProductTabs[element];
                     nodeContentId = nodeId + '_content';
 
-                    $(nodeContentId).innerHTML = '';
-                    $(nodeContentId).setStyle({ display: 'none' });
+                    if ($(nodeContentId)) {
+                        $(nodeContentId).innerHTML = '';
+                        $(nodeContentId).setStyle({ display: 'none' });
 
-                    $(nodeId).innerHTML = '';
-                    $(nodeId).up().setStyle({ display: 'none' });
+                        $(nodeId).innerHTML = '';
+                        $(nodeId).up().setStyle({ display: 'none' });
+                    }
                 }
             );
 
@@ -79,6 +81,8 @@
                     }
                 }
             );
+
+            return;
         }
     );
 /*]]>*/
