@@ -3,6 +3,15 @@
 ** INSTALLATION
    Extrahieren Sie den Inhalt dieses Archivs in Ihr Magento Verzeichnis.
 
+   Gehen Sie ins Backend und geben unter
+   'Admin Panel > System > Konfiguration > Trusted Shops Käuferschutz' zum
+   Testen die nachfolgende Zugangskennung ein:
+
+   TS ID: X41495A6E65ECDDCD554A02C0601D1C97
+   TS Benutzerkennung: testExcellencePartner
+   TS Passwort: test12345678
+   TS WSDL Url: Test
+
 ** USAGE
    Dieses Modul wickelt den Trusted Shops Käuferschutz ab.
 
@@ -139,6 +148,17 @@
 *** A: Prüfen Sie nach der Installation unter 'Katalog > Produkte verwalten'
        (screenshot_006-ts_produkte_ab_v0.1.7.png) ob die 6 TS Produkte angelegt
        sind.
+       Es müssen noch manuelle Einstellungen vorgenommen werden, aktivieren Sie
+       den Status des Produkts. Wählen Sie im Backend
+       'Admin Panel > Katalog > Produkte verwalten' das Produkt aus und im Tab
+       'Allgemein' können Sie den Status einstellen. Stellen Sie im Tab 'Preise'
+       die Steuerklasse ein. Beachten Sie, dass der Brutto-Preis bereits mit 19%
+       vorbelegt ist. Ist die Besteuerung ungleich 19%, musst auch der Preis
+       entsprechend neu berechnet werden.
+
+       Diese manuellen Einstellungen können derzeit nicht umgangen werden, da
+       das Attribut 'Status' per Migrationsskript nicht vorbelegt werden kann
+       und nicht davon ausgehen kann, dass überall 19% Mwst. vorherrschen.
 
 *** B: TS als eigener Produkttyp
 
