@@ -64,8 +64,13 @@ class Symmetrics_Buyerprotect_Block_Badge extends Mage_Core_Block_Template
     {
         $helper = Mage::helper('buyerprotect');
         /* @var $helper Symmetrics_Buyerprotect_Helper_Data */
-
+        
         $configData = $helper->getConfigData();
+        
+        if (!key_exists('ts_logo_img', $configData) || !key_exists('ts_background_img', $configData)) {
+            return '';
+        }
+        
         $seal = $configData['trustedshops_certificate_logo_code'];
 
         $new = 'class="box" ';
