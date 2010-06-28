@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * @category  Symmetrics
+ * @package   Symmetrics_Buyerprotect
+ * @author    symmetrics gmbh <info@symmetrics.de>
+ * @author    Torsten Walluhn <tw@symmetrics.de>
+ * @copyright 2010 symmetrics gmbh
+ * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @link      http://www.symmetrics.de/
+ */
+-->
+<config>
+    <sections>
+        <buyerprotection translate="label" module="buyerprotect">
+            <!-- <class>separator-top</class>  -->
+            <label>Trusted Shops Buyer Protection</label>
+            <tab>sales</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>1000</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <data translate="label">
+                    <label>Data</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>1</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <active translate="label">
+                            <label>Active</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </active>
+                        <trustedshops_id translate="label">
+                            <label>Trusted Shops ID</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </trustedshops_id>
+                        <trustedshops_user translate="label">
+                            <label>Trusted Shops User</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </trustedshops_user>
+                        <trustedshops_password translate="label">
+                            <label>Trusted Shops Password</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </trustedshops_password>
+                        <trustedshops_url translate="label">
+                            <label>Trusted Shops WSDL Url</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>buyerprotect/system_config_source_wsdl</source_model>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </trustedshops_url>
+                        <!--
+                        <trustedshops_erroremail_sender translate="label comment">
+                            <label>Error Email Sender</label>
+                            <comment>Please select here the sender of error emails.</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_email_identity</source_model>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </trustedshops_erroremail_sender>
+                        <trustedshops_erroremail_recipient translate="label comment">
+                            <label>Error Email Recipient</label>
+                            <comment>Please set here the recipient for error mails.</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </trustedshops_erroremail_recipient>
+                        <trustedshops_erroremail_template translate="label comment">
+                            <label>Error Email Template</label>
+                            <comment>Please select here the email template.</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_email_template</source_model>
+                            <sort_order>6</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </trustedshops_erroremail_template>
+                        -->
+                        <trustedshops_certificate_logo_code translate="label comment">
+                            <label>Quality Label code</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Generieren Sie diesen Code bitte mit dem <a href="http://www.trustedshops.de/shopbetreiber/siegelbox/index.php">Trusted Shops Siegel Generator</a>.<br /><b>Die Bildpfade werden autmatisch ersetzt. AUF KEINEN FALL &Auml;NDERN!</b>]]></comment>
+                        </trustedshops_certificate_logo_code>
+                        <ts_background_img translate="label comment">
+                            <label>Quality Label background image</label>
+                            <frontend_type>image</frontend_type>
+                            <backend_model>Mage_Adminhtml_Model_System_Config_Backend_Image</backend_model>
+                            <upload_dir config="system/filesystem/media" scope_info="1">trustedshops</upload_dir>
+                            <base_url type="media" scope_info="1">trustedshops</base_url>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>The background image of the Trusted Shops Quality Label</comment>
+                        </ts_background_img>
+                        <ts_logo_img translate="label comment">
+                            <label>Quality Label logo image</label>
+                            <frontend_type>image</frontend_type>
+                            <backend_model>Mage_Adminhtml_Model_System_Config_Backend_Image</backend_model>
+                            <upload_dir config="system/filesystem/media" scope_info="1">trustedshops</upload_dir>
+                            <base_url type="media" scope_info="1">trustedshops</base_url>
+                            <sort_order>70</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>The Trusted Shops Quality Label image</comment>
+                        </ts_logo_img>
+                    </fields>
+                </data>
+            </groups>
+        </buyerprotection>
+    </sections>
+</config>
