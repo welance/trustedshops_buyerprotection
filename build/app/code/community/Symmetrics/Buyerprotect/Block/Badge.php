@@ -36,7 +36,8 @@ class Symmetrics_Buyerprotect_Block_Badge extends Mage_Core_Block_Template
 {
 
     /**
-     * check if Buyerprotection is enabled and has a valid user id
+     * Check if Buyerprotection is enabled, has a valid user id and TS logo/image
+     * exists.
      *
      * @return boolean
      */
@@ -48,7 +49,9 @@ class Symmetrics_Buyerprotect_Block_Badge extends Mage_Core_Block_Template
         $configData = $helper->getConfigData();
         if (strlen($configData['trustedshops_id']) == 33
             && substr($configData['trustedshops_id'], 0, 1) == 'X'
-            && $configData['trustedshops_user'] != '') {
+            && $configData['trustedshops_user'] != ''
+            && isset($configData['ts_logo_img'])
+            && isset($configData['ts_background_img'])) {
             return true;
         }
 
@@ -66,10 +69,6 @@ class Symmetrics_Buyerprotect_Block_Badge extends Mage_Core_Block_Template
         /* @var $helper Symmetrics_Buyerprotect_Helper_Data */
         
         $configData = $helper->getConfigData();
-        
-        if (!key_exists('ts_logo_img', $configData) || !key_exists('ts_background_img', $configData)) {
-            return '';
-        }
         
         $seal = $configData['trustedshops_certificate_logo_code'];
 
