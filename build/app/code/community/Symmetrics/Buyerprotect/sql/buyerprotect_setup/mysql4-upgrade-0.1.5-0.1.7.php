@@ -26,12 +26,15 @@
 $tsProductsIds = Symmetrics_Buyerprotect_Model_Type_Buyerprotect::getAllTsProductIds();
 $tsProductsData = array();
 $preTaxValue = 1.19;
+$currency = new Zend_Currency('de_DE');
 
 foreach ($tsProductsIds as $tsProduct) {
     $tsProductsData['price'] = (double) $tsProduct->net * (double) $preTaxValue;
-    $tsProductsData['name'] = str_replace('080501', '', $tsProduct->id);
-    $tsProductsData['description'] = $tsProductsData['name'];
-    $tsProductsData['short_description'] = $tsProductsData['name'];
+    preg_match('/^TS080501_([0-9]*)_.*/', $tsProduct->id, $matches);
+    $tsProductName = "Käuferschutz bis $matches[1] EUR - {$currency->toCurrency($tsProductsData['price'])}";
+    $tsProductsData['name'] = $tsProductName;
+    $tsProductsData['description'] = $tsProductName;
+    $tsProductsData['short_description'] = $tsProductName;
 
     $this->createBuyerprotectProduct($tsProduct->id, $tsProductsData);
 }
