@@ -12,11 +12,27 @@
    TS Passwort: test12345678
    TS WSDL Url: Test
 
+   Generieren Sie unter
+   http://www.trustedshops.de/shopbetreiber/siegelbox/index.php , unter Angabe
+   Ihrer TS ID, eine Siegelbox Ihrer Wahl und laden von dort auch das verlinkte
+   Hintergrundbild und Logo herunter
+   (screenshot_009-ts_siegelboxgenerator_von_trusted_shops.png).
+   Der dabei generierte Code des Siegels, das Hintergrundbild und das Logo sind
+   in der Modulkonfiguration einzutragen/hochzuladen.
+
 ** USAGE
    Dieses Modul wickelt den Trusted Shops Käuferschutz ab.
 
 ** FUNCTIONALITY
-*** A: Mit der Version 0.1.7 werden die in
+*** A: (ACHTUNG: in der Modul-Version 0.1.15, wird das Migrationsskript
+       (0.1.5-0.1.7) verändert. Darin werden die Namen der Produkte im Format:
+           "Käuferschutz bis [SCHUTZWERT] EUR - "
+       benannt. Der Schutzwert ist dabei bestandteil der jeweiligen Produkt ID
+       von Trusted Shops. Eine spätere Aktualisierung des Produkts mittels Mi-
+       grationsskript ist nicht ohne weiteres Möglich, daher wurde nach Rück-
+       sprache mit TW, das Migrationsskript, welches die TS Produkte initial
+       erstellt, abgeändert.)
+       Mit der Version 0.1.7 werden die in
        Symmetrics_Buyerprotect_Model_Type_Buyerprotect::_tsProductIds defi-
        nierten Produkte im Shop angelegt. Die Preise dieser Produkte sind be-
        reits mit 19% Mwst. vorbelegt.
@@ -155,10 +171,11 @@
        die Steuerklasse ein. Beachten Sie, dass der Brutto-Preis bereits mit 19%
        vorbelegt ist. Ist die Besteuerung ungleich 19%, musst auch der Preis
        entsprechend neu berechnet werden.
+       Aktivieren Sie im Anschluss im Tab 'Websites' das Produkt für die ent-
+       sprechende Website.
 
-       Diese manuellen Einstellungen können derzeit nicht umgangen werden, da
-       das Attribut 'Status' per Migrationsskript nicht vorbelegt werden kann
-       und nicht davon ausgehen kann, dass überall 19% Mwst. vorherrschen.
+       Diese manuellen Einstellungen können derzeit nicht umgangen werden, da im
+       Migrationsskript die korrekte Store-ID nicht ermittelt werden kann.
 
 *** B: TS als eigener Produkttyp
 
