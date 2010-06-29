@@ -45,13 +45,17 @@ class Symmetrics_Buyerprotect_Block_Badge extends Mage_Core_Block_Template
     {
         $helper = Mage::helper('buyerprotect');
         /* @var $helper Symmetrics_Buyerprotect_Helper_Data */
-
         $configData = $helper->getConfigData();
+
+        if (!isset($configData['ts_logo_img'], $configData['ts_background_img'])) {
+            return false;
+        }
+
         if (strlen($configData['trustedshops_id']) == 33
             && substr($configData['trustedshops_id'], 0, 1) == 'X'
             && $configData['trustedshops_user'] != ''
-            && isset($configData['ts_logo_img'])
-            && isset($configData['ts_background_img'])) {
+            && !empty($configData['ts_logo_img'])
+            && !empty($configData['ts_background_img'])) {
             return true;
         }
 
