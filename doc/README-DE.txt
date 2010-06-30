@@ -230,7 +230,9 @@
        im Checkout werden Sie keine TS Produktauswahl vorfinden.
 
 *** F: Sie sehen nun durch die oben vorgenommenen Einstellungen das TS-Sigel
-       rechts unter dem Warenkorb.
+       rechts unter dem Warenkorb. Prüfen Sie zusätzlich ob das Siegel Angezeigt
+       wird, wenn 'Qualitäts Label Aktiv' Einstellung auf 'Nein' gestellt wurde.
+       Das Gleiche gilt, wenn die Einstllung auf 'Ja' ist.
 
 *** Y: (ACHTUNG: auf Wunsch von Marco Verch, wurde die Funktionalität für den
        Versand von Fehler-E-Mail bei Fehlerfall deaktiviert)
