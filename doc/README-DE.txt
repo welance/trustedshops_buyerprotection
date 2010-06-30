@@ -173,6 +173,8 @@
        entsprechend neu berechnet werden.
        Aktivieren Sie im Anschluss im Tab 'Websites' das Produkt für die ent-
        sprechende Website.
+       ACHTUNG: Änderungen der SKU dürfen nur nach Aufforderungen von Trusted
+       Shops erfolgen.
 
        Diese manuellen Einstellungen können derzeit nicht umgangen werden, da im
        Migrationsskript die korrekte Store-ID nicht ermittelt werden kann.
