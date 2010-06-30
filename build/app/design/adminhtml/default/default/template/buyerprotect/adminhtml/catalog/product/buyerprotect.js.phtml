@@ -23,8 +23,8 @@
         function()
         {
             <?php /* disabled || readonly */ ?>
-            var tsSkuNote = <?php echo $_helper->getTsSkuNote() ?>;
-            var tableRowSku = $('sku').up().up();
+            var tsSkuComment = <?php echo $_helper->getTsSkuComment() ?>;
+            var tsSkuInput = $('sku');
             var inputMode = 'disabled';
             var catalogProductTabsPrefix = 'product_info_tabs_';
             <?php /* tabs which shall be removes */ ?>
@@ -87,7 +87,7 @@
             );
 
             <?php // insert sku note after sku row ?>
-            $(tableRowSku).insert({after: tsSkuNote.content});
+            $(tsSkuInput).insert({after: tsSkuComment.content});
 
             return;
         }
