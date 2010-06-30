@@ -183,14 +183,12 @@
     </adminhtml>
 
     <default>
-        <!--
         <buyerprotection>
             <data>
                 <trustedshops_erroremail_recipient><![CDATA[dev@trustedshops.de]]></trustedshops_erroremail_recipient>
+                <trustedshops_certificate_logo_active>0</trustedshops_certificate_logo_active>
             </data>
         </buyerprotection>
-        -->
-
         <trusted_shops_payment_codes>
             <other>OTHER</other>
             <ccsave>CREDIT_CARD</ccsave>

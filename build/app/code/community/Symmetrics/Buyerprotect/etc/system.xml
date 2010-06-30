@@ -115,10 +115,19 @@
                             <show_in_store>1</show_in_store>
                         </trustedshops_erroremail_template>
                         -->
+                        <trustedshops_certificate_logo_active translate="label comment">
+                            <label>Quality Label active</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </trustedshops_certificate_logo_active>
                         <trustedshops_certificate_logo_code translate="label comment">
                             <label>Quality Label code</label>
                             <frontend_type>textarea</frontend_type>
-                            <sort_order>50</sort_order>
+                            <sort_order>55</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
