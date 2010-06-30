@@ -207,7 +207,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment><![CDATA[Generieren Sie diesen Code bitte mit dem <a href="http://www.trustedshops.de/shopbetreiber/siegelbox/index.php">Trusted Shops Siegel Generator</a>.<br /><b>Die Bildpfade werden autmatisch ersetzt. AUF KEINEN FALL &Auml;NDERN!</b>]]></comment>
+                            <comment><![CDATA[Generieren Sie diesen Code bitte mit dem <a onclick="window.open('http://www.trustedshops.de/shopbetreiber/siegelbox/index.php')">Trusted Shops Siegel Generator</a>.<br /><b>Die Bildpfade werden autmatisch ersetzt. AUF KEINEN FALL &Auml;NDERN!</b>]]></comment>
                         </trustedshops_certificate_logo_code>
                         <ts_background_img translate="label comment">
                             <label>Quality Label background image</label>
