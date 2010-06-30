@@ -101,6 +101,12 @@ class Symmetrics_Buyerprotect_Block_Badge extends Mage_Core_Block_Template
         $repleace[] = 'padding:0px';
         $seal = preg_replace($search, $repleace, $seal);
 
+        $seal = preg_replace(
+            '!(\<div.*)(width:[0-9]*\%\;)(.*)(padding:[0-9]*px)(.*id=\"tsInnerBox\".*\>)!i',
+            '$1$3padding:5px$5',
+            $seal
+        );
+
         return $seal;
     }
 
