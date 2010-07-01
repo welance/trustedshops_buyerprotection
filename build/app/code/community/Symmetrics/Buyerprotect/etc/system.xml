@@ -37,6 +37,27 @@
                 <info translate="label">
                     <label>Info</label>
                     <comment><![CDATA[
+        <script type="text/javascript">
+        document.observe('dom:loaded', function() {
+            var baseUrl = BLANK_IMG.sub('js/spacer.gif','');
+            var removeRelative = function(path){
+                while (path.startsWith('../')) {
+                    path = path.sub('../','');
+                }
+                return path;
+            }
+
+            $$('img.tsimg').each(function(img){
+               img.writeAttribute('src', baseUrl + removeRelative(img.readAttribute('src')));
+            });
+
+            // Unfold MRG info Banner
+            var banner = $('buyerprotection_info-head');
+            if (banner) {
+                banner.onclick();
+            }
+        });
+        </script>
         <div style="font-family:Arial,sans-serif;background-color:white;color:#8f8f8f;font-size:13px;">
             <table border="0" cellpadding="0" cellspacing="0" style="width:640px;">
                 <tr>
@@ -105,7 +126,7 @@
         </div>
                     ]]></comment>
                     <frontend_type>text</frontend_type>
-                    <sort_order>10</sort_order>
+                    <sort_order>-1</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
                     <show_in_store>1</show_in_store>
