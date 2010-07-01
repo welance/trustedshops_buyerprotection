@@ -56,7 +56,8 @@
                     <option value="<?php echo $product->getEntityId() ?>" <?php if ($currentTsProductId == $product->getId()): ?> selected="selected" <?php endif; ?>>
                         <?php $price = $formattedPrice = Mage::helper('core')
                             ->currency($product->getPrice(),true,false) ?>
-                        <?php echo $product->getName() . ' ' . $price ?>
+                        <?php $taxInfo = $this->getTaxInfo($product) ?>
+                        <?php echo $product->getName() . ' | ' . $price . ' (' . $taxInfo . ')' ?>
 	                </option>
 	            <?php endforeach;?>
 	        </select>

@@ -17,10 +17,14 @@
 ?>
 <script type="text/javascript" charset="UTF-8">
 /*<![CDATA[*/
+    var buyerProtectOrigSku = $('sku').getValue();
+
     Event.observe(window, 'load',
         function()
         {
             <?php /* disabled || readonly */ ?>
+            var tsSkuComment = <?php echo $_helper->getTsSkuComment() ?>;
+            var tsSkuInput = $('sku');
             var inputMode = 'disabled';
             var catalogProductTabsPrefix = 'product_info_tabs_';
             <?php /* tabs which shall be removes */ ?>
@@ -82,9 +86,23 @@
                 }
             );
 
+            <?php // insert sku note after sku row ?>
+            $(tsSkuInput).insert({after: tsSkuComment.content});
+
             return;
         }
     );
+
+    $('sku').observe('change', function(){
+        var confirmMessage = "<?php echo $_helper->__("Attention! Do you really want to change the 'SKU'?") ?>";
+        var changeConfirmation = confirm(confirmMessage);
+
+        if (!changeConfirmation) {
+            $('sku').setValue(buyerProtectOrigSku);
+        }
+
+        return;
+    });
 /*]]>*/
 </script>
 

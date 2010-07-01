@@ -36,7 +36,8 @@ class Symmetrics_Buyerprotect_Block_Badge extends Mage_Core_Block_Template
 {
 
     /**
-     * check if Buyerprotection is enabled and has a valid user id
+     * Check if Buyerprotection is enabled, has a valid user id and TS logo/image
+     * exists.
      *
      * @return boolean
      */
@@ -44,11 +45,18 @@ class Symmetrics_Buyerprotect_Block_Badge extends Mage_Core_Block_Template
     {
         $helper = Mage::helper('buyerprotect');
         /* @var $helper Symmetrics_Buyerprotect_Helper_Data */
-
         $configData = $helper->getConfigData();
+
+        if (!isset($configData['ts_logo_img'], $configData['ts_background_img'])) {
+            return false;
+        }
+
         if (strlen($configData['trustedshops_id']) == 33
             && substr($configData['trustedshops_id'], 0, 1) == 'X'
-            && $configData['trustedshops_user'] != '') {
+            && $configData['trustedshops_user'] != ''
+            && !empty($configData['ts_logo_img'])
+            && !empty($configData['ts_background_img'])
+            && $configData['trustedshops_certificate_logo_active'] == 1) {
             return true;
         }
 
@@ -66,10 +74,6 @@ class Symmetrics_Buyerprotect_Block_Badge extends Mage_Core_Block_Template
         /* @var $helper Symmetrics_Buyerprotect_Helper_Data */
         
         $configData = $helper->getConfigData();
-        
-        if (!key_exists('ts_logo_img', $configData) || !key_exists('ts_background_img', $configData)) {
-            return '';
-        }
         
         $seal = $configData['trustedshops_certificate_logo_code'];
 
@@ -96,6 +100,12 @@ class Symmetrics_Buyerprotect_Block_Badge extends Mage_Core_Block_Template
         $repleace[] = 'border:0px';
         $repleace[] = 'padding:0px';
         $seal = preg_replace($search, $repleace, $seal);
+
+        $seal = preg_replace(
+            '!(\<div.*)(width:[0-9]*\%\;)(.*)(padding:[0-9]*px)(.*id=\"tsInnerBox\".*\>)!i',
+            '$1$3padding:5px$5',
+            $seal
+        );
 
         return $seal;
     }

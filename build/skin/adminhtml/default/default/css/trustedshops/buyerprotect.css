@@ -1,4 +1,5 @@
-<?php
+@charset "UTF-8";
+
 /**
  * Magento
  *
@@ -21,20 +22,14 @@
  * @link      http://www.symmetrics.de/
  */
 
-/* @var $this Symmetrics_Buyerprotect_Model_Setup */
+span.ts-sku-note-content {
+    min-height: 20px;
+    line-height: 20px;
+    padding: 0 0 0 181px;
+    background: url("../../images/trustedshops/warning.gif") no-repeat left center;
+}
 
-$tsProductsIds = Symmetrics_Buyerprotect_Model_Type_Buyerprotect::getAllTsProductIds();
-$tsProductsData = array();
-$preTaxValue = 1.19;
-$currency = new Zend_Currency('de_DE');
-
-foreach ($tsProductsIds as $tsProduct) {
-    $tsProductsData['price'] = (double) $tsProduct->net * (double) $preTaxValue;
-    preg_match('/^TS080501_([0-9]*)_.*/', $tsProduct->id, $matches);
-    $tsProductName = "Käuferschutz bis $matches[1] EUR - ";
-    $tsProductsData['name'] = $tsProductName;
-    $tsProductsData['description'] = $tsProductName . $currency->toCurrency($tsProductsData['price']);
-    $tsProductsData['short_description'] = $tsProductName . $currency->toCurrency($tsProductsData['price']);
-
-    $this->createBuyerprotectProduct($tsProduct->id, $tsProductsData);
+span.ts-sku-note-content span {
+    background-color: #eee400;
+    padding: 1px 3px;
 }

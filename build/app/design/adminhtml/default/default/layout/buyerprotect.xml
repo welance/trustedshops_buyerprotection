@@ -25,6 +25,10 @@
 -->
 <layout version="0.1.0">
     <adminhtml_catalog_product_buyerprotect>
+        <reference name="head">
+            <action method="addCss"><stylesheet>css/trustedshops/buyerprotect.css</stylesheet></action>
+        </reference>
+
         <reference name="product_tabs">
             <action method="removeTab"><value>inventory</value></action>
             <action method="removeTab"><value>categories</value></action>
@@ -39,7 +43,7 @@
         </reference>
 
         <reference name="js">
-            <block type="core/template" template="buyerprotect/adminhtml/catalog/product/buyerprotect.js.phtml" />
+            <block type="core/template" template="buyerprotect/adminhtml/catalog/product/buyerprotect.js.phtml" name="buyerprotect_js" />
         </reference>
     </adminhtml_catalog_product_buyerprotect>
 </layout>

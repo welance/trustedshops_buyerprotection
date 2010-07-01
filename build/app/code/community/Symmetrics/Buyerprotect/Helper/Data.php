@@ -291,4 +291,22 @@ class Symmetrics_Buyerprotect_Helper_Data
     {
         return (bool) $this->getStoreConfig(self::XML_PATH_TS_BUYERPROTECT_IS_ACTIVE);
     }
+
+    /**
+     * JSON encoded HTML content which should be insert underneath the sku input
+     * field.
+     *
+     * @return string
+     */
+    public function getTsSkuComment()
+    {
+        $html = '';
+        $content = $this->__("Attention! Change the 'SKU' only when 'Trusted Shops' requests for this!");
+
+        $html = '<p class="note"><span class="ts-sku-note-content"><span>'
+              . $content
+              . '</span></span></p>';
+
+        return json_encode(array('content' => $html));
+    }
 }
