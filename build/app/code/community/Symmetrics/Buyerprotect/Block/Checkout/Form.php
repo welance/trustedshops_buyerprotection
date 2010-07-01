@@ -70,6 +70,24 @@ class Symmetrics_Buyerprotect_Block_Checkout_Form extends Mage_Core_Block_Templa
         $productCollection = $buyerprotectionModel->getAllTsProducts();
         return $productCollection;
     }
+    
+    /**
+     * Compute tax info
+     *
+     * @param Mage_Catalog_Model_Product $product product object
+     *
+     * @return string tax info
+     */
+    public function getTaxInfo($product)
+    {
+        $tax = Mage::helper('tax');
+        // bundle product type has not tax percent
+        if ($tax->displayPriceIncludingTax()) {
+            $taxInfo = Mage::helper('tweaksgerman')->__('Incl. tax');
+        } else {
+            $taxInfo = Mage::helper('tweaksgerman')->__('Excl. tax');
+        }
 
+        return $taxInfo;
+    }
 }
-
