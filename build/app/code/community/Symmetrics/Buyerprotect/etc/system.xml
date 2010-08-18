@@ -36,96 +36,8 @@
             <groups>
                 <info translate="label">
                     <label>Info</label>
-                    <comment><![CDATA[
-        <script type="text/javascript">
-        document.observe('dom:loaded', function() {
-            var baseUrl = BLANK_IMG.sub('js/spacer.gif','');
-            var removeRelative = function(path){
-                while (path.startsWith('../')) {
-                    path = path.sub('../','');
-                }
-                return path;
-            }
-
-            $$('img.tsimg').each(function(img){
-               img.writeAttribute('src', baseUrl + removeRelative(img.readAttribute('src')));
-            });
-
-            // Unfold MRG info Banner
-            var banner = $('buyerprotection_info-head');
-            if (banner) {
-                banner.onclick();
-            }
-        });
-        </script>
-        <div style="font-family:Arial,sans-serif;background-color:white;color:#8f8f8f;font-size:13px;">
-            <table border="0" cellpadding="0" cellspacing="0" style="width:640px;">
-                <tr>
-                    <td>
-                        <table border="0" cellpadding="0" cellspacing="0" style="width:640px;padding:2px;margin:4px;">
-                            <tr>
-                                <td colspan="2">
-                                    <p style="font-family:Arial;color:#000000;font-size:10pt;line-height:1.3em;font-weight: bold;">Gütesiegel und Käuferschutz</p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <p style="font-family:Arial, sans-serif;color:#000000;font-size:10pt;line-height:1.3em;">
-                                        Trusted Shops ist das bekannte Internet-Gütesiegel für Online-Shops mit Käuferschutz für Ihre Kunden. Bei einer Zertifizierung wird Ihr Shop umfassenden Tests unterzogen. Diese Prüfung mit mehr als 100 Einzelkriterien orientiert sich an den Forderungen der Verbraucherschützer sowie dem nationalen und europäischen Recht.
-                                    </p>
-                                </td>
-                                <td><img class="tsimg" src="../../../../../../../../skin/adminhtml/default/default/images/trustedshops/ts_wortmarke.jpg" /></td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-                <tr>
-                    <td><img class="mrgimg" src="../../../../../../../../skin/adminhtml/default/default/images/trustedshops/tophr.png" /></td>
-                </tr>
-                <tr>
-                    <td>
-                        <table border="0" cellpadding="0" cellspacing="0" style="width:640px;padding:2px;margin:4px;">
-                            <tr>
-                                <td rowspan="5">
-                                    <img style="margin-top: 10px; margin-left: 2px;" class="tsimg" src="../../../../../../../../skin/adminhtml/default/default/images/trustedshops/ts_siegel_links.jpg" alt="" />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <p style="font-family:Arial;color:#000000;font-size:10pt;line-height:1.3em;font-weight: bold;">Schaffen Sie Vertrauen!</p>
-                                    <p style="font-family:Arial, sans-serif;color:#000000;font-size:10pt;line-height:1.3em;">
-                                        Das Trusted Shops Gütesiegel ist optimal, um das Vertrauen Ihrer Online-Kunden zu steigern. Vertrauen steigert die Bereitschaft Ihrer Kunden, bei Ihnen einzukaufen.
-                                    </p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <p style="font-family:Arial;color:#000000;font-size:10pt;line-height:1.3em;font-weight: bold;">Steigern Sie Ihren Umsatz!</p>
-                                    <p style="font-family:Arial, sans-serif;color:#000000;font-size:10pt;line-height:1.3em;">
-                                        Sie bieten Ihren Online-Kunden ein starkes Argument: den Trusted Shops Käuferschutz. Durch diese zusätzliche Sicherheit werden weniger Einkäufe abgebrochen.
-                                    </p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <p style="font-family:Arial;color:#000000;font-size:10pt;line-height:1.3em;font-weight: bold;">Sichern Sie sich ab!</p>
-                                    <p style="font-family:Arial, sans-serif;color:#000000;font-size:10pt;line-height:1.3em;">
-                                        Durch unsere bewährte Zertifizierung vermeiden Sie rechtliche Fehler und kostspielige Abmahnungen. Konzentrieren Sie sich auf Ihr eigentliches Geschäft.
-                                    </p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <button style="" onclick="window.open('http://www.trustedshops.de/shopbetreiber/mitgliedschaft_partner.html?shopsw=MAGENTO&partnerPackage=SYMMETRICS&et_cid=47&et_lid=3338')" class="scalable" type="button"><span>Sonderkonditionen jetzt nutzen!</span></button>
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-            </table>
-        </div>
-                    ]]></comment>
                     <frontend_type>text</frontend_type>
+                    <frontend_model>buyerprotect/adminhtml_system_config_info</frontend_model>
                     <sort_order>-1</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
@@ -228,7 +140,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment><![CDATA[Generieren Sie diesen Code bitte mit dem <a onclick="window.open('http://www.trustedshops.de/shopbetreiber/siegelbox/index.php')">Trusted Shops Siegel Generator</a>.<br /><b>Die Bildpfade werden autmatisch ersetzt. AUF KEINEN FALL &Auml;NDERN!</b>]]></comment>
+                            <comment><![CDATA[Generate this code please contact the Trusted Shops Seal <a onclick="window.open('http://www.trustedshops.de/shopbetreiber/siegelbox/index.php')">Generator</a>.<br /><b>The image paths are replaced automatically positioned. DO NOT CHANGE</b>]]></comment>
                         </trustedshops_certificate_logo_code>
                         <ts_background_img translate="label comment">
                             <label>Quality Label background image</label>

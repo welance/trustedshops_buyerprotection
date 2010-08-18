@@ -1,0 +1,135 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * @category  Symmetrics
+ * @package   Symmetrics_Buyerprotect
+ * @author    symmetrics gmbh <info@symmetrics.de>
+ * @author    Andreas Timm <at@symmetrics.de>
+ * @copyright 2010 Symmetrics Gmbh
+ * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @link      http://www.symmetrics.de/
+ */
+?>
+<?php
+/**
+ * @see Symmetrics_TweaksGerman_Block_Adminhtml_System_Config_Fieldset_Global
+ */
+?>
+<script type="text/javascript">
+document.observe('dom:loaded', function() {
+    var baseUrl = BLANK_IMG.sub('js/spacer.gif','');
+    var removeRelative = function(path){
+        while (path.startsWith('../')) {
+            path = path.sub('../','');
+        }
+        return path;
+    }
+
+    $$('img.tsimg').each(function(img){
+       img.writeAttribute('src', baseUrl + removeRelative(img.readAttribute('src')));
+    });
+
+    // Unfold MRG info Banner
+    var banner = $('buyerprotection_info-head');
+    if (banner) {
+        banner.onclick();
+    }
+});
+</script>
+<div style="font-family:Arial,sans-serif;background-color:white;color:#8f8f8f;font-size:13px;">
+    <table border="0" cellpadding="0" cellspacing="0" style="width:640px;">
+        <tr>
+            <td>
+                <table border="0" cellpadding="0" cellspacing="0" style="width:640px;padding:2px;margin:4px;">
+                    <tr>
+                        <td colspan="2">
+                            <p style="font-family:Arial;color:#000000;font-size:10pt;line-height:1.3em;font-weight: bold;">
+                                <?php echo $this->__('Seal of approval and buyer protection'); ?>
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p style="font-family:Arial, sans-serif;color:#000000;font-size:10pt;line-height:1.3em;">
+                                <?php echo $this->__('Trusted Shops is the famous Internet seal of approval for online shops with buyer protection for your customers. If your shop is subjected to a comprehensive certification testing. This test with more than 100 individual criteria based on the demands of the consumer protection and the national and European law.'); ?>
+                            </p>
+                        </td>
+                        <td>
+                            <img class="tsimg"
+                                src="../../../../../../../../skin/adminhtml/default/default/images/trustedshops/ts_wortmarke.jpg"
+                                alt="" />
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td><img class="mrgimg" src="../../../../../../../../skin/adminhtml/default/default/images/trustedshops/tophr.png" /></td>
+        </tr>
+        <tr>
+            <td>
+                <table border="0" cellpadding="0" cellspacing="0" style="width:640px;padding:2px;margin:4px;">
+                    <tr>
+                        <td rowspan="5">
+                            <img style="margin-top: 10px; margin-left: 2px;"
+                                class="tsimg"
+                                src="../../../../../../../../skin/adminhtml/default/default/images/trustedshops/ts_siegel_links.jpg"
+                                alt="" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p style="font-family:Arial;color:#000000;font-size:10pt;line-height:1.3em;font-weight: bold;">
+                                <?php echo $this->__('Create confidence!'); ?>
+                            </p>
+                            <p style="font-family:Arial, sans-serif;color:#000000;font-size:10pt;line-height:1.3em;">
+                                <?php echo $this->__('The Trusted Shops Seal of Approval is optimal to increase the confidence of your online customers. Trust increases the willingness of your customers buy from you.'); ?>
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p style="font-family:Arial;color:#000000;font-size:10pt;line-height:1.3em;font-weight: bold;">
+                                <?php echo $this->__('Increase your sales!'); ?>
+                            </p>
+                            <p style="font-family:Arial, sans-serif;color:#000000;font-size:10pt;line-height:1.3em;">
+                                <?php echo $this->__('You offer your online customers a strong argument: the Trusted Shops Buyer Protection. This additional security less purchases to be discontinued.'); ?>
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p style="font-family:Arial;color:#000000;font-size:10pt;line-height:1.3em;font-weight: bold;">
+                                <?php echo $this->__('Protect yourself!'); ?>
+                            </p>
+                            <p style="font-family:Arial, sans-serif;color:#000000;font-size:10pt;line-height:1.3em;">
+                                <?php echo $this->__('Through our proven certification you avoid costly legal errors and warnings. Concentrate on your real business.'); ?>
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button style=""
+                                onclick="window.open('http://www.trustedshops.de/shopbetreiber/mitgliedschaft_partner.html?shopsw=MAGENTO&partnerPackage=SYMMETRICS&et_cid=47&et_lid=3338')" class="scalable" type="button">
+                                <span>
+                                    <?php echo $this->__('Special conditions are now using!'); ?>
+                                </span>
+                            </button>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+</div>
