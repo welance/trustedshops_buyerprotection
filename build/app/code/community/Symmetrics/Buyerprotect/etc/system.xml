@@ -26,7 +26,7 @@
     <sections>
         <buyerprotection translate="label" module="buyerprotect">
             <!-- <class>separator-top</class>  -->
-            <label>Trusted Shops Buyer Protection</label>
+            <label>Trusted Shops Seal</label>
             <tab>sales</tab>
             <frontend_type>text</frontend_type>
             <sort_order>1000</sort_order>
@@ -52,7 +52,7 @@
                     <show_in_store>1</show_in_store>
                     <fields>
                         <active translate="label">
-                            <label>Active</label>
+                            <label>Activate Trusted Shops Buyer Protection</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <sort_order>0</sort_order>
@@ -69,7 +69,7 @@
                             <show_in_store>1</show_in_store>
                         </trustedshops_id>
                         <trustedshops_user translate="label">
-                            <label>Trusted Shops User</label>
+                            <label>Trusted Shops Username</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>20</sort_order>
                             <show_in_default>1</show_in_default>
@@ -85,7 +85,7 @@
                             <show_in_store>1</show_in_store>
                         </trustedshops_password>
                         <trustedshops_url translate="label">
-                            <label>Trusted Shops WSDL Url</label>
+                            <label>Buyer Protection mode</label>
                             <frontend_type>select</frontend_type>
                             <source_model>buyerprotect/system_config_source_wsdl</source_model>
                             <sort_order>40</sort_order>
@@ -125,7 +125,7 @@
                         </trustedshops_erroremail_template>
                         -->
                         <trustedshops_certificate_logo_active translate="label comment">
-                            <label>Quality Label active</label>
+                            <label>Activate Trusted Shops seal box</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <sort_order>50</sort_order>
@@ -134,16 +134,16 @@
                             <show_in_store>1</show_in_store>
                         </trustedshops_certificate_logo_active>
                         <trustedshops_certificate_logo_code translate="label comment">
-                            <label>Quality Label code</label>
+                            <label>Trusted Shops seal code</label>
                             <frontend_type>textarea</frontend_type>
                             <sort_order>55</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment><![CDATA[Generate this code please contact the Trusted Shops Seal <a onclick="window.open('http://www.trustedshops.de/shopbetreiber/siegelbox/index.php')">Generator</a>.<br /><b>The image paths are replaced automatically positioned. DO NOT CHANGE</b>]]></comment>
+                            <comment><![CDATA[Create the code using the Trusted Shops Seal Box <a onclick=\"window.open('http://www.trustedshops.de/shopbetreiber/siegelbox/index.php')\">Generator</a>.<br />Path to image files are beeing adjusted automatically. <b>Do not change!</b>]]></comment>
                         </trustedshops_certificate_logo_code>
                         <ts_background_img translate="label comment">
-                            <label>Quality Label background image</label>
+                            <label>Trusted Shops seal background image</label>
                             <frontend_type>image</frontend_type>
                             <backend_model>Mage_Adminhtml_Model_System_Config_Backend_Image</backend_model>
                             <upload_dir config="system/filesystem/media" scope_info="1">trustedshops</upload_dir>
@@ -152,10 +152,10 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>The background image of the Trusted Shops Quality Label</comment>
+                            <comment>Download the background image from the Trusted Shops Seal Box Generator.</comment>
                         </ts_background_img>
                         <ts_logo_img translate="label comment">
-                            <label>Quality Label logo image</label>
+                            <label>Trusted Shops seal image</label>
                             <frontend_type>image</frontend_type>
                             <backend_model>Mage_Adminhtml_Model_System_Config_Backend_Image</backend_model>
                             <upload_dir config="system/filesystem/media" scope_info="1">trustedshops</upload_dir>
@@ -164,7 +164,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>The Trusted Shops Quality Label image</comment>
+                            <comment>Download the seal image from the Trusted Shops Seal Box Generator.</comment>
                         </ts_logo_img>
                     </fields>
                 </data>
