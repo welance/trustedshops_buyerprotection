@@ -37,7 +37,7 @@ AUTHORS = {
 INFO = 'Trustedshops Käuferschutz Modul'
 
 SUMMARY = '''
-Dieses Modul ist noch in Entwicklung und wird dann den Käuferschutz von 
+Dieses Modul ist noch in Entwicklung und wird dann den Käuferschutz von
 Trusted Shops abwickeln.
 '''
 
@@ -63,5 +63,5 @@ DEPENDS_ON_FILES = (
 PEAR_KEY = ''
 
 COMPATIBLE_WITH = {
-    'magento': ['1.4.0.1', '1.4.1.0'],
+    'magento': ['1.4.0.1', '1.4.1.0', '1.4.1.1'],
 }
