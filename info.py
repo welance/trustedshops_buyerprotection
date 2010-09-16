@@ -34,11 +34,10 @@ AUTHORS = {
 # =============================================================================
 # additional infos
 # =============================================================================
-INFO = 'Trustedshops Käuferschutz Modul'
+INFO = 'Trustedshops Buyer Protection'
 
 SUMMARY = '''
-Dieses Modul ist noch in Entwicklung und wird dann den Käuferschutz von 
-Trusted Shops abwickeln.
+This is the second version of the Buyer Protection implementation for Magento.
 '''
 
 NOTES = '''
@@ -63,5 +62,5 @@ DEPENDS_ON_FILES = (
 PEAR_KEY = ''
 
 COMPATIBLE_WITH = {
-    'magento': ['1.4.0.1', '1.4.1.0'],
+    'magento': ['1.4.0.1', '1.4.1.0', '1.4.1.1'],
 }
