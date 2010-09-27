@@ -22,7 +22,7 @@
  */
 
 /**
- * this is the info renderer for Symmetrics_Buyerprotect system config.
+ * This is the info renderer for Symmetrics_Buyerprotect system config.
  *
  * @category  Symmetrics
  * @package   Symmetrics_Buyerprotect
