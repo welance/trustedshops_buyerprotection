@@ -55,11 +55,6 @@
 *** G: There's multilanguage information banner in System Configuration
        with banners, actions, text and links.
 
-*** Y: (ACHTUNG: auf Wunsch von Marco Verch, wurde die Funktionalität für den
-       Versand von Fehler-E-Mail bei Fehlerfall deaktiviert)
-       Mit der Version 0.1.1 wird das E-Mail-Template 'Trusted Shops
-       Käuferschutz SOAP Fehler DE' per Migrationsskript erstellt.
-
 ** TECHNICAL
    Die Klasse Symmetrics_Buyerprotect_Model_Type_Buyerprotect hat in
    $_tsProductIds alle TS Produkt ID's und Netto Preise aus dem Integrations-
