@@ -52,17 +52,8 @@
 
 *** F: Anzeige des Trusted Shops Siegels auf der Startseite.
 
-*** Y: (ACHTUNG: auf Wunsch von Marco Verch, wurde die Funktionalität für den
-       Versand von Fehler-E-Mail bei Fehlerfall deaktiviert)
-       Mit der Version 0.1.1 wird das E-Mail-Template 'Trusted Shops
-       Käuferschutz SOAP Fehler DE' per Migrationsskript erstellt.
-
-*** Z: (ACHTUNG: auf Wunsch von Marco Verch, wurde die Funktionalität für den
-       Versand von Fehler-E-Mail bei Fehlerfall deaktiviert)
-       Tritt ein Fehler beim SOAP Request auf, werden die Daten aus dem Objekt
-       Symmetrics_Buyerprotect_Model_Service_Soap_Data verwendet, in das
-       Template aus Punkt A. gerendert und an die im Backend hinterlegte E-Mail-
-       Adresse versendet.
+*** G: There's multilanguage information banner in System Configuration
+       with banners, actions, text and links.
 
 ** TECHNICAL
    Die Klasse Symmetrics_Buyerprotect_Model_Type_Buyerprotect hat in
@@ -158,11 +149,15 @@
    negativen Werte sind aus dem Integrationshandbuch (v3.00) von Trusted Shops
    zu entnehmen.
 
+G: Magento template (with multilanguage support) is connected to Info-Box in
+   the Admin Panel Configuration by frontend model renderer
+   (adminhtml_system_config_info).
+
 * TESTCASES
 
 ** BASIC
 *** A: Prüfen Sie nach der Installation unter 'Katalog > Produkte verwalten'
-       (screenshot_006-ts_produkte_ab_v0.1.7.png) ob die 6 TS Produkte angelegt
+       (screenshot_006-ts_produkte_ab_v0.1.15.png) ob die 6 TS Produkte angelegt
        sind.
        Es müssen noch manuelle Einstellungen vorgenommen werden, aktivieren Sie
        den Status des Produkts. Wählen Sie im Backend
@@ -182,19 +177,20 @@
 *** B: TS als eigener Produkttyp
 
        1. Legen Sie im Backend unter 'Katalog > Produkte verwalten' ein neues
-          Produkt des Typs 'Trusted Shops - Buyerprotection' an
-          (screenshot_004-ts_produkt_anlegen-ts_produkt_typ.png).
+          Produkt des Typs 'Trusted Shops - Buyerprotection' an.
+          [SCREENSHOT: screenshot_004-ts_produkt_anlegen-ts_produkt_typ.png]
 
        2. Achten Sie dabei darauf, dass Möglichkeiten der Einstellungen für das
-          Produkt wesentlich reduziert wurden
-          (screenshot_007-ts_produkte_einstellungen.png).
+          Produkt wesentlich reduziert wurden.
+          [SCREENSHOT: screenshot_007-ts_produkte_einstellungen.png]
 
 *** C: TS Produkt Auswahl: Ordnen Sie ein TS Käuferschutz der aktuellen Store
        zu, auf die Sie sich im Frontend als Käufer einloggen werden und
        aktivieren den Käuferschutz im Reiter 'System > Käuferschutz' 'Verkäufe >
        Trusted Shops Käuferschutz'. Tätigen Sie im Anschluß einen Einkauf über
        das Frontend. Sobald Sie zum Schritt der 'Zahlungsinformation' kommen,
-       prüfen Sie ob das Formular zu sehen ist (screenshot_008-ts_auswahl.png).
+       prüfen Sie ob das Formular zu sehen ist.
+       [SCREENSHOT: screenshot_008-ts_auswahl.png]
 
        1. Deaktivieren Sie im Backend den Käuferschutz, im Checkout bei
           'Zahlungsinformation' taucht die Auswahl der TS Produkte nicht mehr
@@ -229,43 +225,16 @@
        in dem Store erneut einen Einkauf. Unterhalb der 'Zahlungsinformationen'
        im Checkout werden Sie keine TS Produktauswahl vorfinden.
 
-*** F: Sie sehen nun durch die oben vorgenommenen Einstellungen das TS-Sigel
-       rechts unter dem Warenkorb. Prüfen Sie zusätzlich ob das Siegel Angezeigt
-       wird, wenn 'Qualitäts Label Aktiv' Einstellung auf 'Nein' gestellt wurde.
-       Das Gleiche gilt, wenn die Einstllung auf 'Ja' ist.
-
-*** Y: (ACHTUNG: auf Wunsch von Marco Verch, wurde die Funktionalität für den
-       Versand von Fehler-E-Mail bei Fehlerfall deaktiviert)
-       Gehen Sie ins Backend und öffnen im Reiter 'System > Transaktions-E-
-       Mails' die Ansicht zum Bearbeiten von E-Mail-Templates
-       (screenshot_001-e-mail-template_ansicht.png). Prüfen Sie, ob das Template
-       'Trusted Shops Käuferschutz SOAP Fehler DE' vorhanden ist.
-
-*** Z: (ACHTUNG: auf Wunsch von Marco Verch, wurde die Funktionalität für den
-       Versand von Fehler-E-Mail bei Fehlerfall deaktiviert)
-       Fehler provozieren zum Versenden der Fehler-E-Mail.
-       Gehen Sie ins Backend und aktivieren den Käuferschutz im Reiter 'System >
-       Konfiguration', dort ist das Tab 'Verkäufe > Trusted Shops Käuferschutz'
-       zu öffnen (screenshot_002-trusted_shops_konfiguration.png) und die 'SOAP
-       Prüfung' zu aktivieren ('Ja').
-       Setzen Sie hier Ihre Trusted Shops Benutzerdaten ein, tragen Ihre E-Mail-
-       Adresse als Empfänger der Fehler-E-Mail ein und wählen das entsprechende
-       E-Mail-Template ('Trusted Shops Käuferschutz SOAP Fehler DE') aus.
-
-       1. Tragen Sie fehlerhafte TS Benutzerdaten ein (Shop ID, Benutzerkennung,
-          oder Passwort) ein. Im Anschluß tätigen Sie eine Bestellung im Front-
-          end und prüfen ob Sie eine E-Mail mit dem Betreff:
-
-  'SOAP Übermittlungsfehler -- Kunden-Id: [TS-ID] -- Bestellungs-Id: [ORDER-ID]'
-
-          erhalten.
-
-       2. Erstellen Sie ein 'fehlerhaftes' Käuferschutz Produkt - die SKU ent-
-          spricht keinem gültigem TS Produkt ID - unter 'Katalog > Produkte
-          verwalten' (screenshot_003-ts_produkt_anlegen.png) und legen ein neues
-          mit falschem TS Produkt ID an
-          (screenshot_004-ts_produkt_anlegen-ts_produkt_typ.png und
-          screenshot_005-ts_produkt_anlegen-fehlerhafte_ts_produkt_id.png).
-          Tätigen Sie erneut eine Bestellung und fügen das erstellte TS Produkt
-          in Ihren Warenkorb und schließen den Einkauf ab.
-          Prüfen Sie, ob Sie die Fehler-E-Mail erhalten.
+*** F: You will see by the above settings, the TS-Sigel right under the basket. 
+       Check also whether the seal is displayed when 'Activate Trusted Shops
+       seal box' setting was set to 'No'. The same applies if the setting to 'Yes' is.
+       [SCREENSHOT: screenshot_002-trusted_shops_konfiguration.png](6)
+       
+*** G: 1. Open "Admin Panel / System / Configuration / Sales /
+          Trusted Shops Seal / Info" and compare the contents of a banner
+          with a screenshot
+          [SCREENSHOT: screenshot_002-trusted_shops_konfiguration.png](2).
+          To test the buttons and links.
+       2. Change the backend language from English to German, in this case,
+          the banner should display the German text 
+          [SCREENSHOT: screenshot_002-trusted_shops_konfiguration_info_de.png].
