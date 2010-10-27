@@ -16,6 +16,7 @@
  * @package   Symmetrics_Buyerprotect
  * @author    symmetrics gmbh <info@symmetrics.de>
  * @author    Ngoc Anh Doan <nd@symmetrics.de>
+ * @author    Benjamin Klein <bk@symmetrics.de>
  * @copyright 2010 symmetrics gmbh
  * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  * @link      http://www.symmetrics.de/
@@ -28,6 +29,7 @@
  * @package   Symmetrics_Buyerprotect
  * @author    symmetrics gmbh <info@symmetrics.de>
  * @author    Ngoc Anh Doan <nd@symmetrics.de>
+ * @author    Benjamin Klein <bk@symmetrics.de>
  * @copyright 2010 symmetrics gmbh
  * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  * @link      http://www.symmetrics.de/
