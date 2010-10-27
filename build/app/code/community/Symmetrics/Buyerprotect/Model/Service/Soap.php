@@ -71,7 +71,7 @@ class Symmetrics_Buyerprotect_Model_Service_Soap
      * SOAP request to Trusted Shops, a positive $errorCode determines a successful
      * request.
      *
-     * @param Symmetrics_Buyerprotect_Model_Service_Soap_Data $ts SOAP data object
+     * @param Symmetrics_Buyerprotect_Model_Service_Soap_Data $buyerprotectModul SOAP data object
      *
      * @return void
      */
@@ -100,7 +100,7 @@ class Symmetrics_Buyerprotect_Model_Service_Soap
      * Request V2: integrationhandbook Version 3.00
      * Has additional param for shop and module version.
      *
-     * @param Symmetrics_Buyerprotect_Model_Service_Soap_Data $ts SOAP data object
+     * @param Symmetrics_Buyerprotect_Model_Service_Soap_Data $buyerprotectModul SOAP data object
      *
      * @return void
      */
@@ -131,7 +131,7 @@ class Symmetrics_Buyerprotect_Model_Service_Soap
      *
      * @param object $tsItem
      *
-     * return void;
+     * @return void
      */
     private function checkIfTsItemIsSet($tsItem)
     {
