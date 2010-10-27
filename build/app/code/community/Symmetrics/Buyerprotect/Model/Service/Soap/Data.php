@@ -91,12 +91,12 @@ class Symmetrics_Buyerprotect_Model_Service_Soap_Data extends Varien_Object
 
         $tsStoreConfigPaths = $helper->getTsStoreConfigPaths();
         $paymentCode = $payment->getMethod();
-        $availablePaymentCodes = $helper->getAvailableTsPaymentCodes();
+        $availableCodes = $helper->getAvailableTsPaymentCodes();
         $allTsProductTypes = $helper->getAllTsProductTypes();
 
-        $this->setAvailablePaymentCodes($availablePaymentCodes);
+        $this->setAvailablePaymentCodes($availableCodes);
 
-        if (!array_key_exists($paymentCode, $availablePaymentCodes)) {
+        if (!array_key_exists($paymentCode, $availableCodes)) {
             throw Mage::exception(get_class($this), "'$paymentCode' is not a supported payment by Trusted Shops!");
         }
 
@@ -179,11 +179,11 @@ class Symmetrics_Buyerprotect_Model_Service_Soap_Data extends Varien_Object
      */
     public function getPaymentMethodByCode($paymentCode)
     {
-        if (!($availablePaymentCodes = $this->getAvailablePaymentCodes())) {
-            $availablePaymentCodes = $this->getHelper()->getAvailableTsPaymentCodes();
+        if (!($availableCodes = $this->getAvailablePaymentCodes())) {
+            $availableCodes = $this->getHelper()->getAvailableTsPaymentCodes();
         }
 
-        return $availablePaymentCodes[$paymentCode];
+        return $availableCodes[$paymentCode];
     }
 
     /**
