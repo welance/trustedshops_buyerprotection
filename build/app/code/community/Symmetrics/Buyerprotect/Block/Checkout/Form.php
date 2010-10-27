@@ -16,6 +16,7 @@
  * @package   Symmetrics_Buyerprotect
  * @author    symmetrics gmbh <info@symmetrics.de>
  * @author    Torsten Walluhn <tw@symmetrics.de>
+ * @author    Benjamin Klein <bk@symmetrics.de>
  * @copyright 2010 Symmetrics Gmbh
  * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  * @link      http://www.symmetrics.de/
@@ -29,6 +30,7 @@
  * @package   Symmetrics_Buyerprotect
  * @author    Symmetrics GmbH <info@symmetrics.de>
  * @author    Torsten Walluhn <tw@symmetrics.de>
+ * @author    Benjamin Klein <bk@symmetrics.de>
  * @copyright 2010 symmetrics gmbh
  * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  * @link      http://www.symmetrics.de/
@@ -37,7 +39,7 @@ class Symmetrics_Buyerprotect_Block_Checkout_Form extends Mage_Core_Block_Templa
 {
 
     /**
-     * Check if Trusted Shops - Buyerprotection form can be shown in checkout
+     * Check if Trusted Shops - Buyerprotection form can be shown in checkout.
      * 
      * @return boolean
      */
@@ -58,7 +60,7 @@ class Symmetrics_Buyerprotect_Block_Checkout_Form extends Mage_Core_Block_Templa
     }
 
     /**
-     * Get Product collection of all products with type buyerprotect
+     * Get Product collection of all products with type buyerprotect.
      *
      * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection
      */
@@ -74,11 +76,9 @@ class Symmetrics_Buyerprotect_Block_Checkout_Form extends Mage_Core_Block_Templa
     /**
      * Compute tax info
      *
-     * @param Mage_Catalog_Model_Product $product product object
-     *
      * @return string tax info
      */
-    public function getTaxInfo($product)
+    public function getTaxInfo()
     {
         $tax = Mage::helper('tax');
         // bundle product type has not tax percent
