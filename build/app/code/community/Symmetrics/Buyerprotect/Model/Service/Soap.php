@@ -38,7 +38,7 @@
 class Symmetrics_Buyerprotect_Model_Service_Soap
 {
     /**
-     * Constant to define $_soapRequestErrorCode on exception
+     * Constant to define $_soapRequestErrorCode on exception.
      *
      * @todo in v2 0 is used by Trusted Shops
      */
@@ -53,7 +53,7 @@ class Symmetrics_Buyerprotect_Model_Service_Soap
     protected $_soapRequestErrorCode = null;
 
     /**
-     * Log file name
+     * Log file name.
      *
      * @var string
      */
@@ -98,7 +98,7 @@ class Symmetrics_Buyerprotect_Model_Service_Soap
 
     /**
      * Request V2: integrationhandbook Version 3.00
-     * Has additional param for shop and module version
+     * Has additional param for shop and module version.
      *
      * @param Symmetrics_Buyerprotect_Model_Service_Soap_Data $ts SOAP data object
      *
@@ -127,7 +127,7 @@ class Symmetrics_Buyerprotect_Model_Service_Soap
     }
 
     /**
-     * make a protection request to the Trusted Shops Soap Api
+     * make a protection request to the Trusted Shops Soap Api.
      *
      * @param Mage_Sales_Model_Order $order order to make a Reqest from
      *
