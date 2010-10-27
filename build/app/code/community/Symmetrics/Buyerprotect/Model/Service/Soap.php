@@ -38,7 +38,7 @@
 class Symmetrics_Buyerprotect_Model_Service_Soap
 {
     /**
-     * Constant to define $_soapRequestErrorCode on exception.
+     * Constant to define $_requestErrorCode on exception.
      *
      * @todo in v2 0 is used by Trusted Shops
      */
@@ -50,14 +50,14 @@ class Symmetrics_Buyerprotect_Model_Service_Soap
      *
      * @var int|null
      */
-    protected $_soapRequestErrorCode = null;
+    protected $_requestErrorCode = null;
 
     /**
      * Log file name.
      *
      * @var string
      */
-    protected $_tsBuyerProtectLogFile = 'ts_buyerprotect.log';
+    protected $_buyerProtectLogFile = 'ts_buyerprotect.log';
 
     /**
      * Optional order object, if requestForProtection() is called later without
@@ -75,22 +75,22 @@ class Symmetrics_Buyerprotect_Model_Service_Soap
      *
      * @return void
      */
-    protected function _request(Symmetrics_Buyerprotect_Model_Service_Soap_Data $ts)
+    protected function _request(Symmetrics_Buyerprotect_Model_Service_Soap_Data $buyerprotectModul)
     {
-        $soapClient = new SoapClient($ts->getWsdlUrl());
+        $soapClient = new SoapClient($buyerprotectModul->getWsdlUrl());
 
-        $this->_soapRequestErrorCode = $soapClient->requestForProtection(
-            $ts->getTsId(),
-            $ts->getTsProductId(),
-            $ts->getAmount(),
-            $ts->getCurrency(),
-            $ts->getPaymentType(),
-            $ts->getBuyerEmail(),
-            $ts->getShopCustomerId(),
-            $ts->getShopOrderId(),
-            $ts->getOrderDate(),
-            $ts->getWsUser(),
-            $ts->getWsPassword()
+        $this->_requestErrorCode = $soapClient->requestForProtection(
+            $buyerprotectModul->getTsId(),
+            $buyerprotectModul->getTsProductId(),
+            $buyerprotectModul->getAmount(),
+            $buyerprotectModul->getCurrency(),
+            $buyerprotectModul->getPaymentType(),
+            $buyerprotectModul->getBuyerEmail(),
+            $buyerprotectModul->getShopCustomerId(),
+            $buyerprotectModul->getShopOrderId(),
+            $buyerprotectModul->getOrderDate(),
+            $buyerprotectModul->getWsUser(),
+            $buyerprotectModul->getWsPassword()
         );
 
         return;
@@ -104,23 +104,23 @@ class Symmetrics_Buyerprotect_Model_Service_Soap
      *
      * @return void
      */
-    protected function _requestV2(Symmetrics_Buyerprotect_Model_Service_Soap_Data $ts)
+    protected function _requestV2(Symmetrics_Buyerprotect_Model_Service_Soap_Data $buyerprotectModul)
     {
-        $soapClient = new SoapClient($ts->getWsdlUrl());
+        $soapClient = new SoapClient($buyerprotectModul->getWsdlUrl());
 
-        $this->_soapRequestErrorCode = $soapClient->requestForProtectionV2(
-            $ts->getTsId(),
-            $ts->getTsProductId(),
-            $ts->getAmount(),
-            $ts->getCurrency(),
-            $ts->getPaymentType(),
-            $ts->getBuyerEmail(),
-            $ts->getShopCustomerId(),
-            $ts->getShopOrderId(),
-            $ts->getOrderDate(),
-            $ts->getShopSystemVersion(),
-            $ts->getWsUser(),
-            $ts->getWsPassword()
+        $this->_requestErrorCode = $soapClient->requestForProtectionV2(
+            $buyerprotectModul->getTsId(),
+            $buyerprotectModul->getTsProductId(),
+            $buyerprotectModul->getAmount(),
+            $buyerprotectModul->getCurrency(),
+            $buyerprotectModul->getPaymentType(),
+            $buyerprotectModul->getBuyerEmail(),
+            $buyerprotectModul->getShopCustomerId(),
+            $buyerprotectModul->getShopOrderId(),
+            $buyerprotectModul->getOrderDate(),
+            $buyerprotectModul->getShopSystemVersion(),
+            $buyerprotectModul->getWsUser(),
+            $buyerprotectModul->getWsPassword()
         );
 
         return;
@@ -177,15 +177,15 @@ class Symmetrics_Buyerprotect_Model_Service_Soap
                 try {
                     $this->_requestV2($tsSoapDataObject);
                     Mage::log(
-                        'SOAP return value: ' . $this->_soapRequestErrorCode,
+                        'SOAP return value: ' . $this->_requestErrorCode,
                         null,
-                        $this->_tsBuyerProtectLogFile,
+                        $this->_buyerProtectLogFile,
                         true
                     );
-                    Mage::log('SOAP request successfull.', null, $this->_tsBuyerProtectLogFile, true);
+                    Mage::log('SOAP request successfull.', null, $this->_buyerProtectLogFile, true);
                 } catch (SoapFault $soapFault) {
-                    $this->_soapRequestErrorCode = self::TS_SOAP_EXCEPTION_CODE;
-                    Mage::log('SOAP request failed! See exception log!', null, $this->_tsBuyerProtectLogFile, true);
+                    $this->_requestErrorCode = self::TS_SOAP_EXCEPTION_CODE;
+                    Mage::log('SOAP request failed! See exception log!', null, $this->_buyerProtectLogFile, true);
                     Mage::logException($soapFault);
                 }
 
@@ -193,21 +193,21 @@ class Symmetrics_Buyerprotect_Model_Service_Soap
                  * Request wasn't successful, send email
                  */
                 /*
-                if (!($this->_soapRequestErrorCode > 0)) {
+                if (!($this->_requestErrorCode > 0)) {
                     $tsSoapDataObject->setIsSuccessfull(false);
-                    $tsSoapDataObject->setSoapRequestErrorCode($this->_soapRequestErrorCode);
+                    $tsSoapDataObject->setSoapRequestErrorCode($this->_requestErrorCode);
                     $tsSoapDataObject->setTsBuyerProtectRequestId(false);
-                    $tsSoapDataObject->setReturnValue($this->_soapRequestErrorCode);
+                    $tsSoapDataObject->setReturnValue($this->_requestErrorCode);
                     Symmetrics_Buyerprotect_Model_Buyerprotection::sendTsEmailOnSoapFail($tsSoapDataObject->getData());
                 } else {
                     $tsSoapDataObject->setIsSuccessfull(true);
                     $tsSoapDataObject->setSoapRequestErrorCode(false);
-                    $tsSoapDataObject->setTsBuyerProtectRequestId($this->_soapRequestErrorCode);
+                    $tsSoapDataObject->setTsBuyerProtectRequestId($this->_requestErrorCode);
                 }
 
                 */
 
-                Mage::log($tsSoapDataObject->getTsSoapData(), null, $this->_tsBuyerProtectLogFile, true);
+                Mage::log($tsSoapDataObject->getTsSoapData(), null, $this->_buyerProtectLogFile, true);
             }
 
             return $tsSoapDataObject;
