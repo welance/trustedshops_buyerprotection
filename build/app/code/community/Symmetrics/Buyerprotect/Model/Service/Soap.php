@@ -127,6 +127,20 @@ class Symmetrics_Buyerprotect_Model_Service_Soap
     }
 
     /**
+     * Validation if item is set
+     *
+     * @param object $tsItem
+     *
+     * return void;
+     */
+    private function checkIfTsItemIsSet($tsItem)
+    {
+        if (!$tsItem) {
+            Mage::log("$tsItem is empty!");
+        }
+    }
+
+    /**
      * make a protection request to the Trusted Shops Soap Api.
      *
      * @param Mage_Sales_Model_Order $order order to make a Reqest from
@@ -164,9 +178,7 @@ class Symmetrics_Buyerprotect_Model_Service_Soap
                 }
             }
 
-            if (!$tsItem) {
-                Mage::log("$tsItem is empty!");
-            }
+            $this->checkIfTsItemIsSet($tsItem);
 
             /* @var $tsSoapDataObject Symmetrics_Buyerprotect_Model_Service_Soap_Data */
             $tsSoapDataObject = Mage::getModel('buyerprotect/service_soap_data');
