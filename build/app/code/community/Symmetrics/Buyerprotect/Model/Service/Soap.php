@@ -129,7 +129,7 @@ class Symmetrics_Buyerprotect_Model_Service_Soap
     /**
      * Validation if item is set
      *
-     * @param object $tsItem
+     * @param object $tsItem An item object.
      *
      * @return void
      */
