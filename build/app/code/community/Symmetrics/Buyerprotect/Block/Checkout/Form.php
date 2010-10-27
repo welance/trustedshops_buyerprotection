@@ -74,7 +74,7 @@ class Symmetrics_Buyerprotect_Block_Checkout_Form extends Mage_Core_Block_Templa
     }
     
     /**
-     * Compute tax info
+     * Compute tax info.
      *
      * @return string tax info
      */
