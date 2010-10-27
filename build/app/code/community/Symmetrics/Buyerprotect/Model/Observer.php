@@ -48,6 +48,9 @@ class Symmetrics_Buyerprotect_Model_Observer
      */
     public function addProductToCart($observer)
     {
+        // phpmd hack unused parameter.
+        unset($observer);
+
         $frontController = Mage::app()->getFrontController();
         $request = $frontController->getRequest();
         /* @var $cart Mage_Checkout_Model_Cart */
@@ -139,6 +142,9 @@ class Symmetrics_Buyerprotect_Model_Observer
      */
     public function requestTsProtection($observer)
     {
+        // phpmd hack unused parameter.
+        unset($observer);
+        
         $customerSession = Mage::getSingleton('customer/session');
         /* @var $customerSession Mage_Customer_Model_Session */
         
@@ -190,9 +196,9 @@ class Symmetrics_Buyerprotect_Model_Observer
             return;
         }
 
-        $productTypeIdentifier = $stockItem->getProductTypeId();
+        $typeIdentifier = $stockItem->getProductTypeId();
 
-        if ($productTypeIdentifier == Symmetrics_Buyerprotect_Model_Type_Buyerprotect::TYPE_BUYERPROTECT) {
+        if ($typeIdentifier == Symmetrics_Buyerprotect_Model_Type_Buyerprotect::TYPE_BUYERPROTECT) {
             Symmetrics_Buyerprotect_Model_Type_Buyerprotect::checkStockItem($stockItem);
         }
 
