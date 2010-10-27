@@ -16,6 +16,7 @@
  * @package   Symmetrics_Buyerprotect
  * @author    symmetrics gmbh <info@symmetrics.de>
  * @author    Torsten Walluhn <tw@symmetrics.de>
+ * @author    Benjamin Klein <bk@symmetrics.de>
  * @copyright 2010 symmetrics gmbh
  * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  * @link      http://www.symmetrics.de/
@@ -28,6 +29,7 @@
  * @package   Symmetrics_Buyerprotect
  * @author    symmetrics gmbh <info@symmetrics.de>
  * @author    Ngoc Anh Doan <nd@symmetrics.de>
+ * @author    Benjamin Klein <bk@symmetrics.de>
  * @copyright 2010 symmetrics gmbh
  * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  * @link      http://www.symmetrics.de/
@@ -39,14 +41,14 @@ class Symmetrics_Buyerprotect_Model_Setup extends Mage_Catalog_Model_Resource_Ea
      *
      * @var array
      */
-    protected $_ignoredAttributeCodes = array('entity_id', 'attribute_set_id', 'entity_type_id');
+    protected $_ignoredAttriCodes = array('entity_id', 'attribute_set_id', 'entity_type_id');
 
     /**
      * Default ignored attribute types
      *
      * @var array
      */
-    protected $_ignoredAttributeTypes = array();
+    protected $_ignoredAttriTypes = array();
     
     /*
      * Some constants for migration skripts.
@@ -206,7 +208,7 @@ class Symmetrics_Buyerprotect_Model_Setup extends Mage_Catalog_Model_Resource_Ea
             return false;
         }
 
-        return !in_array($attribute->getFrontendInput(), $this->_ignoredAttributeTypes)
-               && !in_array($attribute->getAttributeCode(), $this->_ignoredAttributeCodes);
+        return !in_array($attribute->getFrontendInput(), $this->_ignoredAttriTypes)
+               && !in_array($attribute->getAttributeCode(), $this->_ignoredAttriCodes);
     }
 }
