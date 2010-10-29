@@ -171,7 +171,7 @@ class Symmetrics_Buyerprotect_Model_Service_Soap
         if ($orderItemsCollection->count() >= 1) {
             $tsItem = null;
             
-            // determine TS product type
+            // determine TS product type.
             foreach ($orderItemsCollection->getItems() as $item) {
                 if ($item->getProductType() == Symmetrics_Buyerprotect_Model_Type_Buyerprotect::TYPE_BUYERPROTECT) {
                     $tsItem = $item;
@@ -202,7 +202,7 @@ class Symmetrics_Buyerprotect_Model_Service_Soap
                 }
 
                 /*
-                 * Request wasn't successful, send email
+                 * Request wasn't successful, send email.
                  */
                 /*
                 if (!($this->_requestErrorCode > 0)) {
