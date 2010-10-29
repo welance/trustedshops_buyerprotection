@@ -1,5 +1,4 @@
 <?php
-// @codingStandardsIgnoreFile
 /**
  * Magento
  *
@@ -72,6 +71,8 @@ class Symmetrics_Buyerprotect_Model_Type_Buyerprotect extends Mage_Catalog_Model
      * @param Mage_Catalog_Model_Product $product product type instance
      *
      * @return boolean
+     *
+     * @SuppressWarnings(PHPMD.UnusedLocalVariable)
      */
     public function isVirtual($product = null)
     {
