@@ -74,9 +74,6 @@ class Symmetrics_Buyerprotect_Model_Type_Buyerprotect extends Mage_Catalog_Model
      */
     public function isVirtual($product = null)
     {
-        // phpmd hack.
-        unset($product);
-        
         // return True if this product is virtual and false if this product isn't virtual product
         return true;
     }
