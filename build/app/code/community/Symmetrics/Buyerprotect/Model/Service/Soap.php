@@ -23,7 +23,7 @@
  */
  
 /**
- * Buyer Protection Soap Interface
+ * Buyer Protection Soap Interface.
  *
  * @category  Symmetrics
  * @package   Symmetrics_Buyerprotect
@@ -71,7 +71,7 @@ class Symmetrics_Buyerprotect_Model_Service_Soap
      * SOAP request to Trusted Shops, a positive $errorCode determines a successful
      * request.
      *
-     * @param Symmetrics_Buyerprotect_Model_Service_Soap_Data $buyerprotectModul SOAP data object
+     * @param Symmetrics_Buyerprotect_Model_Service_Soap_Data $buyerprotectModul SOAP data object.
      *
      * @return void
      */
@@ -100,7 +100,7 @@ class Symmetrics_Buyerprotect_Model_Service_Soap
      * Request V2: integrationhandbook Version 3.00
      * Has additional param for shop and module version.
      *
-     * @param Symmetrics_Buyerprotect_Model_Service_Soap_Data $buyerprotectModul SOAP data object
+     * @param Symmetrics_Buyerprotect_Model_Service_Soap_Data $buyerprotectModul SOAP data object.
      *
      * @return void
      */
@@ -127,7 +127,7 @@ class Symmetrics_Buyerprotect_Model_Service_Soap
     }
 
     /**
-     * Validation if item is set
+     * Validation if item is set.
      *
      * @param object $tsItem An item object.
      *
@@ -143,7 +143,7 @@ class Symmetrics_Buyerprotect_Model_Service_Soap
     /**
      * make a protection request to the Trusted Shops Soap Api.
      *
-     * @param Mage_Sales_Model_Order $order order to make a Reqest from
+     * @param Mage_Sales_Model_Order $order order to make a Reqest from.
      *
      * @return Symmetrics_Buyerprotect_Model_Service_Soap_Data|null
      * @throw Symmetrics_Buyerprotect_Model_Service_Soap_Exception
@@ -231,7 +231,7 @@ class Symmetrics_Buyerprotect_Model_Service_Soap
     /**
      * Set Order object in case requestForProtection() is called later.
      *
-     * @param Mage_Sales_Model_Order $order Order object
+     * @param Mage_Sales_Model_Order $order Order object.
      *
      * @return Symmetrics_Buyerprotect_Model_Service_Soap
      */
