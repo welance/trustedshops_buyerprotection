@@ -16,6 +16,7 @@
  * @package   Symmetrics_Buyerprotect
  * @author    symmetrics gmbh <info@symmetrics.de>
  * @author    Torsten Walluhn <tw@symmetrics.de>
+ * @author    Benjamin Klein <bk@symmetrics.de>
  * @copyright 2010 symmetrics gmbh
  * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  * @link      http://www.symmetrics.de/
@@ -29,6 +30,7 @@
  * @author    symmetrics gmbh <info@symmetrics.de>
  * @author    Torsten Walluhn <tw@symmetrics.de>
  * @author    Ngoc Anh Doan <nd@symmetrics.de>
+ * @author    Benjamin Klein <bk@symmetrics.de>
  * @copyright 2010 symmetrics gmbh
  * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  * @link      http://www.symmetrics.de/
@@ -46,6 +48,9 @@ class Symmetrics_Buyerprotect_Model_Observer
      */
     public function addProductToCart($observer)
     {
+        // phpmd hack unused parameter.
+        unset($observer);
+
         $frontController = Mage::app()->getFrontController();
         $request = $frontController->getRequest();
         /* @var $cart Mage_Checkout_Model_Cart */
@@ -66,7 +71,7 @@ class Symmetrics_Buyerprotect_Model_Observer
            /**
             * cart is not empty but the only item is a type of
             * Symmetrics_Buyerprotect_Model_Type_Buyerprotect::TYPE_BUYERPROTECT
-            * and is identical to $requestedProductId
+            * and is identical to $requestedProductId.
             */
             if ((count($cartProductIds) < 2) && in_array($requestedProductId, $cartProductIds)) {
                 return;
@@ -137,6 +142,9 @@ class Symmetrics_Buyerprotect_Model_Observer
      */
     public function requestTsProtection($observer)
     {
+        // phpmd hack unused parameter.
+        unset($observer);
+        
         $customerSession = Mage::getSingleton('customer/session');
         /* @var $customerSession Mage_Customer_Model_Session */
         
@@ -150,7 +158,7 @@ class Symmetrics_Buyerprotect_Model_Observer
     }
     
     /**
-     * Observer to prevent discount rules to the product type
+     * Observer to prevent discount rules to the product type.
      *
      * @param Varien_Event_Observer $observer current event observer
      *
@@ -173,7 +181,7 @@ class Symmetrics_Buyerprotect_Model_Observer
     
     /**
      * Observer to check correct values of stock table 'cataloginventory_stock_item'
-     * for product type Symmetrics_Buyerprotect_Model_Type_Buyerprotect::TYPE_BUYERPROTECT
+     * for product type Symmetrics_Buyerprotect_Model_Type_Buyerprotect::TYPE_BUYERPROTECT.
      *
      * @param Varien_Event_Observer $observer Varien observer object
      *
@@ -188,9 +196,9 @@ class Symmetrics_Buyerprotect_Model_Observer
             return;
         }
 
-        $productTypeIdentifier = $stockItem->getProductTypeId();
+        $typeIdentifier = $stockItem->getProductTypeId();
 
-        if ($productTypeIdentifier == Symmetrics_Buyerprotect_Model_Type_Buyerprotect::TYPE_BUYERPROTECT) {
+        if ($typeIdentifier == Symmetrics_Buyerprotect_Model_Type_Buyerprotect::TYPE_BUYERPROTECT) {
             Symmetrics_Buyerprotect_Model_Type_Buyerprotect::checkStockItem($stockItem);
         }
 

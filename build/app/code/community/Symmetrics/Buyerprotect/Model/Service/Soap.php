@@ -16,19 +16,21 @@
  * @package   Symmetrics_Buyerprotect
  * @author    symmetrics gmbh <info@symmetrics.de>
  * @author    Torsten Walluhn <tw@symmetrics.de>
+ * @author    Benjamin Klein <bk@symmetrics.de>
  * @copyright 2010 symmetrics gmbh
  * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  * @link      http://www.symmetrics.de/
  */
  
 /**
- * Buyer Protection Soap Interface
+ * Buyer Protection Soap Interface.
  *
  * @category  Symmetrics
  * @package   Symmetrics_Buyerprotect
  * @author    symmetrics gmbh <info@symmetrics.de>
  * @author    Torsten Walluhn <tw@symmetrics.de>
  * @author    Ngoc Anh Doan <nd@symmetrics.de>
+ * @author    Benjamin Klein <bk@symmetrics.de>
  * @copyright 2010 symmetrics gmbh
  * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  * @link      http://www.symmetrics.de/
@@ -36,7 +38,7 @@
 class Symmetrics_Buyerprotect_Model_Service_Soap
 {
     /**
-     * Constant to define $_soapRequestErrorCode on exception
+     * Constant to define $_requestErrorCode on exception.
      *
      * @todo in v2 0 is used by Trusted Shops
      */
@@ -48,14 +50,14 @@ class Symmetrics_Buyerprotect_Model_Service_Soap
      *
      * @var int|null
      */
-    protected $_soapRequestErrorCode = null;
+    protected $_requestErrorCode = null;
 
     /**
-     * Log file name
+     * Log file name.
      *
      * @var string
      */
-    protected $_tsBuyerProtectLogFile = 'ts_buyerprotect.log';
+    protected $_buyerProtectLogFile = 'ts_buyerprotect.log';
 
     /**
      * Optional order object, if requestForProtection() is called later without
@@ -69,26 +71,26 @@ class Symmetrics_Buyerprotect_Model_Service_Soap
      * SOAP request to Trusted Shops, a positive $errorCode determines a successful
      * request.
      *
-     * @param Symmetrics_Buyerprotect_Model_Service_Soap_Data $ts SOAP data object
+     * @param Symmetrics_Buyerprotect_Model_Service_Soap_Data $buyerprotectModul SOAP data object.
      *
      * @return void
      */
-    protected function _request(Symmetrics_Buyerprotect_Model_Service_Soap_Data $ts)
+    protected function _request(Symmetrics_Buyerprotect_Model_Service_Soap_Data $buyerprotectModul)
     {
-        $soapClient = new SoapClient($ts->getWsdlUrl());
+        $soapClient = new SoapClient($buyerprotectModul->getWsdlUrl());
 
-        $this->_soapRequestErrorCode = $soapClient->requestForProtection(
-            $ts->getTsId(),
-            $ts->getTsProductId(),
-            $ts->getAmount(),
-            $ts->getCurrency(),
-            $ts->getPaymentType(),
-            $ts->getBuyerEmail(),
-            $ts->getShopCustomerId(),
-            $ts->getShopOrderId(),
-            $ts->getOrderDate(),
-            $ts->getWsUser(),
-            $ts->getWsPassword()
+        $this->_requestErrorCode = $soapClient->requestForProtection(
+            $buyerprotectModul->getTsId(),
+            $buyerprotectModul->getTsProductId(),
+            $buyerprotectModul->getAmount(),
+            $buyerprotectModul->getCurrency(),
+            $buyerprotectModul->getPaymentType(),
+            $buyerprotectModul->getBuyerEmail(),
+            $buyerprotectModul->getShopCustomerId(),
+            $buyerprotectModul->getShopOrderId(),
+            $buyerprotectModul->getOrderDate(),
+            $buyerprotectModul->getWsUser(),
+            $buyerprotectModul->getWsPassword()
         );
 
         return;
@@ -96,38 +98,52 @@ class Symmetrics_Buyerprotect_Model_Service_Soap
 
     /**
      * Request V2: integrationhandbook Version 3.00
-     * Has additional param for shop and module version
+     * Has additional param for shop and module version.
      *
-     * @param Symmetrics_Buyerprotect_Model_Service_Soap_Data $ts SOAP data object
+     * @param Symmetrics_Buyerprotect_Model_Service_Soap_Data $buyerprotectModul SOAP data object.
      *
      * @return void
      */
-    protected function _requestV2(Symmetrics_Buyerprotect_Model_Service_Soap_Data $ts)
+    protected function _requestV2(Symmetrics_Buyerprotect_Model_Service_Soap_Data $buyerprotectModul)
     {
-        $soapClient = new SoapClient($ts->getWsdlUrl());
+        $soapClient = new SoapClient($buyerprotectModul->getWsdlUrl());
 
-        $this->_soapRequestErrorCode = $soapClient->requestForProtectionV2(
-            $ts->getTsId(),
-            $ts->getTsProductId(),
-            $ts->getAmount(),
-            $ts->getCurrency(),
-            $ts->getPaymentType(),
-            $ts->getBuyerEmail(),
-            $ts->getShopCustomerId(),
-            $ts->getShopOrderId(),
-            $ts->getOrderDate(),
-            $ts->getShopSystemVersion(),
-            $ts->getWsUser(),
-            $ts->getWsPassword()
+        $this->_requestErrorCode = $soapClient->requestForProtectionV2(
+            $buyerprotectModul->getTsId(),
+            $buyerprotectModul->getTsProductId(),
+            $buyerprotectModul->getAmount(),
+            $buyerprotectModul->getCurrency(),
+            $buyerprotectModul->getPaymentType(),
+            $buyerprotectModul->getBuyerEmail(),
+            $buyerprotectModul->getShopCustomerId(),
+            $buyerprotectModul->getShopOrderId(),
+            $buyerprotectModul->getOrderDate(),
+            $buyerprotectModul->getShopSystemVersion(),
+            $buyerprotectModul->getWsUser(),
+            $buyerprotectModul->getWsPassword()
         );
 
         return;
     }
 
     /**
-     * make a protection request to the Trusted Shops Soap Api
+     * Validation if item is set.
      *
-     * @param Mage_Sales_Model_Order $order order to make a Reqest from
+     * @param object $tsItem An item object.
+     *
+     * @return void
+     */
+    private function checkIfTsItemIsSet($tsItem)
+    {
+        if (!$tsItem) {
+            Mage::log("$tsItem is empty!");
+        }
+    }
+
+    /**
+     * make a protection request to the Trusted Shops Soap Api.
+     *
+     * @param Mage_Sales_Model_Order $order order to make a Reqest from.
      *
      * @return Symmetrics_Buyerprotect_Model_Service_Soap_Data|null
      * @throw Symmetrics_Buyerprotect_Model_Service_Soap_Exception
@@ -155,16 +171,14 @@ class Symmetrics_Buyerprotect_Model_Service_Soap
         if ($orderItemsCollection->count() >= 1) {
             $tsItem = null;
             
-            // determine TS product type
+            // determine TS product type.
             foreach ($orderItemsCollection->getItems() as $item) {
                 if ($item->getProductType() == Symmetrics_Buyerprotect_Model_Type_Buyerprotect::TYPE_BUYERPROTECT) {
                     $tsItem = $item;
                 }
             }
 
-            if (!$tsItem) {
-                Mage::log("$tsItem is empty!");
-            }
+            $this->checkIfTsItemIsSet($tsItem);
 
             /* @var $tsSoapDataObject Symmetrics_Buyerprotect_Model_Service_Soap_Data */
             $tsSoapDataObject = Mage::getModel('buyerprotect/service_soap_data');
@@ -175,37 +189,37 @@ class Symmetrics_Buyerprotect_Model_Service_Soap
                 try {
                     $this->_requestV2($tsSoapDataObject);
                     Mage::log(
-                        'SOAP return value: ' . $this->_soapRequestErrorCode,
+                        'SOAP return value: ' . $this->_requestErrorCode,
                         null,
-                        $this->_tsBuyerProtectLogFile,
+                        $this->_buyerProtectLogFile,
                         true
                     );
-                    Mage::log('SOAP request successfull.', null, $this->_tsBuyerProtectLogFile, true);
+                    Mage::log('SOAP request successfull.', null, $this->_buyerProtectLogFile, true);
                 } catch (SoapFault $soapFault) {
-                    $this->_soapRequestErrorCode = self::TS_SOAP_EXCEPTION_CODE;
-                    Mage::log('SOAP request failed! See exception log!', null, $this->_tsBuyerProtectLogFile, true);
+                    $this->_requestErrorCode = self::TS_SOAP_EXCEPTION_CODE;
+                    Mage::log('SOAP request failed! See exception log!', null, $this->_buyerProtectLogFile, true);
                     Mage::logException($soapFault);
                 }
 
                 /*
-                 * Request wasn't successful, send email
+                 * Request wasn't successful, send email.
                  */
                 /*
-                if (!($this->_soapRequestErrorCode > 0)) {
+                if (!($this->_requestErrorCode > 0)) {
                     $tsSoapDataObject->setIsSuccessfull(false);
-                    $tsSoapDataObject->setSoapRequestErrorCode($this->_soapRequestErrorCode);
+                    $tsSoapDataObject->setSoapRequestErrorCode($this->_requestErrorCode);
                     $tsSoapDataObject->setTsBuyerProtectRequestId(false);
-                    $tsSoapDataObject->setReturnValue($this->_soapRequestErrorCode);
+                    $tsSoapDataObject->setReturnValue($this->_requestErrorCode);
                     Symmetrics_Buyerprotect_Model_Buyerprotection::sendTsEmailOnSoapFail($tsSoapDataObject->getData());
                 } else {
                     $tsSoapDataObject->setIsSuccessfull(true);
                     $tsSoapDataObject->setSoapRequestErrorCode(false);
-                    $tsSoapDataObject->setTsBuyerProtectRequestId($this->_soapRequestErrorCode);
+                    $tsSoapDataObject->setTsBuyerProtectRequestId($this->_requestErrorCode);
                 }
 
                 */
 
-                Mage::log($tsSoapDataObject->getTsSoapData(), null, $this->_tsBuyerProtectLogFile, true);
+                Mage::log($tsSoapDataObject->getTsSoapData(), null, $this->_buyerProtectLogFile, true);
             }
 
             return $tsSoapDataObject;
@@ -217,7 +231,7 @@ class Symmetrics_Buyerprotect_Model_Service_Soap
     /**
      * Set Order object in case requestForProtection() is called later.
      *
-     * @param Mage_Sales_Model_Order $order Order object
+     * @param Mage_Sales_Model_Order $order Order object.
      *
      * @return Symmetrics_Buyerprotect_Model_Service_Soap
      */
