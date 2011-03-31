@@ -141,7 +141,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment><![CDATA[Create the code using the Trusted Shops Seal Box <a onclick=\"window.open('http://www.trustedshops.de/shopbetreiber/siegelbox/index.php')\">Generator</a>.<br />Path to image files are beeing adjusted automatically. <b>Do not change!</b>]]></comment>
+                            <comment><![CDATA[Create the code using the Trusted Shops Seal Box <a onclick="window.open('http://www.trustedshops.de/shopbetreiber/siegelbox/index.php')">Generator</a>.<br />Path to image files are beeing adjusted automatically. <b>Do not change!</b>]]></comment>
                         </trustedshops_certificate_logo_code>
                         <ts_background_img translate="label comment">
                             <label>Trusted Shops seal background image</label>
