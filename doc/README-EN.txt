@@ -1,4 +1,4 @@
-﻿* DOCUMENTATION
+* DOCUMENTATION
 
 ** INSTALLATION
    Extract the contents of this archive into your Magento directory.
