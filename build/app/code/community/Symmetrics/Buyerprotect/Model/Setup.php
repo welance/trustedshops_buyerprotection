@@ -179,6 +179,11 @@ class Symmetrics_Buyerprotect_Model_Setup extends Mage_Catalog_Model_Resource_Ea
         if (is_array($errors)) {
             return $errors;
         }
+        
+        $stockData = array();
+        $stockData['use_config_manage_stock'] = 0;
+        $stockData['manage_stock'] = 0;
+        $productModel->setStockData($stockData);
 
         try {
             $productModel->save();
@@ -198,9 +203,12 @@ class Symmetrics_Buyerprotect_Model_Setup extends Mage_Catalog_Model_Resource_Ea
         // note: the product id has to be set
         $stockItem->setProductId($productModel->getId());
         $stockItem->setStockId(Mage_CatalogInventory_Model_Stock::DEFAULT_STOCK_ID);
+        $stockItem->setQty(9999999999999999999999999999999);
         $stockItem->setIsInStock(1);
         $stockItem->setMinSaleQty(1);
         $stockItem->setMaxSaleQty(1);
+        $stockItem->setUseConfigManageStock(0);
+        $stockItem->setManageStock(0);
 
         $stockItem->save();
         
