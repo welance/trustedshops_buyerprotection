@@ -123,6 +123,19 @@ class Symmetrics_Buyerprotect_Model_Setup extends Mage_Catalog_Model_Resource_Ea
     }
 
     /**
+     * Get all website IDs.
+     *
+     * @return array
+     */
+    protected function getWebsiteIds()
+    {
+        return Mage::getModel('core/website')->getCollection()
+            ->addFieldToFilter('website_id', array('gt' => 0))
+            ->getAllIds();
+    }
+
+
+    /**
      * crate a buyerprotect Product from given data
      *
      * @param string $sku         sku for new product
@@ -144,10 +157,12 @@ class Symmetrics_Buyerprotect_Model_Setup extends Mage_Catalog_Model_Resource_Ea
         if ($productModel->getIdBySku($sku)) {
             return;
         }
-
+        
         $productModel->setStoreId(0)
+            ->setWebsiteIds($this->getWebsiteIds())
             ->setAttributeSetId($defaultSetId)
             ->setTypeId('buyerprotect')
+            ->setStatus(1)
             ->setSku($sku);
         
         foreach ($productModel->getTypeInstance(true)->getEditableAttributes($productModel) as $attribute) {

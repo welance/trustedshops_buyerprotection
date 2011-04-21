@@ -23,6 +23,9 @@
 
 /* @var $this Symmetrics_Buyerprotect_Model_Setup */
 
+Mage::App()->setUpdateMode(false);
+Mage::App()->setCurrentStore(Mage_Core_Model_App::DISTRO_STORE_ID);
+
 $tsProductsIds = Symmetrics_Buyerprotect_Model_Type_Buyerprotect::getAllTsProductIds();
 $tsProductsData = array();
 $preTaxValue = 1.19;
@@ -38,3 +41,4 @@ foreach ($tsProductsIds as $tsProduct) {
 
     $this->createBuyerprotectProduct($tsProduct->id, $tsProductsData);
 }
+Mage::App()->setUpdateMode(true);
