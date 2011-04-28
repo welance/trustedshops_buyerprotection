@@ -136,7 +136,7 @@ class Symmetrics_Buyerprotect_Model_Setup extends Mage_Catalog_Model_Resource_Ea
 
 
     /**
-     * crate a buyerprotect Product from given data
+     * Create a BuyerProtect product from given data.
      *
      * @param string $sku         sku for new product
      * @param array  $productData Required indexes:
@@ -203,7 +203,7 @@ class Symmetrics_Buyerprotect_Model_Setup extends Mage_Catalog_Model_Resource_Ea
         // note: the product id has to be set
         $stockItem->setProductId($productModel->getId());
         $stockItem->setStockId(Mage_CatalogInventory_Model_Stock::DEFAULT_STOCK_ID);
-        $stockItem->setQty(9999999999999999999999999999999);
+        $stockItem->setQty(999999999999);
         $stockItem->setIsInStock(1);
         $stockItem->setMinSaleQty(1);
         $stockItem->setMaxSaleQty(1);
