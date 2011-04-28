@@ -63,7 +63,8 @@ class Symmetrics_Buyerprotect_Helper_Data
      */
     public function getPaymentMapping()
     {
-        return Mage::getStoreConfig(self::XML_PATH_TS_PAYMENT_MAPPING);
+        // return Mage::getStoreConfig(self::XML_PATH_TS_PAYMENT_MAPPING);
+        return array();
     }
 
     /**
