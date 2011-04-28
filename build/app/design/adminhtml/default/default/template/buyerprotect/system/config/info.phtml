@@ -25,6 +25,8 @@
 /**
  * @see Symmetrics_Buyerprotect_Block_Adminhtml_System_Config_Info
  */
+ $registrationUrl = $this->__('http://www.trustedshops.com/merchants/membership.html');
+ $registrationUrl .= '?shopsw=MAGENTO&partnerPackage=SYMMETRICS&et_cid=47&et_lid=3338';
 ?>
 <script type="text/javascript">
 document.observe('dom:loaded', function() {
@@ -109,7 +111,7 @@ document.observe('dom:loaded', function() {
                     <tr>
                         <td>
                             <button style=""
-                                onclick="window.open('https://www.trustedshops.com/buyerrating/signup.html?shopsw=MAGENTO&partnerPackage=SYMMETRICS&et_cid=47&et_lid=3338')" class="scalable" type="button">
+                                onclick="window.open('<?php echo $registrationUrl ?>')" class="scalable" type="button">
                                 <span>
                                     <?php echo $this->__('Apply now!'); ?>
                                 </span>
