@@ -66,6 +66,28 @@ class Symmetrics_Buyerprotect_Model_Service_Soap
      * @var Mage_Sales_Model_Order
      */
     protected $_order = null;
+
+    /**
+     * Check certificate status.
+     *
+     * @return void
+     */
+    public function checkCertificate()
+    {
+        $helper = Mage::helper('buyerprotect');
+        $wsdl = $helper->getWsdlUrl('backend');
+        $tsId = $helper->getTsUserId();
+        
+        $soapClient = new SoapClient($wsdl);
+        
+        $tsData = $soapClient->checkCertificate($tsId);
+        
+        return array(
+            'language' => $tsData->certificationLanguage,
+            'variation' => $tsData->typeEnum,
+            'state' => $tsData->stateEnum
+        );        
+    }
     
     /**
      * SOAP request to Trusted Shops, a positive $errorCode determines a successful

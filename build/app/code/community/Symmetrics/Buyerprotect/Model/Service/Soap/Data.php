@@ -109,7 +109,7 @@ class Symmetrics_Buyerprotect_Model_Service_Soap_Data extends Varien_Object
             'ts_id' => $helper->getStoreConfig($tsStoreConfigPaths['ts_id']),
             'ws_user' => $helper->getStoreConfig($tsStoreConfigPaths['ws_user']),
             'ws_password' => $helper->getStoreConfig($tsStoreConfigPaths['ws_password']),
-            'wsdl_url' => $helper->getStoreConfig($tsStoreConfigPaths['wsdl_url']),
+            'wsdl_url' => $helper->getWsdlUrl(),
             'buyer_email' => $order->getCustomerEmail(),
             'amount' => $order->getGrandTotal(),
             'shop_order_id' => $order->getRealOrderId(),
@@ -209,7 +209,7 @@ class Symmetrics_Buyerprotect_Model_Service_Soap_Data extends Varien_Object
      */
     public function getWsdlUrl()
     {
-        return $this->getData('wsdl_url');
+        return $this->getHelper()->getWsdlUrl();
     }
 
     /**

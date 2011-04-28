@@ -41,16 +41,14 @@ class Symmetrics_Buyerprotect_Model_System_Config_Source_Wsdl
      */
     public function toOptionArray()
     {
-        $wsdlUri = 'ts/protectionservices/ApplicationRequestService?wsdl';
         $returnArray = array(
-            /* Only for development */
             array(
-                'value' => 'https://protection-qa.trustedshops.com/' . $wsdlUri,
+                'value' => 'qa',
                 'label' => Mage::helper('buyerprotect')->__('Test')
             ),
 
             array(
-                'value' => 'https://protection.trustedshops.com/' . $wsdlUri,
+                'value' => 'live',
                 'label' => Mage::helper('buyerprotect')->__('Live')
             ),
         );

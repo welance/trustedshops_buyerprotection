@@ -205,4 +205,28 @@ class Symmetrics_Buyerprotect_Model_Observer
         return;
     }
 
+    /**
+     * Check certificate status.
+     *
+     * @param Varien_Event_Observer $observer Varien observer object.
+     *
+     * @return void
+     */
+    public function checkCertificate($observer)
+    {
+        // $helper = Mage::helper('buyerprotect');
+        // $tsData = Mage::getModel('buyerprotect/service_soap')->checkCertificate();
+        // 
+        // $returnString = Mage::helper('trustedrating')->__('TrustedShops response:');
+        // $returnString .= ' Language: ' . $tsData['language'];
+        // $returnString .= ' Variation: ' . $tsData['variation'];
+        // $returnString .= ' State: ' . $tsData['state'];
+        // Mage::getSingleton('core/session')->addNotice($returnString);
+        // 
+        // $helper->setConfigData(
+        //     Symmetrics_Buyerprotect_Helper_Data::XML_PATH_TS_BUYERPROTECT_VARIATION,
+        //     $tsData['variation'],
+        //     
+        // );
+    }
 }
