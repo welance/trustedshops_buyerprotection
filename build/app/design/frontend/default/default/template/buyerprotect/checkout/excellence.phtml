@@ -21,12 +21,13 @@
  * @link      http://www.symmetrics.de/
  */
 ?>
-<?php if ($this->showForm()): ?>
-<?php
+<?php 
+    $helper = Mage::helper('buyerprotect');
+    if ($helper->getVariation() == 'excellence' && $this->showForm()):
+
     $tsProducts = $this->getAllTsProducts();
     /* @var $tsProducts Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection */
 
-    $helper = Mage::helper('buyerprotect');
     /* @var $helper Symmetrics_Buyerprotect_Helper_Data */
     $tsId = $helper->getTsUserId();
     $currentTsProductId = 0;

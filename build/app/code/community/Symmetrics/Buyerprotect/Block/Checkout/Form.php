@@ -39,7 +39,7 @@ class Symmetrics_Buyerprotect_Block_Checkout_Form extends Mage_Core_Block_Templa
 {
 
     /**
-     * Check if Trusted Shops - Buyerprotection form can be shown in checkout.
+     * Check if Trusted Shops - Excellence Buyerprotection form can be shown in checkout.
      * 
      * @return boolean
      */

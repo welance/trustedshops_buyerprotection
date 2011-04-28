@@ -45,6 +45,7 @@ class Symmetrics_Buyerprotect_Helper_Data
     const XML_PATH_TS_BUYERPROTECT_TS_USER = 'buyerprotection/data/trustedshops_user';
     const XML_PATH_TS_BUYERPROTECT_TS_PASSWORD = 'buyerprotection/data/trustedshops_password';
     const XML_PATH_TS_BUYERPROTECT_TS_WSDL_URL = 'buyerprotection/data/trustedshops_url';
+    const XML_PATH_TS_BUYERPROTECT_VARIATION = 'buyerprotection/data/variation';
 
     const XML_PATH_TS_AVAILABLE_PAYMENT_CODES = 'trusted_shops_payment_codes';
 
@@ -289,9 +290,27 @@ class Symmetrics_Buyerprotect_Helper_Data
      */
     public function isBuyerprotectActive()
     {
-        return (bool) $this->getStoreConfig(self::XML_PATH_TS_BUYERPROTECT_IS_ACTIVE);
+        return $this->getStoreConfigFlag(self::XML_PATH_TS_BUYERPROTECT_IS_ACTIVE);
     }
 
+    /**
+     * Get buyer protection variation.
+     *
+     * @return string [classic|excellence]
+     */
+    public function getVariation()
+    {
+        $variation = Mage::getStoreConfig(
+            Symmetrics_Buyerprotect_Helper_Data::XML_PATH_TS_BUYERPROTECT_VARIATION
+        );
+        
+        if ($variation == Symmetrics_Buyerprotect_Model_System_Config_Source_Variation::CLASSIC_VALUE) {
+            return 'classic';
+        }
+        
+        return 'excellence';
+    }
+    
     /**
      * JSON encoded HTML content which should be insert underneath the sku input
      * field.
