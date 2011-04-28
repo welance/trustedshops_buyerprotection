@@ -43,10 +43,13 @@ class Symmetrics_Buyerprotect_Model_System_Config_Source_Payments
     public function toOptionArray()
     {
         $methods = Mage::helper('payment')->getPaymentMethodList(true, true, true);
-        array_unshift($methods, array(
-            'value' => 'none',
-            'label' => Mage::helper('buyerprotect')->__('Not in use')
-        ));
+        array_unshift(
+            $methods,
+            array(
+                'value' => 'none',
+                'label' => Mage::helper('buyerprotect')->__('Not in use')
+            )
+        );
         return $methods;
     }
 }
