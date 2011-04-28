@@ -37,8 +37,20 @@
  */
 class Symmetrics_Buyerprotect_Block_Checkout_Form extends Mage_Core_Block_Template
 {
+    /**
+     * @const CLASSIC_CERTIFICATE_URL URL of the form to check the seal of approval.
+     */
     const CLASSIC_CERTIFICATE_URL = 'https://www.trustedshops.com/shop/certificate.php';
+    
+    /**
+     * @const CLASSIC_SUBSCRIBE_URL URL of the form to subscribe to classic buyer protection.
+     */
     const CLASSIC_SUBSCRIBE_URL = 'https://www.trustedshops.com/shop/protection.php';
+    
+    /**
+     * @const FORM_ENCODING Encoding of subscription form.
+     */
+    const FORM_ENCODING = 'UTF-8';
     
     /**
      * Check if Trusted Shops - Excellence Buyerprotection form can be shown in checkout.
@@ -120,9 +132,7 @@ class Symmetrics_Buyerprotect_Block_Checkout_Form extends Mage_Core_Block_Templa
      */
     public function getTsId()
     {
-        return Mage::getStoreConfig(
-            Symmetrics_Buyerprotect_Helper_Data::XML_PATH_TS_BUYERPROTECT_TS_ID
-        );
+        return Mage::helper('buyerprotect')->getTsUserId();
     }
     
     /**
@@ -132,7 +142,7 @@ class Symmetrics_Buyerprotect_Block_Checkout_Form extends Mage_Core_Block_Templa
      */
     public function getEncoding()
     {
-        return 'UTF-8';
+        return self::FORM_ENCODING;
     }
     
     /**
