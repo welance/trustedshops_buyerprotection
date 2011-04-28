@@ -90,4 +90,54 @@ class Symmetrics_Buyerprotect_Block_Checkout_Form extends Mage_Core_Block_Templa
 
         return $taxInfo;
     }
+    
+    /**
+     * Get certificate validation form action URL.
+     *
+     * @return string
+     */
+    public function getCertificateAction()
+    {
+        return 'https://www.trustedshops.com/shop/certificate.php';
+    }
+    
+    /**
+     * Get classic buyer protection form action URL.
+     *
+     * @return string
+     */
+    public function getClassicFormAction()
+    {
+        return 'https://www.trustedshops.com/shop/protection.php';
+    }
+    
+    /**
+     * Get Trusted Shops ID.
+     *
+     * @return string
+     */
+    public function getTsId()
+    {
+        return '';
+    }
+    
+    /**
+     * Get current parameter encoding.
+     *
+     * @return string
+     */
+    public function getEncoding()
+    {
+        return '';
+    }
+    
+    /**
+     * Get payment type.
+     *
+     * @return string
+     */
+    public function getPaymentType()
+    {
+        return '';
+    }
 }
