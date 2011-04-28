@@ -39,7 +39,7 @@
         $_formAction = $this->getClassicFormAction();
         $_tsId = $this->getTsId();
         $_encoding = $this->getEncoding();
-        $_payment = $this->getPaymentType();
+        $_payment = $this->getPaymentType($_order);
         
         $_sealSrc = $this->getSkinUrl('images/buyerprotect/ts_classic_siegel.gif');
         

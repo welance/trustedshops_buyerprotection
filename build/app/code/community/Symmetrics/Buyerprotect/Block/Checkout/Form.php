@@ -138,10 +138,20 @@ class Symmetrics_Buyerprotect_Block_Checkout_Form extends Mage_Core_Block_Templa
     /**
      * Get payment type.
      *
+     * @param Mage_Sales_Model_Order $order Order instance.
+     *
      * @return string
      */
-    public function getPaymentType()
+    public function getPaymentType($order)
     {
+        $payments = Mage::helper('buyerprotect')->getPaymentMapping();
+        $paymentMethod = $order->getPayment()->getMethod();
+        if (is_array($payments)) {
+            $payments = array_flip($payments);
+            if (array_key_exists($paymentMethod, $payments)) {
+                return $payments[$paymentMethod];
+            }
+        }
         return '';
     }
 }

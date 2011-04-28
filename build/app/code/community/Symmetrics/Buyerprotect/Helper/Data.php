@@ -48,12 +48,23 @@ class Symmetrics_Buyerprotect_Helper_Data
     const XML_PATH_TS_BUYERPROTECT_VARIATION = 'buyerprotection/data/variation';
 
     const XML_PATH_TS_AVAILABLE_PAYMENT_CODES = 'trusted_shops_payment_codes';
+    const XML_PATH_TS_PAYMENT_MAPPING = 'buyerprotection/payment_mapping';
 
     const XML_PATH_TS_BUYERPROTECT_ERROR_EMAIL_SENDER = 'buyerprotection/data/trustedshops_erroremail_sender';
     const XML_PATH_TS_BUYERPROTECT_ERROR_EMAIL_TEMPLATE = 'buyerprotection/data/trustedshops_erroremail_template';
     const XML_PATH_TS_BUYERPROTECT_ERROR_EMAIL_RECIPIENT = 'buyerprotection/data/trustedshops_erroremail_recipient';
 
     const BUYERPROTECT_MODUL_NAME = 'Symmetrics_Buyerprotect';
+
+    /**
+     * Get custom payment mapping from system configuration.
+     *
+     * @return array
+     */
+    public function getPaymentMapping()
+    {
+        return Mage::getStoreConfig(self::XML_PATH_TS_PAYMENT_MAPPING);
+    }
 
     /**
      * get all buyerprotection Products in cart
