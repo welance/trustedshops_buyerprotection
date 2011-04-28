@@ -22,7 +22,7 @@
  */
 
 /**
- * Soruce Model to get the WSDL API for Trusted Shops protectionservice 
+ * Source model to get the WSDL API for Trusted Shops buyer protect. 
  *
  * @category  Symmetrics
  * @package   Symmetrics_Buyerprotect
@@ -35,7 +35,7 @@
 class Symmetrics_Buyerprotect_Model_System_Config_Source_Wsdl
 {
     /**
-     * returns the values for the 'server' field in backend
+     * Generate value for mode field.
      *
      * @return array
      */
