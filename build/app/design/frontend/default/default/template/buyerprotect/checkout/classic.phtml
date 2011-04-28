@@ -35,12 +35,14 @@
         $_currencyCode = $_order->getOrderCurrencyCode();
         $_email = $_order->getCustomerEmail();
     
-        $_certificateAction = $this->getCertificateAction(); //https://www.trustedshops.com/shop/certificate.php
-        $_formAction = $this->getClassicFormAction(); //https://www.trustedshops.com/shop/protection.php
+        $_certificateAction = $this->getCertificateAction();
+        $_formAction = $this->getClassicFormAction();
         $_tsId = $this->getTsId();
         $_encoding = $this->getEncoding();
         $_payment = $this->getPaymentType();
+        
         $_sealSrc = $this->getSkinUrl('images/buyerprotect/ts_classic_siegel.gif');
+        
         $_sealTitle = $this->__('Trusted Shops Seal of Approval - Click to verify.');
         $_submitBtnValue = $this->__('Register for Trusted Shops Buyer Protection');
         $_infoText = $this->__('We offer you the Trusted Shops Buyer Protection as an additional service. ' . 

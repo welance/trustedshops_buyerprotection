@@ -37,7 +37,9 @@
  */
 class Symmetrics_Buyerprotect_Block_Checkout_Form extends Mage_Core_Block_Template
 {
-
+    const CLASSIC_CERTIFICATE_URL = 'https://www.trustedshops.com/shop/certificate.php';
+    const CLASSIC_SUBSCRIBE_URL = 'https://www.trustedshops.com/shop/protection.php';
+    
     /**
      * Check if Trusted Shops - Excellence Buyerprotection form can be shown in checkout.
      * 
@@ -98,7 +100,7 @@ class Symmetrics_Buyerprotect_Block_Checkout_Form extends Mage_Core_Block_Templa
      */
     public function getCertificateAction()
     {
-        return 'https://www.trustedshops.com/shop/certificate.php';
+        return self::CLASSIC_CERTIFICATE_URL;
     }
     
     /**
@@ -108,7 +110,7 @@ class Symmetrics_Buyerprotect_Block_Checkout_Form extends Mage_Core_Block_Templa
      */
     public function getClassicFormAction()
     {
-        return 'https://www.trustedshops.com/shop/protection.php';
+        return self::CLASSIC_SUBSCRIBE_URL;
     }
     
     /**
@@ -118,7 +120,9 @@ class Symmetrics_Buyerprotect_Block_Checkout_Form extends Mage_Core_Block_Templa
      */
     public function getTsId()
     {
-        return '';
+        return Mage::getStoreConfig(
+            Symmetrics_Buyerprotect_Helper_Data::XML_PATH_TS_BUYERPROTECT_TS_ID
+        );
     }
     
     /**
@@ -128,7 +132,7 @@ class Symmetrics_Buyerprotect_Block_Checkout_Form extends Mage_Core_Block_Templa
      */
     public function getEncoding()
     {
-        return '';
+        return 'UTF-8';
     }
     
     /**

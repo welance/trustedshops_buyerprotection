@@ -290,7 +290,7 @@ class Symmetrics_Buyerprotect_Helper_Data
      */
     public function isBuyerprotectActive()
     {
-        return $this->getStoreConfigFlag(self::XML_PATH_TS_BUYERPROTECT_IS_ACTIVE);
+        return Mage::getStoreConfigFlag(self::XML_PATH_TS_BUYERPROTECT_IS_ACTIVE);
     }
 
     /**
