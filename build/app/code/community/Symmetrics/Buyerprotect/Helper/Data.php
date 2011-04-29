@@ -383,10 +383,12 @@ class Symmetrics_Buyerprotect_Helper_Data
      */
     public function setConfigData($path, $value, $scope = 'default', $scopeId = 0, $inherit = 0)
     {
-        $this->_conn->showTableStatus($this->getTable('core/config_data')); // this is a fix for mysql 4.1
-        $this->_conn->raw_query(
+        $resource = Mage::getModel('core/resource');
+        $conn = $resource->getConnection('core/write');
+        $conn->showTableStatus($resource->getTableName('core/config_data')); // this is a fix for mysql 4.1
+        $conn->raw_query(
             'replace into ' .
-            $this->getTable('core/config_data') .
+            $resource->getTableName('core/config_data') .
             ' (scope, scope_id, path, value)' .
             " values ('$scope', $scopeId, '$path', '$value')"
         );

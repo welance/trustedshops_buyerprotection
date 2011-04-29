@@ -207,6 +207,7 @@ class Symmetrics_Buyerprotect_Model_Observer
 
     /**
      * Check certificate status.
+     * admin_system_config_changed_section_buyerprotection
      *
      * @param Varien_Event_Observer $observer Varien observer object.
      *
@@ -214,19 +215,51 @@ class Symmetrics_Buyerprotect_Model_Observer
      */
     public function checkCertificate($observer)
     {
-        // $helper = Mage::helper('buyerprotect');
-        // $tsData = Mage::getModel('buyerprotect/service_soap')->checkCertificate();
-        // 
-        // $returnString = Mage::helper('trustedrating')->__('TrustedShops response:');
-        // $returnString .= ' Language: ' . $tsData['language'];
-        // $returnString .= ' Variation: ' . $tsData['variation'];
-        // $returnString .= ' State: ' . $tsData['state'];
-        // Mage::getSingleton('core/session')->addNotice($returnString);
-        // 
-        // $helper->setConfigData(
-        //     Symmetrics_Buyerprotect_Helper_Data::XML_PATH_TS_BUYERPROTECT_VARIATION,
-        //     $tsData['variation'],
-        //     
-        // );
+        if (isset($_POST['groups']['data']['fields']['trustedshops_id'])) {
+            $tsId = $_POST['groups']['data']['fields']['trustedshops_id'];
+        }
+        if (!isset($tsId) || is_null($tsId)) {
+            return;
+        }
+        
+        $helper = Mage::helper('buyerprotect');
+        $tsData = Mage::getModel('buyerprotect/service_soap')->checkCertificate();
+        $website = $observer->getWebsite();
+        $store = $observer->getStore();
+        $section = Mage::app()->getRequest()->getParam('section');
+        $groups = Mage::app()->getRequest()->getPost('groups');
+        
+        if (!empty($store)) {
+            $scope = 'stores';
+            $scopeId = Mage::getModel('core/store')->load($store, 'code')->getId();
+        } elseif (!empty($website)) {
+            $scope = 'websites';
+            $scopeId = Mage::getModel('core/website')->load($website, 'code')->getId();
+        }
+        
+        if ($tsData['variation'] == 'CLASSIC') {
+            $variation = Symmetrics_Buyerprotect_Model_System_Config_Source_Variation::CLASSIC_VALUE;
+        } else {
+            $variation = Symmetrics_Buyerprotect_Model_System_Config_Source_Variation::EXCELLENCE_VALUE;
+        }
+        
+        Mage::helper('buyerprotect')->setConfigData(
+            Symmetrics_Buyerprotect_Helper_Data::XML_PATH_TS_BUYERPROTECT_VARIATION,
+            $variation,
+            $scope,
+            $scopeId
+        );
+        
+        
+        $returnString = Mage::helper('trustedrating')->__('TrustedShops response:');
+        $returnString .= ' Language: ' . $tsData['language'];
+        $returnString .= ' Variation: ' . $tsData['variation'];
+        $returnString .= ' State: ' . $tsData['state'];
+        $returnString .= ' Store: ' . $store;
+        $returnString .= ' Website: ' . $website;
+        $returnString .= ' $variation: ' . $variation;
+        Mage::getSingleton('core/session')->addNotice($returnString);
+        
+
     }
 }
