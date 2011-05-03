@@ -247,6 +247,9 @@ class Symmetrics_Buyerprotect_Model_Observer
             $variation = Symmetrics_Buyerprotect_Model_System_Config_Source_Variation::CLASSIC_VALUE;
         } else {
             $variation = Symmetrics_Buyerprotect_Model_System_Config_Source_Variation::EXCELLENCE_VALUE;
+        } else {
+            $scope = 'default';
+            $scopeId = 0;
         }
         
         Mage::helper('buyerprotect')->setConfigData(
