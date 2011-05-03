@@ -215,10 +215,16 @@ class Symmetrics_Buyerprotect_Model_Observer
      */
     public function checkCertificate($observer)
     {
-        if (isset($_POST['groups']['data']['fields']['trustedshops_id'])) {
-            $tsId = $_POST['groups']['data']['fields']['trustedshops_id'];
+        $params = Mage::app()->getRequest()->getParams();
+        if (isset($params['groups']['data']['fields']['trustedshops_id']['value'])) {
+            $tsId = trim($params['groups']['data']['fields']['trustedshops_id']['value']);
         }
         if (!isset($tsId) || is_null($tsId)) {
+            return;
+        }
+        $pattern = '!^[A-Za-z0-9]+$!imsU';
+        if (!preg_match($pattern, $tsId)) {
+            Mage::getSingleton('core/session')->addNotice('Invalid Trusted Shops ID.');
             return;
         }
         
@@ -250,16 +256,7 @@ class Symmetrics_Buyerprotect_Model_Observer
             $scopeId
         );
         
-        
-        $returnString = Mage::helper('trustedrating')->__('TrustedShops response:');
-        $returnString .= ' Language: ' . $tsData['language'];
-        $returnString .= ' Variation: ' . $tsData['variation'];
-        $returnString .= ' State: ' . $tsData['state'];
-        $returnString .= ' Store: ' . $store;
-        $returnString .= ' Website: ' . $website;
-        $returnString .= ' $variation: ' . $variation;
+        $returnString = 'Checking Trusted Shops ID: ' . $tsId . ' | Set variation to ' . $tsData['variation'];
         Mage::getSingleton('core/session')->addNotice($returnString);
-        
-
     }
 }
