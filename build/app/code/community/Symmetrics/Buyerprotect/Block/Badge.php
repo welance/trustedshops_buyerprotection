@@ -51,9 +51,9 @@ class Symmetrics_Buyerprotect_Block_Badge extends Mage_Core_Block_Template
             return false;
         }
 
-        if (strlen($configData['trustedshops_id']) == 33
-            && substr($configData['trustedshops_id'], 0, 1) == 'X'
-            && $configData['trustedshops_user'] != ''
+        $pattern = '!^X[A-Za-z0-9]{32}$!imsU';
+        
+        if (preg_match($pattern, $configData['trustedshops_id'])
             && !empty($configData['ts_logo_img'])
             && !empty($configData['ts_background_img'])
             && $configData['trustedshops_certificate_logo_active'] == 1) {
