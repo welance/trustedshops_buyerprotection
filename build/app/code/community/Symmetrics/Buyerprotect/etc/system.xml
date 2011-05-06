@@ -80,7 +80,7 @@
                         </variation>
                         <trustedshops_user translate="label">
                             <label>Trusted Shops Username</label>
-                            <comment>Only needed for excellence variation.</comment>
+                            <comment>Only required for Buyer Protection Excellence.</comment>
                             <frontend_type>text</frontend_type>
                             <sort_order>20</sort_order>
                             <show_in_default>1</show_in_default>
@@ -89,7 +89,7 @@
                         </trustedshops_user>
                         <trustedshops_password translate="label">
                             <label>Trusted Shops Password</label>
-                            <comment>Only needed for excellence variation.</comment>
+                            <comment>Only required for Buyer Protection Excellence.</comment>
                             <frontend_type>text</frontend_type>
                             <sort_order>30</sort_order>
                             <show_in_default>1</show_in_default>
