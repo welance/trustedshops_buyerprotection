@@ -34,7 +34,7 @@ $currency = new Zend_Currency('de_DE');
 foreach ($tsProductsIds as $tsProduct) {
     $tsProductsData['price'] = (double) $tsProduct->net * (double) $preTaxValue;
     preg_match('/^TS080501_([0-9]*)_.*/', $tsProduct->id, $matches);
-    $tsProductName = "Käuferschutz bis $matches[1] EUR";
+    $tsProductName = "Käuferschutz bis $matches[1] €";
     $tsProductsData['name'] = $tsProductName;
     $tsProductsData['description'] = $tsProductName . $currency->toCurrency($tsProductsData['price']);
     $tsProductsData['short_description'] = $tsProductName . $currency->toCurrency($tsProductsData['price']);

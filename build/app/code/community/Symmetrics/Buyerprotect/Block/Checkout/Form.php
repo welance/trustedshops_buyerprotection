@@ -97,9 +97,9 @@ class Symmetrics_Buyerprotect_Block_Checkout_Form extends Mage_Core_Block_Templa
         $tax = Mage::helper('tax');
         // bundle product type has not tax percent
         if ($tax->displayPriceIncludingTax()) {
-            $taxInfo = Mage::helper('tweaksgerman')->__('Incl. tax');
+            $taxInfo = Mage::helper('buyerprotect')->__('Incl. tax');
         } else {
-            $taxInfo = Mage::helper('tweaksgerman')->__('Excl. tax');
+            $taxInfo = Mage::helper('buyerprotect')->__('Excl. tax');
         }
 
         return $taxInfo;
