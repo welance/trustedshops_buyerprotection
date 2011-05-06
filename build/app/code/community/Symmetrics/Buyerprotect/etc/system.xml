@@ -27,7 +27,7 @@
     <sections>
         <buyerprotection translate="label" module="buyerprotect">
             <!-- <class>separator-top</class>  -->
-            <label>Trusted Shops Buyer Protection</label>
+            <label>Trusted Shops quality seal</label>
             <tab>sales</tab>
             <frontend_type>text</frontend_type>
             <sort_order>1000</sort_order>
