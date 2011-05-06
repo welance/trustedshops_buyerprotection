@@ -24,9 +24,18 @@
  */
 -->
 <layout version="0.1.0">
+    <default>
+        <reference name="head">
+            <action method="addJs"><script>symmetrics/paymentmapping.js</script></action>
+            <block type="core/template" template="buyerprotect/system/config/paymentmapping.js.phtml" name="paymentmappingdata_js" />
+        </reference>
+        <!-- <reference name="js">
+        </reference> -->
+    </default>
     <adminhtml_catalog_product_buyerprotect>
         <reference name="head">
             <action method="addCss"><stylesheet>css/trustedshops/buyerprotect.css</stylesheet></action>
+            <action method="addJs"><script>symmetrics/paymentmapping.js</script></action>
         </reference>
 
         <reference name="product_tabs">
