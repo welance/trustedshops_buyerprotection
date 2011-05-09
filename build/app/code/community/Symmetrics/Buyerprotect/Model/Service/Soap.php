@@ -272,17 +272,14 @@ class Symmetrics_Buyerprotect_Model_Service_Soap
     /**
      * Set order id in case requestForProtection() is called later.
      *
-     * @param int $orderid Order id.
+     * @param int $orderId Order id.
      *
      * @return Symmetrics_Buyerprotect_Model_Service_Soap
      */
     public function setOrderId($orderId)
     {
         $this->_orderId = $orderId;
- 
+
          return $this;
-     } 
-    
-    
-    
+    }
 }

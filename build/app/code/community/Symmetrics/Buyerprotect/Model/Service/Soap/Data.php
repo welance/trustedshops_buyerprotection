@@ -203,8 +203,10 @@ class Symmetrics_Buyerprotect_Model_Service_Soap_Data extends Varien_Object
     }
 
     /**
-     * URL of SOAP server
-     *
+     * URL of SOAP server      
+     *                     
+     * @param string $type SOAP API type [backend|frontend].                    
+     *                     
      * @return string
      */
     public function getWsdlUrl($type = 'backend')
