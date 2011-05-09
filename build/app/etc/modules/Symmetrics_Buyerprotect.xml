@@ -23,15 +23,15 @@
  */
 -->
 <config>
-	<modules>
-		<Symmetrics_Buyerprotect>
-			<active>true</active>
-			<codePool>community</codePool>
-			<depends>
+    <modules>
+        <Symmetrics_Buyerprotect>
+            <active>true</active>
+            <codePool>community</codePool>
+            <depends>
                 <Mage_Catalog />
                 <Mage_CatalogInventory />
                 <Mage_CatalogRule />
             </depends>
-		</Symmetrics_Buyerprotect>     
-	</modules>
+        </Symmetrics_Buyerprotect>     
+    </modules>
 </config>

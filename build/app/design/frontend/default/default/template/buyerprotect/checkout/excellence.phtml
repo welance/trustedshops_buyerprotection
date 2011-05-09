@@ -40,19 +40,19 @@
     }
     $conditionsLink = 'http://www.trustedshops.com/shop/protection_conditions.php?shop_id=' . $tsId;
 ?>
-	<div class="trusted-shops">
-	    <a href="https://www.trustedshops.com/shop/certificate.php?shop_id=<?php echo $tsId; ?>" target="_blank">
-	        <img src="<?php echo $this->getSkinUrl('images/buyerprotect/ts_logo.png'); ?>" width="100" height="99" alt="<?php echo $this->__('Trusted Shops Certificate') ?>"/>
-	    </a>
-	    <input type="checkbox" name="trusted_shops" value="1"
-	        title="<?php echo $this->__('Trusted Shops Buyer Protection (recommended)') ?>"
-	        <?php if($tsIsSelected === true) : ?> checked="checked" <?php endif; ?>
-	        id="trusted_shops" />
-	    <label for="trusted_shops">
-	        <?php echo $this->__('Trusted Shops Buyer Protection (recommended)'); ?>
-	    </label>
-	    <div class="trusted_shops_select">
-	        <select id="trusted_shops-product" name="trusted_shops-product">
+    <div class="trusted-shops">
+        <a href="https://www.trustedshops.com/shop/certificate.php?shop_id=<?php echo $tsId; ?>" target="_blank">
+            <img src="<?php echo $this->getSkinUrl('images/buyerprotect/ts_logo.png'); ?>" width="100" height="99" alt="<?php echo $this->__('Trusted Shops Certificate') ?>"/>
+        </a>
+        <input type="checkbox" name="trusted_shops" value="1"
+            title="<?php echo $this->__('Trusted Shops Buyer Protection (recommended)') ?>"
+            <?php if($tsIsSelected === true) : ?> checked="checked" <?php endif; ?>
+            id="trusted_shops" />
+        <label for="trusted_shops">
+            <?php echo $this->__('Trusted Shops Buyer Protection (recommended)'); ?>
+        </label>
+        <div class="trusted_shops_select">
+            <select id="trusted_shops-product" name="trusted_shops-product">
                 <?php foreach($tsProducts as $product):?>
                     <?php /* @var $product Mage_Catalog_Model_Product */ ?>
                     <option value="<?php echo $product->getEntityId() ?>" <?php if ($currentTsProductId == $product->getId()): ?> selected="selected" <?php endif; ?>>
@@ -60,24 +60,24 @@
                             ->currency($product->getPrice(),true,false) ?>
                         <?php $taxInfo = $this->getTaxInfo($product) ?>
                         <?php echo $product->getName() . ' | ' . $price . ' (' . $taxInfo . ')' ?>
-	                </option>
-	            <?php endforeach;?>
-	        </select>
-	    </div>
-	    <div class="trusted_shops_descr">
-	        <?php echo $helper->__('The ') ?>
-	        <a href="<?php echo $conditionsLink; ?>" target="_blank"><?php echo $helper->__('Trusted Shops buyer protection') ?></a>
-	        <?php echo $helper->__('secures your online purchase. I agree with the transfer and') ?>
-	        <a href="http://www.trustedshops.com/shop/data_privacy.php?shop_id=<?php echo $tsId; ?>" target="_blank"><?php echo $helper->__('saving') ?></a>
-	        <?php echo $helper->__('of my email address for the buyer protection handling by Trusted Shops.') ?>
-	        <a href="<?php echo $conditionsLink; ?>" target="_blank"><?php echo $helper->__('Conditions') ?></a>
-	        <?php echo $helper->__('for the buyer protection.') ?>
-	    </div>
-	</div>
-	<script type="text/javascript">
-	//<![CDATA[
-	    $('trusted_shops').removeAttribute('disabled');
-	    $('trusted_shops-product').removeAttribute('disabled');
-	//]]>
-	</script>
+                    </option>
+                <?php endforeach;?>
+            </select>
+        </div>
+        <div class="trusted_shops_descr">
+            <?php echo $helper->__('The ') ?>
+            <a href="<?php echo $conditionsLink; ?>" target="_blank"><?php echo $helper->__('Trusted Shops buyer protection') ?></a>
+            <?php echo $helper->__('secures your online purchase. I agree with the transfer and') ?>
+            <a href="http://www.trustedshops.com/shop/data_privacy.php?shop_id=<?php echo $tsId; ?>" target="_blank"><?php echo $helper->__('saving') ?></a>
+            <?php echo $helper->__('of my email address for the buyer protection handling by Trusted Shops.') ?>
+            <a href="<?php echo $conditionsLink; ?>" target="_blank"><?php echo $helper->__('Conditions') ?></a>
+            <?php echo $helper->__('for the buyer protection.') ?>
+        </div>
+    </div>
+    <script type="text/javascript">
+    //<![CDATA[
+        $('trusted_shops').removeAttribute('disabled');
+        $('trusted_shops-product').removeAttribute('disabled');
+    //]]>
+    </script>
 <?php endif; ?>

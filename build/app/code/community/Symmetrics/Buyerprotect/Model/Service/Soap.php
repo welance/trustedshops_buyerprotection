@@ -216,7 +216,7 @@ class Symmetrics_Buyerprotect_Model_Service_Soap
                         $this->_buyerProtectLogFile,
                         true
                     );
-                    Mage::log('SOAP request successfull.', null, $this->_buyerProtectLogFile, true);
+                    Mage::log('SOAP request successful.', null, $this->_buyerProtectLogFile, true);
                 } catch (SoapFault $soapFault) {
                     $this->_requestErrorCode = self::TS_SOAP_EXCEPTION_CODE;
                     Mage::log('SOAP request failed! See exception log!', null, $this->_buyerProtectLogFile, true);
