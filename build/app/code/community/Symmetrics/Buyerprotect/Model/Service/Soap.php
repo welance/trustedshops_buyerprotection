@@ -65,7 +65,14 @@ class Symmetrics_Buyerprotect_Model_Service_Soap
      *
      * @var Mage_Sales_Model_Order
      */
-    protected $_order = null;
+    protected $_order = null;       
+    
+    /**
+     * Order id in case requestForProtection() is called later.
+     *
+     * @var int
+     */
+    protected $_orderId = null;  
 
     /**
      * Check certificate status.
@@ -249,18 +256,33 @@ class Symmetrics_Buyerprotect_Model_Service_Soap
 
         return null;
     }
-
-    /**
-     * Set Order object in case requestForProtection() is called later.
-     *
-     * @param Mage_Sales_Model_Order $order Order object.
+                 
+    /**                                                                            
+     * Load Order object, using in advance established order id.
      *
      * @return Symmetrics_Buyerprotect_Model_Service_Soap
-     */
-    public function setOrder(Mage_Sales_Model_Order $order)
-    {
-        $this->_order = $order;
+     */                                                              
+    public function loadOrder()
+    {                                       
+        $this->_order = Mage::getModel('sales/order')->load($this->_orderId);
 
         return $this;
     }
+
+    /**
+     * Set order id in case requestForProtection() is called later.
+     *
+     * @param int $orderid Order id.
+     *
+     * @return Symmetrics_Buyerprotect_Model_Service_Soap
+     */
+    public function setOrderId($orderId)
+    {
+        $this->_orderId = $orderId;
+ 
+         return $this;
+     } 
+    
+    
+    
 }

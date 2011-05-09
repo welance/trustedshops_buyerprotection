@@ -123,7 +123,7 @@ class Symmetrics_Buyerprotect_Model_Observer
             $customerSession = Mage::getSingleton('customer/session');
             /* @var $customerSession Mage_Customer_Model_Session */
 
-            $tsSoap->setOrder($order);
+            $tsSoap->setOrderId($order->getId());
 
             $customerSession->setTsSoap($tsSoap);
         }
@@ -149,6 +149,7 @@ class Symmetrics_Buyerprotect_Model_Observer
         /* @var $customerSession Mage_Customer_Model_Session */
         
         if (($tsSoap = $customerSession->getTsSoap())) {
+            $tsSoap->loadOrder();
             Mage::log('start SOAP request');
             $tsSoap->requestForProtection();
             Mage::log('end SOAP request');
