@@ -134,7 +134,7 @@ class Symmetrics_Buyerprotect_Model_Service_Soap
      * @return void
      */
     protected function _requestV2(Symmetrics_Buyerprotect_Model_Service_Soap_Data $buyerprotectModul)
-    {
+    {                                                               
         $soapClient = new SoapClient($buyerprotectModul->getWsdlUrl('frontend'));
 
         $this->_requestErrorCode = $soapClient->requestForProtectionV2(

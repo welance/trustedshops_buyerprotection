@@ -117,15 +117,12 @@ class Symmetrics_Buyerprotect_Model_Observer
 
         if ($helper->hasTsProductsInCart()) {
             $order = $observer->getEvent()->getOrder();
-            /* @var $order Mage_Sales_Model_Order */
-            $tsSoap = Mage::getModel('buyerprotect/service_soap');
-            /* @var $tsSoap Symmetrics_Buyerprotect_Model_Service_Soap */
+            /* @var $order Mage_Sales_Model_Order */                        
             $customerSession = Mage::getSingleton('customer/session');
             /* @var $customerSession Mage_Customer_Model_Session */
-
-            $tsSoap->setOrderId($order->getId());
-
-            $customerSession->setTsSoap($tsSoap);
+                                                   
+            $customerSession->setTsSoap(true);  
+            $customerSession->setOrderId($order->getId());  
         }
 
         return;
@@ -148,11 +145,22 @@ class Symmetrics_Buyerprotect_Model_Observer
         $customerSession = Mage::getSingleton('customer/session');
         /* @var $customerSession Mage_Customer_Model_Session */
         
-        if (($tsSoap = $customerSession->getTsSoap())) {
-            $tsSoap->loadOrder();
-            Mage::log('start SOAP request');
-            $tsSoap->requestForProtection();
-            Mage::log('end SOAP request');
+        if ($customerSession->getTsSoap()) {     
+            $tsSoap = Mage::getModel('buyerprotect/service_soap');        
+            $tsSoap->setOrderId($customerSession->getOrderId());      
+            
+            /* @var $tsSoap Symmetrics_Buyerprotect_Model_Service_Soap */  
+            $tsSoap->loadOrder();      
+            try {
+                Mage::log('start SOAP request');
+                $tsSoap->requestForProtection();
+                Mage::log('end SOAP request');      
+            } catch (Exception $e) {                                        
+                Mage::log('SOAP request failed! See exception log!', null, null, true);
+                Mage::logException($e);
+            }       
+            
+            
         }
 
         return;

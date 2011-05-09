@@ -207,9 +207,9 @@ class Symmetrics_Buyerprotect_Model_Service_Soap_Data extends Varien_Object
      *
      * @return string
      */
-    public function getWsdlUrl()
+    public function getWsdlUrl($type = 'backend')
     {
-        return $this->getHelper()->getWsdlUrl();
+        return $this->getHelper()->getWsdlUrl($type);
     }
 
     /**
