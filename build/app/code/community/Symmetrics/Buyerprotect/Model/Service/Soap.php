@@ -228,26 +228,7 @@ class Symmetrics_Buyerprotect_Model_Service_Soap
                     $this->_requestErrorCode = self::TS_SOAP_EXCEPTION_CODE;
                     Mage::log('SOAP request failed! See exception log!', null, $this->_buyerProtectLogFile, true);
                     Mage::logException($soapFault);
-                }
-
-                /*
-                 * Request wasn't successful, send email.
-                 */
-                /*
-                if (!($this->_requestErrorCode > 0)) {
-                    $tsSoapDataObject->setIsSuccessfull(false);
-                    $tsSoapDataObject->setSoapRequestErrorCode($this->_requestErrorCode);
-                    $tsSoapDataObject->setTsBuyerProtectRequestId(false);
-                    $tsSoapDataObject->setReturnValue($this->_requestErrorCode);
-                    Symmetrics_Buyerprotect_Model_Buyerprotection::sendTsEmailOnSoapFail($tsSoapDataObject->getData());
-                } else {
-                    $tsSoapDataObject->setIsSuccessfull(true);
-                    $tsSoapDataObject->setSoapRequestErrorCode(false);
-                    $tsSoapDataObject->setTsBuyerProtectRequestId($this->_requestErrorCode);
-                }
-
-                */
-
+                }     
                 Mage::log($tsSoapDataObject->getTsSoapData(), null, $this->_buyerProtectLogFile, true);
             }
 
