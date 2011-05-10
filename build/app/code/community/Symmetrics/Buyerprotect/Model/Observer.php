@@ -233,9 +233,7 @@ class Symmetrics_Buyerprotect_Model_Observer
         }
         $helper = Mage::helper('buyerprotect');
         $website = $observer->getWebsite();
-        $store = $observer->getStore();
-        $section = Mage::app()->getRequest()->getParam('section');
-        $groups = Mage::app()->getRequest()->getPost('groups');
+        $store = $observer->getStore();                          
     
         if (!empty($store)) {
             $scope = 'stores';
@@ -249,7 +247,9 @@ class Symmetrics_Buyerprotect_Model_Observer
         }
         $pattern = '!^X[A-Za-z0-9]{32}$!imsU';
         if (!preg_match($pattern, $tsId)) {
-            Mage::getSingleton('core/session')->addNotice('Invalid Trusted Shops ID. Disabled buyer protection.');
+            Mage::getSingleton('core/session')->addNotice(
+                $helper->__('Invalid Trusted Shops ID. Disabled buyer protection.')
+            );
             
             Mage::helper('buyerprotect')->setConfigData(
                 Symmetrics_Buyerprotect_Helper_Data::XML_PATH_TS_BUYERPROTECT_IS_ACTIVE,

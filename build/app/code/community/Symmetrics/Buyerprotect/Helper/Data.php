@@ -371,13 +371,15 @@ class Symmetrics_Buyerprotect_Helper_Data
     
     /**
      * Method to set configuration data
-     * !Copied from core setup model!
+     * !Copied from core setup model!                      
      *
      * @param string $path    System configuration path.
      * @param string $value   Value to set.
      * @param string $scope   Scope type.
      * @param int    $scopeId Scope ID.
-     * @param int    $inherit Inherit?
+     * @param int    $inherit Inherit?           
+     *                                              
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)     
      *
      * @return Symmetrics_Buyerprotect_Helper_Data
      */
