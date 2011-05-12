@@ -37,9 +37,23 @@
  */
 class Symmetrics_Buyerprotect_Block_Checkout_Form extends Mage_Core_Block_Template
 {
-
     /**
-     * Check if Trusted Shops - Buyerprotection form can be shown in checkout.
+     * @const CLASSIC_CERTIFICATE_URL URL of the form to check the seal of approval.
+     */
+    const CLASSIC_CERTIFICATE_URL = 'https://www.trustedshops.com/shop/certificate.php';
+    
+    /**
+     * @const CLASSIC_SUBSCRIBE_URL URL of the form to subscribe to classic buyer protection.
+     */
+    const CLASSIC_SUBSCRIBE_URL = 'https://www.trustedshops.com/shop/protection.php';
+    
+    /**
+     * @const FORM_ENCODING Encoding of subscription form.
+     */
+    const FORM_ENCODING = 'UTF-8';
+    
+    /**
+     * Check if Trusted Shops - Excellence Buyerprotection form can be shown in checkout.
      * 
      * @return boolean
      */
@@ -83,11 +97,73 @@ class Symmetrics_Buyerprotect_Block_Checkout_Form extends Mage_Core_Block_Templa
         $tax = Mage::helper('tax');
         // bundle product type has not tax percent
         if ($tax->displayPriceIncludingTax()) {
-            $taxInfo = Mage::helper('tweaksgerman')->__('Incl. tax');
+            $taxInfo = Mage::helper('buyerprotect')->__('Incl. tax');
         } else {
-            $taxInfo = Mage::helper('tweaksgerman')->__('Excl. tax');
+            $taxInfo = Mage::helper('buyerprotect')->__('Excl. tax');
         }
 
         return $taxInfo;
+    }
+    
+    /**
+     * Get certificate validation form action URL.
+     *
+     * @return string
+     */
+    public function getCertificateAction()
+    {
+        return self::CLASSIC_CERTIFICATE_URL;
+    }
+    
+    /**
+     * Get classic buyer protection form action URL.
+     *
+     * @return string
+     */
+    public function getClassicFormAction()
+    {
+        return self::CLASSIC_SUBSCRIBE_URL;
+    }
+    
+    /**
+     * Get Trusted Shops ID.
+     *
+     * @return string
+     */
+    public function getTsId()
+    {
+        return Mage::helper('buyerprotect')->getTsUserId();
+    }
+    
+    /**
+     * Get current parameter encoding.
+     *
+     * @return string
+     */
+    public function getEncoding()
+    {
+        return self::FORM_ENCODING;
+    }
+    
+    /**
+     * Get payment type.
+     *
+     * @param Mage_Sales_Model_Order $order Order instance.
+     *
+     * @return string
+     */
+    public function getPaymentType($order)
+    {               
+        // phpmd hack.
+        unset($order);
+        // $payments = Mage::helper('buyerprotect')->getPaymentMapping();
+        // $paymentMethod = $order->getPayment()->getMethod();
+        // if (is_array($payments)) {
+        //     $payments = array_flip($payments);
+        //     if (array_key_exists($paymentMethod, $payments)) {
+        //         return $payments[$paymentMethod];
+        //     }
+        // }
+        return '';
     }
 }

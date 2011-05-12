@@ -65,7 +65,36 @@ class Symmetrics_Buyerprotect_Model_Service_Soap
      *
      * @var Mage_Sales_Model_Order
      */
-    protected $_order = null;
+    protected $_order = null;       
+    
+    /**
+     * Order id in case requestForProtection() is called later.
+     *
+     * @var int
+     */
+    protected $_orderId = null;  
+
+    /**
+     * Check certificate status.
+     *
+     * @return void
+     */
+    public function checkCertificate()
+    {
+        $helper = Mage::helper('buyerprotect');
+        $wsdl = $helper->getWsdlUrl('backend');
+        $tsId = $helper->getTsUserId();
+        
+        $soapClient = new SoapClient($wsdl);
+        
+        $tsData = $soapClient->checkCertificate($tsId);
+        
+        return array(
+            'language' => $tsData->certificationLanguage,
+            'variation' => $tsData->typeEnum,
+            'state' => $tsData->stateEnum
+        );        
+    }
     
     /**
      * SOAP request to Trusted Shops, a positive $errorCode determines a successful
@@ -105,8 +134,8 @@ class Symmetrics_Buyerprotect_Model_Service_Soap
      * @return void
      */
     protected function _requestV2(Symmetrics_Buyerprotect_Model_Service_Soap_Data $buyerprotectModul)
-    {
-        $soapClient = new SoapClient($buyerprotectModul->getWsdlUrl());
+    {                                                               
+        $soapClient = new SoapClient($buyerprotectModul->getWsdlUrl('frontend'));
 
         $this->_requestErrorCode = $soapClient->requestForProtectionV2(
             $buyerprotectModul->getTsId(),
@@ -194,31 +223,12 @@ class Symmetrics_Buyerprotect_Model_Service_Soap
                         $this->_buyerProtectLogFile,
                         true
                     );
-                    Mage::log('SOAP request successfull.', null, $this->_buyerProtectLogFile, true);
+                    Mage::log('SOAP request successful.', null, $this->_buyerProtectLogFile, true);
                 } catch (SoapFault $soapFault) {
                     $this->_requestErrorCode = self::TS_SOAP_EXCEPTION_CODE;
                     Mage::log('SOAP request failed! See exception log!', null, $this->_buyerProtectLogFile, true);
                     Mage::logException($soapFault);
-                }
-
-                /*
-                 * Request wasn't successful, send email.
-                 */
-                /*
-                if (!($this->_requestErrorCode > 0)) {
-                    $tsSoapDataObject->setIsSuccessfull(false);
-                    $tsSoapDataObject->setSoapRequestErrorCode($this->_requestErrorCode);
-                    $tsSoapDataObject->setTsBuyerProtectRequestId(false);
-                    $tsSoapDataObject->setReturnValue($this->_requestErrorCode);
-                    Symmetrics_Buyerprotect_Model_Buyerprotection::sendTsEmailOnSoapFail($tsSoapDataObject->getData());
-                } else {
-                    $tsSoapDataObject->setIsSuccessfull(true);
-                    $tsSoapDataObject->setSoapRequestErrorCode(false);
-                    $tsSoapDataObject->setTsBuyerProtectRequestId($this->_requestErrorCode);
-                }
-
-                */
-
+                }     
                 Mage::log($tsSoapDataObject->getTsSoapData(), null, $this->_buyerProtectLogFile, true);
             }
 
@@ -227,18 +237,30 @@ class Symmetrics_Buyerprotect_Model_Service_Soap
 
         return null;
     }
+                 
+    /**                                                                            
+     * Load Order object, using in advance established order id.
+     *
+     * @return Symmetrics_Buyerprotect_Model_Service_Soap
+     */                                                              
+    public function loadOrder()
+    {                                       
+        $this->_order = Mage::getModel('sales/order')->load($this->_orderId);
+
+        return $this;
+    }
 
     /**
-     * Set Order object in case requestForProtection() is called later.
+     * Set order id in case requestForProtection() is called later.
      *
-     * @param Mage_Sales_Model_Order $order Order object.
+     * @param int $orderId Order id.
      *
      * @return Symmetrics_Buyerprotect_Model_Service_Soap
      */
-    public function setOrder(Mage_Sales_Model_Order $order)
+    public function setOrderId($orderId)
     {
-        $this->_order = $order;
+        $this->_orderId = $orderId;
 
-        return $this;
+         return $this;
     }
 }

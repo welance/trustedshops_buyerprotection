@@ -39,6 +39,18 @@
         </reference>
     </checkout_onepage_index>
     <checkout_onepage_paymentmethod>
-        <block type="buyerprotect/checkout_form" name="buyerprotect.checkout.form" output="toHtml" template="buyerprotect/checkout/form.phtml"/>
+        <block type="buyerprotect/checkout_form" name="buyerprotect.checkout.form" output="toHtml" template="buyerprotect/checkout/excellence.phtml"/>
     </checkout_onepage_paymentmethod>
+    
+    <checkout_onepage_success>
+        <reference name="content">
+            <block type="buyerprotect/checkout_form" after="checkout.success" template="buyerprotect/checkout/classic.phtml" name="ts_bp_classic" />
+        </reference>
+    </checkout_onepage_success>
+    
+    <checkout_multishipping_success>
+        <reference name="content">
+            <block type="buyerprotect/checkout_form" after="checkout_success" template="buyerprotect/checkout/classic.phtml" name="ts_bp_classic" />
+        </reference>
+    </checkout_multishipping_success>
 </layout>

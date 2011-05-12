@@ -45,14 +45,27 @@ class Symmetrics_Buyerprotect_Helper_Data
     const XML_PATH_TS_BUYERPROTECT_TS_USER = 'buyerprotection/data/trustedshops_user';
     const XML_PATH_TS_BUYERPROTECT_TS_PASSWORD = 'buyerprotection/data/trustedshops_password';
     const XML_PATH_TS_BUYERPROTECT_TS_WSDL_URL = 'buyerprotection/data/trustedshops_url';
+    const XML_PATH_TS_BUYERPROTECT_VARIATION = 'buyerprotection/data/variation';
 
     const XML_PATH_TS_AVAILABLE_PAYMENT_CODES = 'trusted_shops_payment_codes';
+    const XML_PATH_TS_PAYMENT_MAPPING = 'buyerprotection/payment_mapping';
 
     const XML_PATH_TS_BUYERPROTECT_ERROR_EMAIL_SENDER = 'buyerprotection/data/trustedshops_erroremail_sender';
     const XML_PATH_TS_BUYERPROTECT_ERROR_EMAIL_TEMPLATE = 'buyerprotection/data/trustedshops_erroremail_template';
     const XML_PATH_TS_BUYERPROTECT_ERROR_EMAIL_RECIPIENT = 'buyerprotection/data/trustedshops_erroremail_recipient';
 
     const BUYERPROTECT_MODUL_NAME = 'Symmetrics_Buyerprotect';
+
+    /**
+     * Get custom payment mapping from system configuration.
+     *
+     * @return array
+     */
+    public function getPaymentMapping()
+    {
+        // return Mage::getStoreConfig(self::XML_PATH_TS_PAYMENT_MAPPING);
+        return array();
+    }
 
     /**
      * get all buyerprotection Products in cart
@@ -289,9 +302,27 @@ class Symmetrics_Buyerprotect_Helper_Data
      */
     public function isBuyerprotectActive()
     {
-        return (bool) $this->getStoreConfig(self::XML_PATH_TS_BUYERPROTECT_IS_ACTIVE);
+        return Mage::getStoreConfigFlag(self::XML_PATH_TS_BUYERPROTECT_IS_ACTIVE);
     }
 
+    /**
+     * Get buyer protection variation.
+     *
+     * @return string [classic|excellence]
+     */
+    public function getVariation()
+    {
+        $variation = Mage::getStoreConfig(
+            Symmetrics_Buyerprotect_Helper_Data::XML_PATH_TS_BUYERPROTECT_VARIATION
+        );
+        
+        if ($variation == Symmetrics_Buyerprotect_Model_System_Config_Source_Variation::CLASSIC_VALUE) {
+            return 'classic';
+        }
+        
+        return 'excellence';
+    }
+    
     /**
      * JSON encoded HTML content which should be insert underneath the sku input
      * field.
@@ -308,5 +339,61 @@ class Symmetrics_Buyerprotect_Helper_Data
               . '</span></span></p>';
 
         return json_encode(array('content' => $html));
+    }
+    
+    /**
+     * Generate WSDL URL from 2 different options.
+     *
+     * @param string $type [backend|frontend] Backend or frontend webservice?
+     *
+     * @return string WSDL URL
+     */
+    public function getWsdlUrl($type = 'backend')
+    {
+        $mode = Mage::getStoreConfig(self::XML_PATH_TS_BUYERPROTECT_TS_WSDL_URL);
+        if ($type == 'frontend') {
+            if ($mode == 'live') {
+                $wsdl = 'https://protection';
+            } else {
+                $wsdl = 'https://protection-qa';
+            }
+            $wsdl .= '.trustedshops.com/ts/protectionservices/ApplicationRequestService?wsdl';
+        } else {
+            if ($mode == 'live') {
+                $wsdl = 'https://www';
+            } else {
+                $wsdl = 'https://qa';
+            }
+            $wsdl .= '.trustedshops.de/ts/services/TsProtection?wsdl';
+        }
+        return $wsdl;
+    }
+    
+    /**
+     * Method to set configuration data
+     * !Copied from core setup model!                      
+     *
+     * @param string $path    System configuration path.
+     * @param string $value   Value to set.
+     * @param string $scope   Scope type.
+     * @param int    $scopeId Scope ID.
+     * @param int    $inherit Inherit?           
+     *                                              
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)     
+     *
+     * @return Symmetrics_Buyerprotect_Helper_Data
+     */
+    public function setConfigData($path, $value, $scope = 'default', $scopeId = 0, $inherit = 0)
+    {
+        $resource = Mage::getModel('core/resource');
+        $conn = $resource->getConnection('core/write');
+        $conn->showTableStatus($resource->getTableName('core/config_data')); // this is a fix for mysql 4.1
+        $conn->raw_query(
+            'replace into ' .
+            $resource->getTableName('core/config_data') .
+            ' (scope, scope_id, path, value)' .
+            " values ('$scope', $scopeId, '$path', '$value')"
+        );
+        return $this;
     }
 }

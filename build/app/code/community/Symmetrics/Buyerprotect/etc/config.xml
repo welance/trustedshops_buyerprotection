@@ -26,7 +26,7 @@
 <config>
     <modules>
         <Symmetrics_Buyerprotect>
-            <version>0.3.6</version>
+            <version>0.4.3</version>
         </Symmetrics_Buyerprotect>
     </modules>
     <global>
@@ -113,6 +113,15 @@
                     </inventory>
                 </observers>
             </cataloginventory_stock_item_save_after>
+            <admin_system_config_changed_section_buyerprotection>
+                <observers>
+                    <buyerprotect>
+                        <type>singleton</type>
+                        <class>Symmetrics_Buyerprotect_Model_Observer</class>
+                        <method>checkCertificate</method>
+                    </buyerprotect>
+                </observers>
+            </admin_system_config_changed_section_buyerprotection>
         </events>
         <data>
             <ts_products>

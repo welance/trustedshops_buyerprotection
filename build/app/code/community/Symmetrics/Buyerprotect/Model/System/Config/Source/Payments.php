@@ -15,44 +15,41 @@
  * @category  Symmetrics
  * @package   Symmetrics_Buyerprotect
  * @author    symmetrics gmbh <info@symmetrics.de>
- * @author    Torsten Walluhn <tw@symmetrics.de>
- * @copyright 2010 Symmetrics Gmbh
+ * @author    Eric Reiche <er@symmetrics.de>
+ * @copyright 2011 symmetrics gmbh
  * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  * @link      http://www.symmetrics.de/
  */
 
 /**
- * Source model to get the WSDL API for Trusted Shops buyer protect. 
+ * Source Model to get the WSDL API for Trusted Shops protectionservice 
  *
  * @category  Symmetrics
  * @package   Symmetrics_Buyerprotect
- * @author    Symmetrics GmbH <info@symmetrics.de>
- * @author    Torsten Walluhn <tw@symmetrics.de>
- * @copyright 2010 symmetrics gmbh
+ * @author    symmetrics gmbh <info@symmetrics.de>
+ * @author    Eric Reiche <er@symmetrics.de>
+ * @copyright 2011 symmetrics gmbh
  * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  * @link      http://www.symmetrics.de/
  */
-class Symmetrics_Buyerprotect_Model_System_Config_Source_Wsdl
+class Symmetrics_Buyerprotect_Model_System_Config_Source_Payments
+    extends Mage_Adminhtml_Model_System_Config_Source_Payment_Allowedmethods
 {
     /**
-     * Generate value for mode field.
+     * Get payment methods and add a dummy at the top.
      *
      * @return array
      */
     public function toOptionArray()
     {
-        $returnArray = array(
+        $methods = Mage::helper('payment')->getPaymentMethodList(true, true, true);
+        array_unshift(
+            $methods,
             array(
-                'value' => 'qa',
-                'label' => Mage::helper('buyerprotect')->__('Test')
-            ),
-
-            array(
-                'value' => 'live',
-                'label' => Mage::helper('buyerprotect')->__('Live')
-            ),
+                'value' => 'none',
+                'label' => Mage::helper('buyerprotect')->__('Not in use')
+            )
         );
-
-        return $returnArray;
+        return $methods;
     }
 }

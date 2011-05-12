@@ -51,9 +51,9 @@ class Symmetrics_Buyerprotect_Block_Badge extends Mage_Core_Block_Template
             return false;
         }
 
-        if (strlen($configData['trustedshops_id']) == 33
-            && substr($configData['trustedshops_id'], 0, 1) == 'X'
-            && $configData['trustedshops_user'] != ''
+        $pattern = '!^X[A-Za-z0-9]{32}$!imsU';
+        
+        if (preg_match($pattern, $configData['trustedshops_id'])
             && !empty($configData['ts_logo_img'])
             && !empty($configData['ts_background_img'])
             && $configData['trustedshops_certificate_logo_active'] == 1) {
@@ -82,30 +82,24 @@ class Symmetrics_Buyerprotect_Block_Badge extends Mage_Core_Block_Template
         $seal = str_replace($pos, $new . $pos, $seal);
 
         $logo = Mage::getBaseUrl('media') . '/trustedshops/' . $configData['ts_logo_img'];
-        $seal = preg_replace(
-            '!(\<img style\=\"(?:.*)\" src\=\")(?:.*\/trustedshops.*\..{3,4})\"!imsU',
-            '$1' . $logo . '"',
-            $seal
-        );
+        $background = Mage::getBaseUrl('media') . '/trustedshops/' . $configData['ts_background_img'];
 
         $search = array();
-        $search[] = '/images\/bg_yellow.jpg/i';
+        $search[] = '!(\<img\s{1,}style\=\"(?:.*)\"\s{1,}src\=\")(?:.*\/trustedshops.*\..{3,4})\"!imsU';
+        $search[] = '/images\/bg_(yellow|grey|blue).jpg/i';
         $search[] = '/width:[0-9]+(?:\.[0-9]*)?px/i';
         $search[] = '/border:1px solid #C0C0C0/i';
         $search[] = '/padding:2px/i';
+        $search[] = '!(\<div.*)(width:[0-9]*\%\;)(.*)(padding:[0-9]*px)(.*id=\"tsInnerBox\".*\>)!i';
 
-        $repleace = array();
-        $repleace[] = Mage::getBaseUrl('media') . '/trustedshops/' . $configData['ts_background_img'];
-        $repleace[] = 'width:100%';
-        $repleace[] = 'border:0px';
-        $repleace[] = 'padding:0px';
-        $seal = preg_replace($search, $repleace, $seal);
-
-        $seal = preg_replace(
-            '!(\<div.*)(width:[0-9]*\%\;)(.*)(padding:[0-9]*px)(.*id=\"tsInnerBox\".*\>)!i',
-            '$1$3padding:5px$5',
-            $seal
-        );
+        $replace = array();
+        $replace[] = '$1' . $logo . '"';
+        $replace[] = $background;
+        $replace[] = 'width:100%';
+        $replace[] = 'border:0px';
+        $replace[] = 'padding:0px';
+        $replace[] = '$1$3padding:5px$5';
+        $seal = preg_replace($search, $replace, $seal);
 
         return $seal;
     }
