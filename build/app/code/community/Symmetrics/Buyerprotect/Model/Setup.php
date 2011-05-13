@@ -209,8 +209,12 @@ class Symmetrics_Buyerprotect_Model_Setup extends Mage_Catalog_Model_Resource_Ea
         $stockItem->setMaxSaleQty(1);
         $stockItem->setUseConfigManageStock(0);
         $stockItem->setManageStock(0);
-
-        $stockItem->save();
+               
+        try {            
+            $stockItem->save();     
+        } catch (Exception $e) {
+            Mage::logException($e);
+        }                  
         
         return;
     }
