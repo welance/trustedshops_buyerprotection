@@ -263,7 +263,9 @@ class Symmetrics_Buyerprotect_Model_Observer
             if ($tsData['variation'] == 'CLASSIC') {
                 $variation = Symmetrics_Buyerprotect_Model_System_Config_Source_Variation::CLASSIC_VALUE;
             } else {
-                $variation = Symmetrics_Buyerprotect_Model_System_Config_Source_Variation::EXCELLENCE_VALUE;
+                $variation = Symmetrics_Buyerprotect_Model_System_Config_Source_Variation::EXCELLENCE_VALUE; 
+                $productsModel = Mage::getModel('buyerprotect/products');
+                $productsModel->recreateProducts(false, $website, $store);
             }
         
             Mage::helper('buyerprotect')->setConfigData(
