@@ -35,7 +35,7 @@
  * @link      http://www.symmetrics.de/
  */
 class Symmetrics_Buyerprotect_Model_Setup extends Mage_Catalog_Model_Resource_Eav_Mysql4_Setup
-{         
+{
     /*
      * Some constants for migration skripts.
      */

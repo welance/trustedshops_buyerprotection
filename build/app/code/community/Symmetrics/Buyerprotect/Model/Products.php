@@ -33,7 +33,7 @@
  */
 class Symmetrics_Buyerprotect_Model_Products
     extends Mage_Core_Helper_Abstract
-{          
+{
     /**
      * Default ignored attribute codes
      *
@@ -125,7 +125,9 @@ class Symmetrics_Buyerprotect_Model_Products
     }       
               
     /**
-     * Delete a given product collection.                         
+     * Delete a given product collection.
+     *
+     * @param Mage_Catalog_Model_Product_Collection $productCollection Product collection to delete.
      *
      * @return void
      */   
@@ -224,7 +226,8 @@ class Symmetrics_Buyerprotect_Model_Products
     /**
      * Retrieve Default Attribute Set for Entity Type
      *
-     * @param string|int $entityType
+     * @param string|int $entityType Attribute set type.
+     *
      * @return int
      */
     public function getDefaultAttributeSetId($entityType)
