@@ -52,7 +52,7 @@ class Symmetrics_Buyerprotect_Block_Badge extends Mage_Core_Block_Template
         }
 
         $pattern = '!^X[A-Za-z0-9]{32}$!imsU';
-        
+
         if (preg_match($pattern, $configData['trustedshops_id'])
             && !empty($configData['ts_logo_img'])
             && !empty($configData['ts_background_img'])
@@ -72,20 +72,20 @@ class Symmetrics_Buyerprotect_Block_Badge extends Mage_Core_Block_Template
     {
         $helper = Mage::helper('buyerprotect');
         /* @var $helper Symmetrics_Buyerprotect_Helper_Data */
-        
+
         $configData = $helper->getConfigData();
-        
+
         $seal = $configData['trustedshops_certificate_logo_code'];
 
         $new = 'class="box" ';
         $pos = 'id="tsBox"';
         $seal = str_replace($pos, $new . $pos, $seal);
 
-        $logo = Mage::getBaseUrl('media') . '/trustedshops/' . $configData['ts_logo_img'];
-        $background = Mage::getBaseUrl('media') . '/trustedshops/' . $configData['ts_background_img'];
+        $logo = Mage::getBaseUrl('media') . '/buyerprotect/' . $configData['ts_logo_img'];
+        $background = Mage::getBaseUrl('media') . '/buyerprotect/' . $configData['ts_background_img'];
 
         $search = array();
-        $search[] = '!(\<img\s{1,}style\=\"(?:.*)\"\s{1,}src\=\")(?:.*\/trustedshops.*\..{3,4})\"!imsU';
+        $search[] = '!(\<img\s{1,}style\=\"(?:.*)\"\s{1,}src\=\")(?:.*\/buyerprotect.*\..{3,4})\"!imsU';
         $search[] = '/images\/bg_(yellow|grey|blue).jpg/i';
         $search[] = '/width:[0-9]+(?:\.[0-9]*)?px/i';
         $search[] = '/border:1px solid #C0C0C0/i';
