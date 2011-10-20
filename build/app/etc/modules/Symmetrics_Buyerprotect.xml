@@ -32,6 +32,6 @@
                 <Mage_CatalogInventory />
                 <Mage_CatalogRule />
             </depends>
-        </Symmetrics_Buyerprotect>     
+        </Symmetrics_Buyerprotect>
     </modules>
 </config>

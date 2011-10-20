@@ -105,7 +105,7 @@
                     </buyerprotect_catalogrule_before_apply>
                 </observers>
             </salesrule_validator_process>
-            <cataloginventory_stock_item_save_after> 
+            <cataloginventory_stock_item_save_after>
                 <observers>
                     <inventory>
                         <class>Symmetrics_Buyerprotect_Model_Observer</class>
@@ -171,7 +171,6 @@
             </modules>
         </translate>
     </frontend>
-
     <adminhtml>
         <layout>
             <updates>
@@ -190,7 +189,6 @@
             </modules>
         </translate>
     </adminhtml>
-
     <default>
         <buyerprotection>
             <data>
@@ -211,7 +209,7 @@
             <paypal_standard>PAYPAL</paypal_standard>
             <!-- Payone PayPal -->
             <payone_wlt>PAYPAL</payone_wlt>
-        <!--
+            <!--
             INVOICE
             PREPAYMENT
             PAYBOX
@@ -221,7 +219,7 @@
             T_PAY
             GIROPAY
             SHOP_CARD
-        -->
+            -->
         </trusted_shops_payment_codes>
     </default>
 </config>
