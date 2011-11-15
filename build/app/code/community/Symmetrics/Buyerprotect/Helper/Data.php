@@ -395,5 +395,26 @@ class Symmetrics_Buyerprotect_Helper_Data
             " values ('$scope', $scopeId, '$path', '$value')"
         );
         return $this;
-    }
+    }    
+         
+    /**
+     * Get Product collection of all products with type buyerprotect
+     *
+     * @todo move this method to a Model class
+     *
+     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection
+     */
+    public function getAllTsProducts()
+    {
+        $productCollection = Mage::getResourceModel('catalog/product_collection')
+            ->addAttributeToFilter('type_id', array('eq' => 'buyerprotect'))
+            ->addAttributeToSelect('price')
+            ->addAttributeToSelect('name')
+            ->setOrder('price', 'asc');
+        /* @var $productCollection Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection */
+
+        $productCollection->load();
+
+        return $productCollection;
+    }     
 }

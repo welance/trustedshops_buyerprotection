@@ -80,10 +80,8 @@ class Symmetrics_Buyerprotect_Block_Checkout_Form extends Mage_Core_Block_Templa
      */
     public function getAllTsProducts()
     {
-        $buyerprotectionModel = Mage::getModel('buyerprotect/buyerprotection');
-        /* @var $buyerprotectionModel Symmetrics_Buyerprotect_Model_Buyerprotection */
-
-        $productCollection = $buyerprotectionModel->getAllTsProducts();
+        $helper = Mage::helper('buyerprotect');     
+        $productCollection = $helper->getAllTsProducts();
         return $productCollection;
     }
     
