@@ -93,8 +93,7 @@ class Symmetrics_Buyerprotect_Model_Products
             $createNew = $this->deleteProducts($productCollection);  
         } else {        
             $createNew = true;
-        }          
-        return;
+        }
         if ($createNew) {
             $this->createProducts();   
         }  
