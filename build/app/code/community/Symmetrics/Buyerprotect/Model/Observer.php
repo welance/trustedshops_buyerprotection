@@ -139,12 +139,12 @@ class Symmetrics_Buyerprotect_Model_Observer
 
         if ($helper->hasTsProductsInCart()) {
             $order = $observer->getEvent()->getOrder();
-            /* @var $order Mage_Sales_Model_Order */                        
+            /* @var $order Mage_Sales_Model_Order */
             $customerSession = Mage::getSingleton('customer/session');
             /* @var $customerSession Mage_Customer_Model_Session */
-                                                   
-            $customerSession->setTsSoap(true);  
-            $customerSession->setOrderId($order->getId());  
+
+            $customerSession->setTsSoap(true);
+            $customerSession->setOrderId($order->getId());
         }
 
         return;
@@ -163,31 +163,31 @@ class Symmetrics_Buyerprotect_Model_Observer
     {
         // phpmd hack unused parameter.
         unset($observer);
-        
+
         $customerSession = Mage::getSingleton('customer/session');
         /* @var $customerSession Mage_Customer_Model_Session */
-        
-        if ($customerSession->getTsSoap()) {     
-            $tsSoap = Mage::getModel('buyerprotect/service_soap');        
-            $tsSoap->setOrderId($customerSession->getOrderId());      
-            
-            /* @var $tsSoap Symmetrics_Buyerprotect_Model_Service_Soap */  
-            $tsSoap->loadOrder();      
+
+        if ($customerSession->getTsSoap()) {
+            $tsSoap = Mage::getModel('buyerprotect/service_soap');
+            $tsSoap->setOrderId($customerSession->getOrderId());
+
+            /* @var $tsSoap Symmetrics_Buyerprotect_Model_Service_Soap */
+            $tsSoap->loadOrder();
             try {
                 Mage::log('start SOAP request');
                 $tsSoap->requestForProtection();
-                Mage::log('end SOAP request');      
-            } catch (Exception $e) {                                        
+                Mage::log('end SOAP request');
+            } catch (Exception $e) {
                 Mage::log('SOAP request failed! See exception log!', null, null, true);
                 Mage::logException($e);
-            }       
-            
-            
+            }
+
+
         }
 
         return;
     }
-    
+
     /**
      * Observer to prevent discount rules to the product type.
      *
@@ -209,7 +209,7 @@ class Symmetrics_Buyerprotect_Model_Observer
             $result->setBaseDiscountAmount(0);
         }
     }
-    
+
     /**
      * Observer to check correct values of stock table 'cataloginventory_stock_item'
      * for product type Symmetrics_Buyerprotect_Model_Type_Buyerprotect::TYPE_BUYERPROTECT.
@@ -255,8 +255,8 @@ class Symmetrics_Buyerprotect_Model_Observer
         }
         $helper = Mage::helper('buyerprotect');
         $website = $observer->getWebsite();
-        $store = $observer->getStore();                          
-    
+        $store = $observer->getStore();
+
         if (!empty($store)) {
             $scope = 'stores';
             $scopeId = Mage::getModel('core/store')->load($store, 'code')->getId();
@@ -272,7 +272,7 @@ class Symmetrics_Buyerprotect_Model_Observer
             Mage::getSingleton('core/session')->addNotice(
                 $helper->__('Invalid Trusted Shops ID. Disabled buyer protection.')
             );
-            
+
             Mage::helper('buyerprotect')->setConfigData(
                 Symmetrics_Buyerprotect_Helper_Data::XML_PATH_TS_BUYERPROTECT_IS_ACTIVE,
                 0,
@@ -281,22 +281,22 @@ class Symmetrics_Buyerprotect_Model_Observer
             );
         } else {
             $tsData = Mage::getModel('buyerprotect/service_soap')->checkCertificate();
-        
+
             if ($tsData['variation'] == 'CLASSIC') {
                 $variation = Symmetrics_Buyerprotect_Model_System_Config_Source_Variation::CLASSIC_VALUE;
             } else {
-                $variation = Symmetrics_Buyerprotect_Model_System_Config_Source_Variation::EXCELLENCE_VALUE; 
+                $variation = Symmetrics_Buyerprotect_Model_System_Config_Source_Variation::EXCELLENCE_VALUE;
                 $productsModel = Mage::getModel('buyerprotect/products');
                 $productsModel->recreateProducts(false, $website, $store);
             }
-        
+
             Mage::helper('buyerprotect')->setConfigData(
                 Symmetrics_Buyerprotect_Helper_Data::XML_PATH_TS_BUYERPROTECT_VARIATION,
                 $variation,
                 $scope,
                 $scopeId
             );
-        
+
             $returnString = 'Checking Trusted Shops ID: ' . $tsId . ' | Set variation to ' . $tsData['variation'];
             Mage::getSingleton('core/session')->addNotice($returnString);
         }
