@@ -90,7 +90,7 @@ class Symmetrics_Buyerprotect_Model_Observer
 
             // add Buyerprotection Product to cart
             $cart->addProductsByIds(array($requestedProductId));
-            // $this->_saveCart($cart);
+            $this->_saveCart($cart);
         } else {
             if ($tsProductsInCart) {
                 foreach ($tsProductsInCart as $cartItemId => $tsProductId) {
