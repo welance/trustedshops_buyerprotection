@@ -113,11 +113,10 @@ class Symmetrics_Buyerprotect_Model_Observer
      */
     private function _saveCart($cart)
     {
-        $quote = $cart->getQuote();
-        $quote->getBillingAddress();
-        $quote->getShippingAddress()->setCollectShippingRates(true);
-        $qoute->save();
-        $cart->getCheckoutSession()->setQuoteId($quote->getId());
+        $cart->getQuote()->getBillingAddress();
+        $cart->getQuote()->getShippingAddress()->setCollectShippingRates(true);
+        $cart->getQuote()->save();
+        $cart->getCheckoutSession()->setQuoteId($cart->getQuote()->getId());
         /**
          * Cart save usually called after chenges with cart items.
          */
