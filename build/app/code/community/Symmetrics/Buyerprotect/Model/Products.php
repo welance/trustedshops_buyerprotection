@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * Magento
  *
@@ -13,20 +13,20 @@
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
  * @category  Symmetrics
- * @package   Symmetrics_Buyerprotect             
- * @author    Eric Reiche <er@symmetrics.de>     
- * @copyright 2011 symmetrics gmbh         
+ * @package   Symmetrics_Buyerprotect
+ * @author    Eric Reiche <er@symmetrics.de>
+ * @copyright 2011 symmetrics gmbh
  * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  * @link      http://www.symmetrics.de/
  */
 
 /**
  * TS products model.
- * 
+ *
  * @category  Symmetrics
  * @package   Symmetrics_Buyerprotect
  * @author    symmetrics gmbh <info@symmetrics.de>
- * @author    Eric Reiche <er@symmetrics.de>     
+ * @author    Eric Reiche <er@symmetrics.de>
  * @copyright 2011 symmetrics gmbh
  * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  * @link      http://www.symmetrics.de/
@@ -47,17 +47,17 @@ class Symmetrics_Buyerprotect_Model_Products
      * @var array
      */
     protected $_ignoredAttriTypes = array();
-          
+
     /**
      * Get scope from post data.
-     *                                                                                                
-     * @param string $website Current website scope.         
-     * @param string $store   Current store scope.       
+     *
+     * @param string $website Current website scope.
+     * @param string $store   Current store scope.
      *
      * @return array
-     */  
+     */
     public function getScopeId($website, $store)
-    {            
+    {
         if (!empty($store)) {
             $scope['type'] = 'stores';
             $scope['id'] = Mage::getModel('core/store')->load($store, 'code')->getId();
@@ -67,45 +67,45 @@ class Symmetrics_Buyerprotect_Model_Products
         } else {
             $scope['type'] = 'default';
             $scope['id'] = 0;
-        }  
-        return $scope; 
+        }
+        return $scope;
     }
-      
+
     /**
      * Recreate Trusted Shops Excellence Buyer Protection products.
-     *                            
-     * @param bool   $deleteOld Delete old products or check if there are already products?          
-     * @param string $website   Current website scope.         
-     * @param string $store     Current store scope.       
+     *
+     * @param bool   $deleteOld Delete old products or check if there are already products?
+     * @param string $website   Current website scope.
+     * @param string $store     Current store scope.
      *
      * @return void
      */
     public function recreateProducts($deleteOld, $website, $store)
-    {                                       
+    {
         // todo: implement translations according to the result of this method
         //       or something.
-        $this->getScopeId($website, $store);   
-        
-        $helper = Mage::helper('buyerprotect');    
-        $productCollection = $helper->getAllTsProducts();        
-                                                                    
-        if ($deleteOld) {                     
-            $createNew = $this->deleteProducts($productCollection);  
-        } else {        
+        $this->getScopeId($website, $store);
+
+        $helper = Mage::helper('buyerprotect');
+        $productCollection = $helper->getAllTsProducts();
+
+        if ($deleteOld) {
+            $createNew = $this->deleteProducts($productCollection);
+        } else {
             $createNew = true;
         }
         if ($createNew) {
-            $this->createProducts();   
-        }  
-    }      
-          
+            $this->createProducts();
+        }
+    }
+
     /**
-     * Create a specific TS product.                         
+     * Create a specific TS product.
      *
      * @return void
-     */  
+     */
     public function createProducts()
-    {                                                                     
+    {
         $tsProductsIds = Symmetrics_Buyerprotect_Model_Type_Buyerprotect::getAllTsProductIds();
         $tsProductsData = array();
         $preTaxValue = 1.19;
@@ -119,24 +119,24 @@ class Symmetrics_Buyerprotect_Model_Products
             $tsProductsData['description'] = $tsProductName . $currency->toCurrency($tsProductsData['price']);
             $tsProductsData['short_description'] = $tsProductName . $currency->toCurrency($tsProductsData['price']);
 
-            $this->createBuyerprotectProduct($tsProduct->id, $tsProductsData);           
-        }    
-    }       
-              
+            $this->createBuyerprotectProduct($tsProduct->id, $tsProductsData);
+        }
+    }
+
     /**
      * Delete a given product collection.
      *
      * @param Mage_Catalog_Model_Product_Collection $productCollection Product collection to delete.
      *
      * @return void
-     */   
+     */
     public function deleteProducts($productCollection)
     {
         foreach ($productCollection as $product) {
             $product->delete();
-        }    
-    }        
-            
+        }
+    }
+
     /**
      * Create a BuyerProtect product from given data.
      *
@@ -159,14 +159,14 @@ class Symmetrics_Buyerprotect_Model_Products
         if ($productModel->getIdBySku($sku)) {
             return;
         }
-        
+
         $productModel->setStoreId(0)
             ->setWebsiteIds($this->_getWebsiteIds())
             ->setAttributeSetId($defaultSetId)
             ->setTypeId('buyerprotect')
             ->setStatus(1)
             ->setSku($sku);
-        
+
         foreach ($productModel->getTypeInstance(true)->getEditableAttributes($productModel) as $attribute) {
             $_attrCode = $attribute->getAttributeCode();
             if ($this->_isAllowedAttribute($attribute) && isset($productData[$_attrCode])) {
@@ -176,12 +176,12 @@ class Symmetrics_Buyerprotect_Model_Products
                 );
             }
         }
-        
+
         $errors = $productModel->validate();
         if (is_array($errors)) {
             return $errors;
         }
-        
+
         $stockData = array();
         $stockData['use_config_manage_stock'] = 0;
         $stockData['manage_stock'] = 0;
@@ -211,17 +211,17 @@ class Symmetrics_Buyerprotect_Model_Products
         $stockItem->setMaxSaleQty(1);
         $stockItem->setUseConfigManageStock(0);
         $stockItem->setManageStock(0);
-               
-        try {            
-            $stockItem->save();     
+
+        try {
+            $stockItem->save();
         } catch (Exception $e) {
             Mage::logException($e);
-        }                  
-        
+        }
+
         return;
-    }    
-    
-    
+    }
+
+
     /**
      * Retrieve Default Attribute Set for Entity Type
      *
@@ -230,14 +230,14 @@ class Symmetrics_Buyerprotect_Model_Products
      * @return int
      */
     public function getDefaultAttributeSetId($entityType)
-    {             
+    {
         $resource = Mage::getSingleton('core/resource');
         $connection = $resource->getConnection('core/read');
         $select = $connection->select()
             ->from($resource->getTableName('eav/entity_type'), 'default_attribute_set_id')
             ->where(is_numeric($entityType) ? 'entity_type_id=?' : 'entity_type_code=?', $entityType);
         return $resource->getConnection('core/read')->fetchOne($select);
-    }      
+    }
 
     /**
      * Get all website IDs.
@@ -249,7 +249,7 @@ class Symmetrics_Buyerprotect_Model_Products
         return Mage::getModel('core/website')->getCollection()
             ->addFieldToFilter('website_id', array('gt' => 0))
             ->getAllIds();
-    }          
+    }
 
     /**
      * Check is attribute allowed
@@ -269,5 +269,5 @@ class Symmetrics_Buyerprotect_Model_Products
 
         return !in_array($attribute->getFrontendInput(), $this->_ignoredAttriTypes)
                && !in_array($attribute->getAttributeCode(), $this->_ignoredAttriCodes);
-    }              
-}        
+    }
+}
