@@ -90,7 +90,7 @@ class Symmetrics_Buyerprotect_Model_Observer
 
             // add Buyerprotection Product to cart
             $cart->addProductsByIds(array($requestedProductId));
-            $cart->save();
+            // $this->_saveCart($cart);
         } else {
             if ($tsProductsInCart) {
                 foreach ($tsProductsInCart as $cartItemId => $tsProductId) {
@@ -100,6 +100,28 @@ class Symmetrics_Buyerprotect_Model_Observer
         }
 
         return;
+    }
+
+    /**
+     * This is a copy from Mage_Checkout_Model_Cart::save method, because a original
+     * method call a "quote collectTotals", that throws Shopping Cart Price Rules procedure
+     * with a Payment Method condition.
+     *
+     * @param Mage_Checkout_Model_Cart $cart Checkout cart model object
+     *
+     * @return void
+     */
+    private function _saveCart($cart)
+    {
+        $quote = $cart->getQuote();
+        $quote->getBillingAddress();
+        $quote->getShippingAddress()->setCollectShippingRates(true);
+        $qoute->save();
+        $cart->getCheckoutSession()->setQuoteId($quote->getId());
+        /**
+         * Cart save usually called after chenges with cart items.
+         */
+        Mage::dispatchEvent('checkout_cart_save_after', array('cart' => $cart));
     }
 
     /**
