@@ -180,8 +180,6 @@ class Symmetrics_Buyerprotect_Model_Observer
                 Mage::log('SOAP request failed! See exception log!', null, null, true);
                 Mage::logException($e);
             }
-
-
         }
 
         return;
