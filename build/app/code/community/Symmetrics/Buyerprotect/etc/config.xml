@@ -27,7 +27,7 @@
 <config>
     <modules>
         <Symmetrics_Buyerprotect>
-            <version>0.4.13</version>
+            <version>0.4.15</version>
         </Symmetrics_Buyerprotect>
     </modules>
     <global>
