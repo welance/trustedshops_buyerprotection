@@ -31,7 +31,8 @@
  * @author    Torsten Walluhn <tw@symmetrics.de>
  * @author    Ngoc Anh Doan <nd@symmetrics.de>
  * @author    Benjamin Klein <bk@symmetrics.de>
- * @copyright 2010 symmetrics gmbh
+ * @author    Andreas Timm <at@symmetrics.de>
+ * @copyright 2010-2011 symmetrics gmbh
  * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  * @link      http://www.symmetrics.de/
  */
