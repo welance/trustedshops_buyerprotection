@@ -18,7 +18,6 @@
  * @author    symmetrics gmbh <info@symmetrics.de>
  * @author    Torsten Walluhn <tw@symmetrics.de>
  * @author    Ngoc Anh Doan <nd@symmetrics.de>
- * @author    Andreas Timm <at@symmetrics.de>
  * @copyright 2010 symmetrics gmbh
  * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  * @link      http://www.symmetrics.de/
@@ -172,6 +171,7 @@
             </modules>
         </translate>
     </frontend>
+
     <adminhtml>
         <layout>
             <updates>
@@ -190,6 +190,7 @@
             </modules>
         </translate>
     </adminhtml>
+
     <default>
         <buyerprotection>
             <data>
@@ -210,7 +211,7 @@
             <paypal_standard>PAYPAL</paypal_standard>
             <!-- Payone PayPal -->
             <payone_wlt>PAYPAL</payone_wlt>
-            <!--
+        <!--
             INVOICE
             PREPAYMENT
             PAYBOX
@@ -220,7 +221,7 @@
             T_PAY
             GIROPAY
             SHOP_CARD
-            -->
+        -->
         </trusted_shops_payment_codes>
     </default>
 </config>
