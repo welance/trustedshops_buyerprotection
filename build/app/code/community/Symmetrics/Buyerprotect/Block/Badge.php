@@ -16,7 +16,8 @@
  * @package   Symmetrics_Buyerprotect
  * @author    symmetrics gmbh <info@symmetrics.de>
  * @author    Torsten Walluhn <tw@symmetrics.de>
- * @copyright 2010 Symmetrics Gmbh
+ * @author    Toni Stache <ts@symmetrics.de>
+ * @copyright 2010-2012 Symmetrics Gmbh
  * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  * @link      http://www.symmetrics.de/
  */
@@ -28,7 +29,8 @@
  * @package   Symmetrics_Buyerprotect
  * @author    symmetrics gmbh <info@symmetrics.de>
  * @author    Torsten Walluhn <tw@symmetrics.de>
- * @copyright 2010 Symmetrics Gmbh
+ * @author    Toni Stache <ts@symmetrics.de>
+ * @copyright 2010-2012 Symmetrics Gmbh
  * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  * @link      http://www.symmetrics.de/
  */
@@ -81,11 +83,14 @@ class Symmetrics_Buyerprotect_Block_Badge extends Mage_Core_Block_Template
         $pos = 'id="tsBox"';
         $seal = str_replace($pos, $new . $pos, $seal);
 
-        $logo = Mage::getBaseUrl('media') . '/buyerprotect/' . $configData['ts_logo_img'];
-        $background = Mage::getBaseUrl('media') . '/buyerprotect/' . $configData['ts_background_img'];
+        // You can not simply merge code to dev branch! But when you do,
+        // make sure that you validate the code before in all MRG using
+        // shops the logo and background are missing.
+        $logo = Mage::getBaseUrl('media') . '/trustedshops/' . $configData['ts_logo_img'];
+        $background = Mage::getBaseUrl('media') . '/trustedshops/' . $configData['ts_background_img'];
 
         $search = array();
-        $search[] = '!(\<img\s{1,}style\=\"(?:.*)\"\s{1,}src\=\")(?:.*\/buyerprotect.*\..{3,4})\"!imsU';
+        $search[] = '!(\<img\s{1,}style\=\"(?:.*)\"\s{1,}src\=\")(?:.*\/trustedshop.*\..{3,4})\"!imsU';
         $search[] = '/images\/bg_(yellow|grey|blue).jpg/i';
         $search[] = '/width:[0-9]+(?:\.[0-9]*)?px/i';
         $search[] = '/border:1px solid #C0C0C0/i';
