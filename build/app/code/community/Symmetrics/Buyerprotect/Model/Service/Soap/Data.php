@@ -14,10 +14,10 @@
  *
  * @category  Symmetrics
  * @package   Symmetrics_Buyerprotect
- * @author    symmetrics gmbh <info@symmetrics.de>
- * @author    Ngoc Anh Doan <nd@symmetrics.de>
+ * @author    symmetrics a CGI Group brand <info@symmetrics.de>
+ * @author    Ngoc Anh Doan <ngoc-anh.doan@cgi.com>
  * @author    Benjamin Klein <bk@symmetrics.de>
- * @copyright 2010 symmetrics gmbh
+ * @copyright 2010-2012 CGI
  * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  * @link      http://www.symmetrics.de/
  */
@@ -27,10 +27,10 @@
  *
  * @category  Symmetrics
  * @package   Symmetrics_Buyerprotect
- * @author    symmetrics gmbh <info@symmetrics.de>
- * @author    Ngoc Anh Doan <nd@symmetrics.de>
+ * @author    symmetrics a CGI Group brand <info@symmetrics.de>
+ * @author    Ngoc Anh Doan <ngoc-anh.doan@cgi.com>
  * @author    Benjamin Klein <bk@symmetrics.de>
- * @copyright 2010 symmetrics gmbh
+ * @copyright 2010-2012 CGI
  * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  * @link      http://www.symmetrics.de/
  */
@@ -78,7 +78,7 @@ class Symmetrics_Buyerprotect_Model_Service_Soap_Data extends Varien_Object
      * wsPassword: ws_password
      *
      * @return void
-     * @throw Symmetrics_Buyerprotect_Model_Service_Soap_Data_Exception
+     * @throw Symmetrics_Buyerprotect_Exception
      */
     protected function _initTsSoapData()
     {
@@ -97,11 +97,15 @@ class Symmetrics_Buyerprotect_Model_Service_Soap_Data extends Varien_Object
         $this->setAvailablePaymentCodes($availableCodes);
 
         if (!array_key_exists($paymentCode, $availableCodes)) {
-            throw Mage::exception(get_class($this), "'$paymentCode' is not a supported payment by Trusted Shops!");
+            Mage::exception(
+                'Symmetrics_Buyerprotect', "'$paymentCode' is not a supported payment by Trusted Shops!"
+            );
         }
 
         if (!in_array($this->getTsProductItem()->getProductId(), $allTsProductTypes)) {
-            throw Mage::exception(get_class($this), "{$this->getTsProductId()} is not a valid TS product type!");
+            Mage::exception(
+                'Symmetrics_Buyerprotect', "{$this->getTsProductId()} is not a valid TS product type!"
+            );
         }
 
         $tsSoapData = array(
