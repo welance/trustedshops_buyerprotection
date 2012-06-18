@@ -14,9 +14,10 @@
  *
  * @category  Symmetrics
  * @package   Symmetrics_Buyerprotect
- * @author    symmetrics gmbh <info@symmetrics.de>
+ * @author    symmetrics a CGI Group brand <info@symmetrics.de>
  * @author    Torsten Walluhn <tw@symmetrics.de>
- * @copyright 2010 symmetrics gmbh
+ * @author    Ngoc Anh Doan <ngoc-anh.doan@cgi.com>
+ * @copyright 2010-2012 CGI
  * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  * @link      http://www.symmetrics.de/
  */
@@ -26,10 +27,10 @@
  *
  * @category  Symmetrics
  * @package   Symmetrics_Buyerprotect
- * @author    symmetrics gmbh <info@symmetrics.de>
+ * @author    symmetrics a CGI Group brand <info@symmetrics.de>
  * @author    Torsten Walluhn <tw@symmetrics.de>
- * @author    Ngoc Anh Doan <nd@symmetrics.de>
- * @copyright 2010 symmetrics gmbh
+ * @author    Ngoc Anh Doan <ngoc-anh.doan@cgi.com>
+ * @copyright 2010-2012 CGI
  * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  * @link      http://www.symmetrics.de/
  */
@@ -87,7 +88,7 @@ class Symmetrics_Buyerprotect_Model_Buyerprotection extends Mage_Core_Model_Abst
         $mailTemplate = $this->_emailModel;
 
         if (!$options || !$mailTemplate) {
-            throw Mage::exception($this, 'Email options/model is not set!');
+            Mage::exception('Symmetrics_Buyerprotect', 'Email options/model is not set!');
         }
 
         $mailTemplate->sendTransactional(
@@ -99,7 +100,7 @@ class Symmetrics_Buyerprotect_Model_Buyerprotection extends Mage_Core_Model_Abst
         );
 
         if (!$mailTemplate->getSentSuccess()) {
-            throw Mage::exception($this, 'Email couldn\'t get sent!');
+            Mage::exception('Symmetrics_Buyerprotect', 'Email couldn\'t get sent!');
         }
 
         $this->_emailOptions = null;
