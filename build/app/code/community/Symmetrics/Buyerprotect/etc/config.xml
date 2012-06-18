@@ -15,12 +15,12 @@
  *
  * @category  Symmetrics
  * @package   Symmetrics_Buyerprotect
- * @author    symmetrics gmbh <info@symmetrics.de>
+ * @author    symmetrics a CGI Group brand <info@symmetrics.de>
  * @author    Torsten Walluhn <tw@symmetrics.de>
  * @author    Ngoc Anh Doan <ngoc-anh.doan@cgi.com>
  * @author    Andreas Timm <at@symmetrics.de>
  * @author    Toni Stache <ts@symmetrics.de>
- * @copyright 2010-2012 symmetrics gmbh
+ * @copyright 2010-2012 CGI
  * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  * @link      http://www.symmetrics.de/
  */
@@ -28,7 +28,7 @@
 <config>
     <modules>
         <Symmetrics_Buyerprotect>
-            <version>0.4.22</version>
+            <version>0.4.23</version>
         </Symmetrics_Buyerprotect>
     </modules>
     <global>
