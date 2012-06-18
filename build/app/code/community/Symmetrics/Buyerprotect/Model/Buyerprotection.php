@@ -88,7 +88,7 @@ class Symmetrics_Buyerprotect_Model_Buyerprotection extends Mage_Core_Model_Abst
         $mailTemplate = $this->_emailModel;
 
         if (!$options || !$mailTemplate) {
-            Mage::exception('Symmetrics_Buyerprotect', 'Email options/model is not set!');
+            throw Mage::exception('Symmetrics_Buyerprotect', 'Email options/model is not set!');
         }
 
         $mailTemplate->sendTransactional(
@@ -100,7 +100,7 @@ class Symmetrics_Buyerprotect_Model_Buyerprotection extends Mage_Core_Model_Abst
         );
 
         if (!$mailTemplate->getSentSuccess()) {
-            Mage::exception('Symmetrics_Buyerprotect', 'Email couldn\'t get sent!');
+            throw Mage::exception('Symmetrics_Buyerprotect', 'Email couldn\'t get sent!');
         }
 
         $this->_emailOptions = null;

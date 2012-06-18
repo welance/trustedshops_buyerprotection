@@ -96,14 +96,14 @@ class Symmetrics_Buyerprotect_Model_Service_Soap_Data extends Varien_Object
 
         $this->setAvailablePaymentCodes($availableCodes);
 
-        if (!array_key_exists($paymentCode, $availableCodes)) {
-            Mage::exception(
+        if (!is_array($availableCodes) || !array_key_exists($paymentCode, $availableCodes)) {
+            throw Mage::exception(
                 'Symmetrics_Buyerprotect', "'$paymentCode' is not a supported payment by Trusted Shops!"
             );
         }
 
         if (!in_array($this->getTsProductItem()->getProductId(), $allTsProductTypes)) {
-            Mage::exception(
+            throw Mage::exception(
                 'Symmetrics_Buyerprotect', "{$this->getTsProductId()} is not a valid TS product type!"
             );
         }
