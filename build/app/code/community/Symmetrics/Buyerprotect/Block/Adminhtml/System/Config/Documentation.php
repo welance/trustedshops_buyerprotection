@@ -15,54 +15,50 @@
  * @category  Symmetrics
  * @package   Symmetrics_Buyerprotect
  * @author    symmetrics - a CGI Group brand <info@symmetrics.de>
- * @author    Andreas Timm <at@symmetrics.de>
+ * @author    Ngoc Anh Doan <ngoc-anh.doan@cgi.com>
  * @copyright 2010-2012 symmetrics - a CGI Group brand
  * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  * @link      http://www.symmetrics.de/
  */
 
 /**
- * This is the info renderer for Symmetrics_Buyerprotect system config.
+ * Frontend renderer for  displaying link to TS' language specific online documentation.
  *
  * @category  Symmetrics
  * @package   Symmetrics_Buyerprotect
  * @author    symmetrics - a CGI Group brand <info@symmetrics.de>
- * @author    Andreas Timm <at@symmetrics.de>
+ * @author    Ngoc Anh Doan <ngoc-anh.doan@cgi.com>
  * @copyright 2010-2012 symmetrics - a CGI Group brand
  * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  * @link      http://www.symmetrics.de/
  */
-class Symmetrics_Buyerprotect_Block_Adminhtml_System_Config_Info
-    extends Mage_Adminhtml_Block_System_Config_Form_Fieldset //Mage_Adminhtml_Block_Abstract
-    implements Varien_Data_Form_Element_Renderer_Interface
+class Symmetrics_Buyerprotect_Block_Adminhtml_System_Config_Documentation
+    extends Mage_Adminhtml_Block_System_Config_Form_Fieldset
 {
     /**
-     * This is the internal constructor (template set for html rendering).
-     * 
-     * @return void
+     * @const TS' URL to online documentation
      */
-    protected function _construct()
-    {
-        $this->setTemplate('buyerprotect/system/config/info.phtml');
-    }
+    const ONLINE_DOC_URL = 'https://www.trustedshops.com/docs/magento/buyer_protection_%s.htm';
     
     /**
-     * Render to return the html-content of sub-menu,
-     * under Admin Panel / System / Configuration.
-     * 
-     * @param Varien_Data_Form_Element_Abstract $element element
-     * 
+     * Prepare and add documentation link element.
+     *
+     * @param Varien_Data_Form_Element_Abstract $element Form element instance
+     *
      * @return string
      */
     public function render(Varien_Data_Form_Element_Abstract $element)
     {
-        $html = $this->_getHeaderHtml($element);
-
-        $this->setElement($element);
+        $linkText = $this->__('Trusted Shops documentation');
+        $linkAttribs = array(
+            // de, en, es, fr and pl
+            'href' => sprintf(self::ONLINE_DOC_URL, substr(Mage::app()->getLocale()->getLocaleCode(), 0, 2)),
+            'target' => '_blank',
+            'value' => $linkText,
+            'title' => $linkText
+        );
+        $element->addElement(new Varien_Data_Form_Element_Link($linkAttribs));
         
-        $html .= '<tr><td>' . $this->toHtml() . '</tr></td>';
-        $html .= $this->_getFooterHtml($element);
-        
-        return $html;
+        return parent::render($element);
     }
 }
