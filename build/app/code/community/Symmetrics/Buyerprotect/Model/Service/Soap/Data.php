@@ -78,7 +78,7 @@ class Symmetrics_Buyerprotect_Model_Service_Soap_Data extends Varien_Object
      * wsPassword: ws_password
      *
      * @return void
-     * @throw Symmetrics_Buyerprotect_Model_Service_Soap_Data_Exception
+     * @throw Symmetrics_Buyerprotect_Exception
      */
     protected function _initTsSoapData()
     {
@@ -96,12 +96,16 @@ class Symmetrics_Buyerprotect_Model_Service_Soap_Data extends Varien_Object
 
         $this->setAvailablePaymentCodes($availableCodes);
 
-        if (!array_key_exists($paymentCode, $availableCodes)) {
-            throw Mage::exception(get_class($this), "'$paymentCode' is not a supported payment by Trusted Shops!");
+        if (!is_array($availableCodes) || !array_key_exists($paymentCode, $availableCodes)) {
+            throw Mage::exception(
+                'Symmetrics_Buyerprotect', "'$paymentCode' is not a supported payment by Trusted Shops!"
+            );
         }
 
         if (!in_array($this->getTsProductItem()->getProductId(), $allTsProductTypes)) {
-            throw Mage::exception(get_class($this), "{$this->getTsProductId()} is not a valid TS product type!");
+            throw Mage::exception(
+                'Symmetrics_Buyerprotect', "{$this->getTsProductId()} is not a valid TS product type!"
+            );
         }
 
         $tsSoapData = array(
