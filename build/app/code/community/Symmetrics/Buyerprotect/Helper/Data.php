@@ -360,11 +360,11 @@ class Symmetrics_Buyerprotect_Helper_Data
             $wsdl .= '.trustedshops.com/ts/protectionservices/ApplicationRequestService?wsdl';
         } else {
             if ($mode == 'live') {
-                $wsdl = 'https://www';
+                $wsdl = 'https://www.trustedshops.de/';
             } else {
-                $wsdl = 'https://qa';
+                $wsdl = 'https://qa.trustedshops.com/';
             }
-            $wsdl .= '.trustedshops.de/ts/services/TsProtection?wsdl';
+            $wsdl .= 'ts/services/TsProtection?wsdl';
         }
         return $wsdl;
     }
