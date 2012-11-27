@@ -16,6 +16,7 @@
  * @package   Symmetrics_Buyerprotect
  * @author    symmetrics - a CGI Group brand <info@symmetrics.de>
  * @author    Torsten Walluhn <tw@symmetrics.de>
+ * @author    Ngoc Anh Doan <ngoc-anh.doan@cgi.com>
  * @author    Benjamin Klein <bk@symmetrics.de>
  * @copyright 2010-2012 symmetrics - a CGI Group brand
  * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
@@ -29,7 +30,7 @@
  * @package   Symmetrics_Buyerprotect
  * @author    symmetrics - a CGI Group brand <info@symmetrics.de>
  * @author    Torsten Walluhn <tw@symmetrics.de>
- * @author    Ngoc Anh Doan <nd@symmetrics.de>
+ * @author    Ngoc Anh Doan <ngoc-anh.doan@cgi.com>
  * @author    Benjamin Klein <bk@symmetrics.de>
  * @copyright 2010-2012 symmetrics - a CGI Group brand
  * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
@@ -76,18 +77,25 @@ class Symmetrics_Buyerprotect_Model_Service_Soap
 
     /**
      * Check certificate status.
+     * 
+     * SUPTRUSTEDSHOPS-57: Added possibility to pass TS ID to check for.
      *
      * @return void
      */
-    public function checkCertificate()
+    public function checkCertificate($tsId = null)
     {
         $helper = Mage::helper('buyerprotect');
         $wsdl = $helper->getWsdlUrl('backend');
-        $tsId = $helper->getTsUserId();
+        
+        if (!$tsId) {
+            $tsId = $helper->getTsUserId();
+        }
         
         $soapClient = new SoapClient($wsdl);
         
         $tsData = $soapClient->checkCertificate($tsId);
+        
+        Mage::log($tsData,null,'ts_buyerprotect.log',true);
         
         return array(
             'language' => $tsData->certificationLanguage,

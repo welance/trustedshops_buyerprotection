@@ -16,6 +16,7 @@
  * @package   Symmetrics_Buyerprotect
  * @author    symmetrics - a CGI Group brand <info@symmetrics.de>
  * @author    Torsten Walluhn <tw@symmetrics.de>
+ * @author    Ngoc Anh Doan <ngoc-anh.doan@cgi.com>
  * @copyright 2010-2012 symmetrics - a CGI Group brand
  * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  * @link      http://www.symmetrics.de/
@@ -198,6 +199,8 @@ class Symmetrics_Buyerprotect_Helper_Data
      * Gets Trusted Shops User Id
      *
      * @return string
+     * @todo SUPTRUSTEDSHOPS-57: Add validation on area, frontend/admin, to return
+     *       the proper TS ID base on the store.
      */
     public function getTsUserId()
     {
