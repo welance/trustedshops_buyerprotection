@@ -79,8 +79,10 @@ class Symmetrics_Buyerprotect_Model_Service_Soap
      * Check certificate status.
      * 
      * SUPTRUSTEDSHOPS-57: Added possibility to pass TS ID to check for.
+     * 
+     * @param string $tsId Trustedshops ID of certification
      *
-     * @return void
+     * @return array
      */
     public function checkCertificate($tsId = null)
     {
@@ -94,8 +96,6 @@ class Symmetrics_Buyerprotect_Model_Service_Soap
         $soapClient = new SoapClient($wsdl);
         
         $tsData = $soapClient->checkCertificate($tsId);
-        
-        Mage::log($tsData,null,'ts_buyerprotect.log',true);
         
         return array(
             'language' => $tsData->certificationLanguage,
