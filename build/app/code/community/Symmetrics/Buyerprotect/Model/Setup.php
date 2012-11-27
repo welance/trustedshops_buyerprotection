@@ -14,10 +14,10 @@
  *
  * @category  Symmetrics
  * @package   Symmetrics_Buyerprotect
- * @author    symmetrics gmbh <info@symmetrics.de>
+ * @author    symmetrics - a CGI Group brand <info@symmetrics.de>
  * @author    Torsten Walluhn <tw@symmetrics.de>
  * @author    Benjamin Klein <bk@symmetrics.de>
- * @copyright 2010 symmetrics gmbh
+ * @copyright 2010-2012 symmetrics - a CGI Group brand
  * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  * @link      http://www.symmetrics.de/
  */
@@ -27,10 +27,10 @@
  *
  * @category  Symmetrics
  * @package   Symmetrics_Buyerprotect
- * @author    symmetrics gmbh <info@symmetrics.de>
+ * @author    symmetrics - a CGI Group brand <info@symmetrics.de>
  * @author    Ngoc Anh Doan <nd@symmetrics.de>
  * @author    Benjamin Klein <bk@symmetrics.de>
- * @copyright 2010 symmetrics gmbh
+ * @copyright 2010-2012 symmetrics - a CGI Group brand
  * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  * @link      http://www.symmetrics.de/
  */

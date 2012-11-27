@@ -14,10 +14,11 @@
  *
  * @category  Symmetrics
  * @package   Symmetrics_Buyerprotect
- * @author    symmetrics gmbh <info@symmetrics.de>
+ * @author    symmetrics - a CGI Group brand <info@symmetrics.de>
  * @author    Torsten Walluhn <tw@symmetrics.de>
  * @author    Benjamin Klein <bk@symmetrics.de>
- * @copyright 2010 symmetrics gmbh
+ * @author    Ngoc Anh Doan <ngoc-anh.doan@cgi.com>
+ * @copyright 2010-2012 symmetrics - a CGI Group brand
  * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  * @link      http://www.symmetrics.de/
  */
@@ -27,12 +28,13 @@
  *
  * @category  Symmetrics
  * @package   Symmetrics_Buyerprotect
- * @author    symmetrics gmbh <info@symmetrics.de>
+ * @author    symmetrics - a CGI Group brand <info@symmetrics.de>
  * @author    Torsten Walluhn <tw@symmetrics.de>
  * @author    Ngoc Anh Doan <nd@symmetrics.de>
  * @author    Benjamin Klein <bk@symmetrics.de>
  * @author    Andreas Timm <at@symmetrics.de>
- * @copyright 2010-2011 symmetrics gmbh
+ * @author    Ngoc Anh Doan <ngoc-anh.doan@cgi.com>
+ * @copyright 2010-2012 symmetrics - a CGI Group brand
  * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  * @link      http://www.symmetrics.de/
  */
@@ -271,14 +273,15 @@ class Symmetrics_Buyerprotect_Model_Observer
                 $helper->__('Invalid Trusted Shops ID. Disabled buyer protection.')
             );
 
-            Mage::helper('buyerprotect')->setConfigData(
+            $helper->setConfigData(
                 Symmetrics_Buyerprotect_Helper_Data::XML_PATH_TS_BUYERPROTECT_IS_ACTIVE,
                 0,
                 $scope,
                 $scopeId
             );
         } else {
-            $tsData = Mage::getModel('buyerprotect/service_soap')->checkCertificate();
+            // SUPTRUSTEDSHOPS-57: Passing TS ID to check for.
+            $tsData = Mage::getModel('buyerprotect/service_soap')->checkCertificate($tsId);
 
             if ($tsData['variation'] == 'CLASSIC') {
                 $variation = Symmetrics_Buyerprotect_Model_System_Config_Source_Variation::CLASSIC_VALUE;
@@ -288,15 +291,15 @@ class Symmetrics_Buyerprotect_Model_Observer
                 $productsModel->recreateProducts(false, $website, $store);
             }
 
-            Mage::helper('buyerprotect')->setConfigData(
+            $helper->setConfigData(
                 Symmetrics_Buyerprotect_Helper_Data::XML_PATH_TS_BUYERPROTECT_VARIATION,
                 $variation,
                 $scope,
                 $scopeId
             );
 
-            $returnString = 'Checking Trusted Shops ID: ' . $tsId . ' | Set variation to ' . $tsData['variation'];
-            Mage::getSingleton('core/session')->addNotice($returnString);
+            $notice = $helper->__('Checking Trusted Shops ID: %s | Set variation to %s', $tsId, $tsData['variation']);
+            Mage::getSingleton('core/session')->addNotice($notice);
         }
     }
 }

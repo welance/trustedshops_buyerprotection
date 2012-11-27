@@ -15,10 +15,11 @@
  *
  * @category  Symmetrics
  * @package   Symmetrics_Buyerprotect
- * @author    symmetrics gmbh <info@symmetrics.de>
+ * @author    symmetrics - a CGI Group brand <info@symmetrics.de>
  * @author    Torsten Walluhn <tw@symmetrics.de>
  * @author    Andreas Timm <at@symmetrics.de>
- * @copyright 2010 symmetrics gmbh
+ * @author    Ngoc Anh Doan <ngoc-anh.doan@cgi.com>
+ * @copyright 2010-2012 symmetrics - a CGI Group brand
  * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  * @link      http://www.symmetrics.de/
  */
@@ -44,6 +45,17 @@
                     <show_in_website>1</show_in_website>
                     <show_in_store>1</show_in_store>
                 </info>
+                
+                <buyerprotect_documentation translate="label">
+                    <label>Documentation</label>
+                    <frontend_type>text</frontend_type>
+                    <frontend_model>buyerprotect/adminhtml_system_config_documentation</frontend_model>
+                    <sort_order>15</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                </buyerprotect_documentation>
+                
                 <data translate="label">
                     <label>Data</label>
                     <frontend_type>text</frontend_type>
