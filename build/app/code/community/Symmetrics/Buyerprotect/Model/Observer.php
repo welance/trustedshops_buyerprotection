@@ -298,7 +298,11 @@ class Symmetrics_Buyerprotect_Model_Observer
                 $scopeId
             );
 
-            $notice = $helper->__('Checking Trusted Shops ID: %s | Set variation to %s', $tsId, $tsData['variation']);
+            $notice = $helper->__(
+                'Checking Trusted Shops ID: %s | Buyer Protection version: %s',
+                $tsId,
+                $tsData['variation']
+            );
             Mage::getSingleton('core/session')->addNotice($notice);
         }
     }
