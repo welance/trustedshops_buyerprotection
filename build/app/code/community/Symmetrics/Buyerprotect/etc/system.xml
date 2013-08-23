@@ -126,39 +126,6 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </trustedshops_certificate_logo_active>
-                        <trustedshops_certificate_logo_code translate="label comment">
-                            <label>Trusted Shops seal code</label>
-                            <frontend_type>textarea</frontend_type>
-                            <sort_order>55</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                            <comment><![CDATA[Create the code using the Trusted Shops Seal Box <a onclick="window.open('http://www.trustedshops.de/shopbetreiber/siegelbox/index.php')">Generator</a>.<br />Path to image files are beeing adjusted automatically. <b>Do not change!</b>]]></comment>
-                        </trustedshops_certificate_logo_code>
-                        <ts_background_img translate="label comment">
-                            <label>Trusted Shops seal background image</label>
-                            <frontend_type>image</frontend_type>
-                            <backend_model>Mage_Adminhtml_Model_System_Config_Backend_Image</backend_model>
-                            <upload_dir config="system/filesystem/media" scope_info="1">trustedshops</upload_dir>
-                            <base_url type="media" scope_info="1">trustedshops</base_url>
-                            <sort_order>60</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                            <comment>Download the background image from the Trusted Shops Seal Box Generator.</comment>
-                        </ts_background_img>
-                        <ts_logo_img translate="label comment">
-                            <label>Trusted Shops seal image</label>
-                            <frontend_type>image</frontend_type>
-                            <backend_model>Mage_Adminhtml_Model_System_Config_Backend_Image</backend_model>
-                            <upload_dir config="system/filesystem/media" scope_info="1">trustedshops</upload_dir>
-                            <base_url type="media" scope_info="1">trustedshops</base_url>
-                            <sort_order>70</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                            <comment>Download the seal image from the Trusted Shops Seal Box Generator.</comment>
-                        </ts_logo_img>
                     </fields>
                 </data>
             </groups>
