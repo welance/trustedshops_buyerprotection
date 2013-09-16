@@ -18,7 +18,7 @@
  * @author    Torsten Walluhn <tw@symmetrics.de>
  * @author    Ngoc Anh Doan <ngoc-anh.doan@cgi.com>
  * @author    Benjamin Klein <bk@symmetrics.de>
- * @copyright 2010-2012 symmetrics - a CGI Group brand
+ * @copyright 2010-2013 symmetrics - a CGI Group brand
  * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  * @link      http://www.symmetrics.de/
  */
@@ -32,7 +32,7 @@
  * @author    Torsten Walluhn <tw@symmetrics.de>
  * @author    Ngoc Anh Doan <ngoc-anh.doan@cgi.com>
  * @author    Benjamin Klein <bk@symmetrics.de>
- * @copyright 2010-2012 symmetrics - a CGI Group brand
+ * @copyright 2010-2013 symmetrics - a CGI Group brand
  * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  * @link      http://www.symmetrics.de/
  */
@@ -176,7 +176,7 @@ class Symmetrics_Buyerprotect_Model_Service_Soap
             Mage::log("$tsItem is empty!");
         }
     }
-
+    
     /**
      * make a protection request to the Trusted Shops Soap Api.
      *
@@ -249,13 +249,15 @@ class Symmetrics_Buyerprotect_Model_Service_Soap
     /**                                                                            
      * Load Order object, using in advance established order id.
      *
-     * @return Symmetrics_Buyerprotect_Model_Service_Soap
+     * @return Mage_Sales_Model_Order
      */                                                              
     public function loadOrder()
-    {                                       
-        $this->_order = Mage::getModel('sales/order')->load($this->_orderId);
+    {
+        if (is_null($this->_order)) {
+            $this->_order = Mage::getModel('sales/order')->load($this->_orderId);
+        }
 
-        return $this;
+        return $this->_order;
     }
 
     /**
