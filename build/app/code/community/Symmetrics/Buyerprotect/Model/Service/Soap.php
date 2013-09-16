@@ -168,7 +168,7 @@ class Symmetrics_Buyerprotect_Model_Service_Soap
             Mage::log("$tsItem is empty!");
         }
     }
-
+    
     /**
      * make a protection request to the Trusted Shops Soap Api.
      *
@@ -241,13 +241,15 @@ class Symmetrics_Buyerprotect_Model_Service_Soap
     /**                                                                            
      * Load Order object, using in advance established order id.
      *
-     * @return Symmetrics_Buyerprotect_Model_Service_Soap
+     * @return Mage_Sales_Model_Order
      */                                                              
     public function loadOrder()
-    {                                       
-        $this->_order = Mage::getModel('sales/order')->load($this->_orderId);
+    {
+        if (is_null($this->_order)) {
+            $this->_order = Mage::getModel('sales/order')->load($this->_orderId);
+        }
 
-        return $this;
+        return $this->_order;
     }
 
     /**
