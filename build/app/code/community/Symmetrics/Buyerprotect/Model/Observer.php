@@ -125,6 +125,7 @@ class Symmetrics_Buyerprotect_Model_Observer
     }
 
     /**
+     * 'sales_order_save_after':
      * Init Symmetrics_Buyerprotect_Model_Service_Soap if the corresponding
      * product is in cart and register it to customer session for later use.
      *
@@ -146,8 +147,6 @@ class Symmetrics_Buyerprotect_Model_Observer
             $customerSession->setTsSoap(true);
             $customerSession->setOrderId($order->getId());
         }
-
-        return;
     }
 
     /**

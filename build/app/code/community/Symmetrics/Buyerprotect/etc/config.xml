@@ -80,7 +80,7 @@
                     </buyerprotect>
                 </observers>
             </controller_action_predispatch_checkout_onepage_savePayment>
-            <checkout_type_onepage_save_order_after>
+            <sales_order_save_after>
                 <observers>
                     <buyerprotect>
                         <type>singleton</type>
@@ -88,7 +88,7 @@
                         <method>registerTsSoapModel</method>
                     </buyerprotect>
                 </observers>
-            </checkout_type_onepage_save_order_after>
+            </sales_order_save_after>
             <checkout_onepage_controller_success_action>
                 <observers>
                     <buyerprotect>
@@ -213,6 +213,7 @@
             <paypal_standard>PAYPAL</paypal_standard>
             <!-- Payone PayPal -->
             <payone_wlt>PAYPAL</payone_wlt>
+            <paypal_express>PAYPAL_EXPRESS</paypal_express>
         <!--
             INVOICE
             PREPAYMENT
