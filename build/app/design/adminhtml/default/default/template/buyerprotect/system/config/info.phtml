@@ -39,10 +39,10 @@ document.observe('dom:loaded', function() {
 });
 </script>
 <div style="font-family:Arial,sans-serif;background-color:white;color:#8f8f8f;font-size:13px;line-height:1.2em;">
-    <table border="0" cellpadding="0" cellspacing="0" style="width:640px;">
+    <table border="0" cellpadding="0" cellspacing="0" style="width:800px;">
         <tr>
             <td>
-                <table border="0" cellpadding="0" cellspacing="0" style="width:640px;padding:2px;margin:4px;">
+                <table border="0" cellpadding="0" cellspacing="0" style="width:800px;padding:2px;margin:4px;">
                     <tr>
                         <td colspan="2">
                             <p style="font-family:Arial;color:#000000;font-size:10pt;font-weight: bold;margin-bottom:0;">
@@ -58,8 +58,8 @@ document.observe('dom:loaded', function() {
                         </td>
                         <td>
                             <img class="tsimg"
-                                src="<?php echo Mage::getDesign()->getSkinUrl('images/buyerprotect/ts_wortmarke.jpg'); ?>"
-                                alt="" />
+                                 src="<?php echo Mage::getDesign()->getSkinUrl('images/buyerprotect/ts_wortmarke.jpg'); ?>"
+                                 alt="" />
                         </td>
                     </tr>
                 </table>
@@ -70,13 +70,13 @@ document.observe('dom:loaded', function() {
         </tr>
         <tr>
             <td>
-                <table border="0" cellpadding="0" cellspacing="0" style="width:640px;padding:2px;margin:4px;">
+                <table border="0" cellpadding="0" cellspacing="0" style="width:800px;padding:2px;margin:4px;">
                     <tr>
                         <td rowspan="5">
                             <img style="margin: 10px 20px 0 2px;"
-                                class="tsimg"
-                                src="<?php echo Mage::helper('buyerprotect/adminhtml')->getTsSeal() ?>"
-                                alt="" />
+                                 class="tsimg"
+                                 src="<?php echo Mage::helper('buyerprotect/adminhtml')->getTsSeal() ?>"
+                                 alt="" />
                         </td>
                     </tr>
                     <tr>
@@ -111,16 +111,26 @@ document.observe('dom:loaded', function() {
                     </tr>
                     <tr>
                         <td>
+                            <p style="font-family:Arial;color:#000000;font-size:10pt;font-weight: bold;margin-bottom:0;">
+                                <?php echo $this->__('New: Trustbadge integration = more conversion'); ?>
+                            </p>
+                            <p style="font-family:Arial, sans-serif;color:#000000;font-size:10pt;">
+                                <?php echo $this->__('The trustbadge now provides the possibility to show your unique service to your customers in a more transparent way and displays added benefits such as the buyer protection and your reliability.'); ?>
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
                             <button style=""
-                                onclick="window.open('<?php echo $registrationUrl ?>')" class="scalable" type="button">
+                                    onclick="window.open('<?php echo $registrationUrl ?>')" class="scalable" type="button">
                                 <span>
                                     <?php echo $this->__('Apply now!'); ?>
                                 </span>
                             </button>
-                    </td>
-                </tr>
-            </table>
-        </td>
-    </tr>
-</table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
 </div>
