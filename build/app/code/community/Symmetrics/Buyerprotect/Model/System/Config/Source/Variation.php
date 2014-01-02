@@ -16,9 +16,11 @@
  * @package   Symmetrics_Buyerprotect
  * @author    symmetrics - a CGI Group brand <info@symmetrics.de>
  * @author    Eric Reiche <er@symmetrics.de>
- * @copyright 2011 symmetrics - a CGI Group brand
+ * @copyright 2010-2014 symmetrics - a CGI Group brand
  * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @link      https://github.com/symmetrics/trustedshops_buyerprotection/
  * @link      http://www.symmetrics.de/
+ * @link      http://www.de.cgi.com/
  */
 
 /**
@@ -28,9 +30,11 @@
  * @package   Symmetrics_Buyerprotect
  * @author    symmetrics - a CGI Group brand <info@symmetrics.de>
  * @author    Eric Reiche <er@symmetrics.de>
- * @copyright 2011 symmetrics - a CGI Group brand
+ * @copyright 2010-2014 symmetrics - a CGI Group brand
  * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @link      https://github.com/symmetrics/trustedshops_buyerprotection/
  * @link      http://www.symmetrics.de/
+ * @link      http://www.de.cgi.com/
  */
 class Symmetrics_Buyerprotect_Model_System_Config_Source_Variation
 {

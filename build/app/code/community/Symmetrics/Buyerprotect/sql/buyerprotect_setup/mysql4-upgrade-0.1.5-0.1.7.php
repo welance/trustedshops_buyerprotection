@@ -16,9 +16,11 @@
  * @package   Symmetrics_Buyerprotect
  * @author    symmetrics - a CGI Group brand <info@symmetrics.de>
  * @author    Ngoc Anh Doan <nd@symmetrics.de>
- * @copyright 2010-2013 symmetrics - a CGI Group brand
+ * @copyright 2010-2014 symmetrics - a CGI Group brand
  * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @link      https://github.com/symmetrics/trustedshops_buyerprotection/
  * @link      http://www.symmetrics.de/
+ * @link      http://www.de.cgi.com/
  */
 
 // no longer in use: due to unforseeable behavior moved to observer.
