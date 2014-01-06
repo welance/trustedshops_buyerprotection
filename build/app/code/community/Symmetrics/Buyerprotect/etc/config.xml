@@ -30,7 +30,7 @@
 <config>
     <modules>
         <Symmetrics_Buyerprotect>
-            <version>0.5.0</version>
+            <version>0.5.1</version>
         </Symmetrics_Buyerprotect>
     </modules>
     <global>
