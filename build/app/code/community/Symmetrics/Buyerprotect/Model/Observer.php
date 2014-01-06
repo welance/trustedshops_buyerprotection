@@ -131,7 +131,7 @@ class Symmetrics_Buyerprotect_Model_Observer
     }
 
     /**
-     * 'sales_order_save_after':
+     * 'sales_order_save_after' frontend event listener:
      * Init Symmetrics_Buyerprotect_Model_Service_Soap if the corresponding
      * product is in cart and register it to customer session for later use.
      *
@@ -160,15 +160,10 @@ class Symmetrics_Buyerprotect_Model_Observer
      * Symmetrics_Buyerprotect_Model_Service_Soap is in customer session on
      * checkout success.
      *
-     * @param Varien_Event_Observer $observer Varien observer object
-     *
      * @return void
      */
-    public function requestTsProtection($observer)
+    public function requestTsProtection()
     {
-        // phpmd hack unused parameter.
-        unset($observer);
-
         $customerSession = Mage::getSingleton('customer/session');
         /* @var $customerSession Mage_Customer_Model_Session */
 
@@ -187,8 +182,6 @@ class Symmetrics_Buyerprotect_Model_Observer
                 Mage::logException($e);
             }
         }
-
-        return;
     }
 
     /**
