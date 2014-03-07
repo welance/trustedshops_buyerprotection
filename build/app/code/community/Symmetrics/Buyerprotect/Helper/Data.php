@@ -31,7 +31,7 @@
  * @package   Symmetrics_Buyerprotect
  * @author    symmetrics - a CGI Group brand <info@symmetrics.de>
  * @author    Torsten Walluhn <tw@symmetrics.de>
- * @author    Ngoc Anh Doan <nd@symmetrics.de>
+ * @author    Ngoc Anh Doan <ngoc-anh.doan@cgi.com>
  * @copyright 2010-2014 symmetrics - a CGI Group brand
  * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  * @link      https://github.com/symmetrics/trustedshops_buyerprotection/
@@ -87,14 +87,17 @@ class Symmetrics_Buyerprotect_Helper_Data
 
         /* @var $cartItems Mage_Sales_Model_Mysql4_Quote_Item_Collection */
         $cartItems = $cart->getItems();
-        /* @var $tsIdsSelect Varien_Db_Select */
-        $tsIdsSelect = clone $cartItems->getSelect();
-        $tsIdsSelect->where('product_type = ?', Symmetrics_Buyerprotect_Model_Type_Buyerprotect::TYPE_BUYERPROTECT);
 
-        $items = $cartItems->getConnection()->fetchCol($tsIdsSelect);
-        if ($items) {
-            foreach ($items as $item) {
-                $tsProductIds[$item] = $cartItems->getItemById($item)->getProductId();
+        if ($cartItems) {
+            $tsIdsSelect = clone $cartItems->getSelect();
+            /* @var $tsIdsSelect Varien_Db_Select */
+            $tsIdsSelect->where('product_type = ?', Symmetrics_Buyerprotect_Model_Type_Buyerprotect::TYPE_BUYERPROTECT);
+
+            $items = $cartItems->getConnection()->fetchCol($tsIdsSelect);
+            if ($items) {
+                foreach ($items as $item) {
+                    $tsProductIds[$item] = $cartItems->getItemById($item)->getProductId();
+                }
             }
         }
 

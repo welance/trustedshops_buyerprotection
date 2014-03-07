@@ -45,19 +45,14 @@
 class Symmetrics_Buyerprotect_Model_Observer
 {
     /**
-     * Checking if products of
-     * Symmetrics_Buyerprotect_Model_Type_Buyerprotect::TYPE_BUYERPROTECT
+     * 'controller_action_predispatch_checkout_onepage_savePayment' -
+     * Checking if products of Symmetrics_Buyerprotect_Model_Type_Buyerprotect::TYPE_BUYERPROTECT
      * were added and get sure only of that type is in cart.
-     *
-     * @param Varien_Event_Observer $observer current event observer
      *
      * @return void
      */
-    public function addProductToCart($observer)
+    public function addProductToCart()
     {
-        // phpmd hack unused parameter.
-        unset($observer);
-
         $frontController = Mage::app()->getFrontController();
         $request = $frontController->getRequest();
         /* @var $cart Mage_Checkout_Model_Cart */
