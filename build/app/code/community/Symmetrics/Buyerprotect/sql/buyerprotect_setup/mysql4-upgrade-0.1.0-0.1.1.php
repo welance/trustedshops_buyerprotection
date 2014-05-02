@@ -41,11 +41,12 @@ $emailTemplates = array(
 );
 
 foreach ($emailTemplates as $fileName => $template) {
-    $file = Mage::getBaseDir() . $templatePath . $fileName . $templateSuffix;
-    $content = file_get_contents($file);
+    $templateFile = Mage::getBaseDir() . $templatePath . $fileName . $templateSuffix;
+    $content = file_get_contents($templateFile);
     $template['template_text'] = $content;
 
     $this->createEmailTemplate($template['template_code'], $template);
 }
 
 $this->endSetup();
+
